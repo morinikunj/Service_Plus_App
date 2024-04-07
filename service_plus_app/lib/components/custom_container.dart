@@ -10,8 +10,7 @@ Container customContainer({
   double? borderRadius,
   Widget? child,
   Color? color,
-  double? borderWidth,
-  Color? borderColor,
+  BoxBorder? border,
   BoxDecoration? decoration,
   bool isGradient = false,
   BoxShape? shape,
@@ -25,10 +24,7 @@ Container customContainer({
   decoration: decoration ?? BoxDecoration(
     color: color,
     borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? 0)),
-    border: Border.all(
-      color: borderColor ?? Colors.transparent,
-      width: borderWidth ?? 0
-    ),
+    border: border,
     gradient: isGradient ? customGradient : null,
     shape: shape ?? BoxShape.rectangle
   ),

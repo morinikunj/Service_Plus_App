@@ -26,13 +26,13 @@ class ResponsiveUtil extends ChangeNotifier {
   }
 
   //height
-  double height(double height, context) {
+  static double height(double height, context) {
     screenHeight = MediaQuery.of(context).size.height;
     return (height / defaultHeight) * screenHeight;
   }
 
   //width
-  double width(double width, context) {
+ static double width(double width, context) {
     screenWidth = MediaQuery.of(context).size.width;
     return (width / defaultWidth) * screenWidth;
   }
