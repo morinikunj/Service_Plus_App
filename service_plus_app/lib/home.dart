@@ -20,14 +20,14 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Column(children: [
          Container(
-          height: ResponsiveUtil.instance.height(200, context),
+        //  height: ResponsiveUtil.instance.height(200, context),
         //  width: ResponsiveUtil.width(200),
         width: double.infinity,
           color: Colors.amber,
         child: Text("Hello", style: Theme.of(context).textTheme.displaySmall, textScaler: textScale(context),),
         ),
         Container(
-          height: ResponsiveUtil.instance.height(200, context),
+        //  height: ResponsiveUtil.instance.height(200, context),
         //  width: ResponsiveUtil.width(300),
           decoration: BoxDecoration(gradient: customGradient),
         )
