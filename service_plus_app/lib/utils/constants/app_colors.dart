@@ -19,6 +19,7 @@ class AppColors {
   static Color whiteColor = Colors.white;
   static Color blackColor = Colors.black;
   static Color greyColor = Colors.grey;
+  static Color greyColor1 = Colors.black.withOpacity(0.15);
 
   //Background Colors
   static Color greenColor = Colors.green;

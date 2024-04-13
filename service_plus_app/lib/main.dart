@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:service_plus_app/bindings/general_bindings.dart';
-import 'package:service_plus_app/home.dart';
 import 'package:service_plus_app/theme/app_theme.dart';
 import 'package:service_plus_app/utils/responsive_util/responsive_util.dart';
 
@@ -23,7 +22,7 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.lightTheme,
       initialBinding: GeneralBinding(),
       getPages: AppRoutes.routes,
-      initialRoute: AppRoutes.adminPage,
+      initialRoute: AppRoutes.home,
       debugShowCheckedModeBanner: false,
     );
   }

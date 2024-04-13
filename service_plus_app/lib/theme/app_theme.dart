@@ -12,7 +12,7 @@ class AppTheme {
     colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primaryColor),
     textTheme: AppTextTheme.textLightTheme,
     elevatedButtonTheme: AppButtonTheme.elevatedButtonLightTheme,
-    textButtonTheme: AppButtonTheme.textButtonLightTheme
+    textButtonTheme: AppButtonTheme.textButtonLightTheme,
   );
 
   static ThemeData darkTheme = ThemeData.dark(

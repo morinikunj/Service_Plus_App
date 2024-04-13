@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:service_plus_app/utils/constants/app_colors.dart';
-import 'package:service_plus_app/utils/constants/general_sizes.dart';
-import 'package:service_plus_app/utils/constants/text_strings.dart';
-import 'package:service_plus_app/utils/responsive_util/responsive_util.dart';
 
 class AppIcons {
   //admin panel
