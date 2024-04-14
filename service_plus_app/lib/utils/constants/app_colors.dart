@@ -10,7 +10,7 @@ class AppColors {
   static Color secondaryColor = const Color.fromRGBO(23, 25, 81, 1);
   static Color yellowColor = const Color.fromRGBO(252, 194, 49, 1);
   // static Color greyColor = const Color(0x00686060);
-  static Color accentColor = const Color.fromRGBO(238, 238, 238, 1);
+  static Color accentColor = Color.fromARGB(255, 250, 249, 249);
 
   //  Gradient Colors
   static Color primaryGredientColor = const Color.fromRGBO(175, 234, 252, 1);
@@ -26,4 +26,7 @@ class AppColors {
 
   //Error Color
   static Color redColor = Colors.red;
+
+  //Icon Button Color
+  static Color iconButtonColor = Colors.black.withOpacity(0.5);
 }

@@ -7,6 +7,7 @@ import 'package:service_plus_app/utils/responsive_util/responsive_util.dart';
 import 'routes/app_routes.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.lightTheme,
       initialBinding: GeneralBinding(),
       getPages: AppRoutes.routes,
-      initialRoute: AppRoutes.home,
+      initialRoute: AppRoutes.categoryDetails,
       debugShowCheckedModeBanner: false,
     );
   }

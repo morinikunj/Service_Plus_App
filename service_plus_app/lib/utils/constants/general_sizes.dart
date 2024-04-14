@@ -17,8 +17,10 @@ class GeneralSize {
   static FontWeight regularfont = FontWeight.normal;
 
   //Border Radius
-  static BorderRadius borderRadius2 = const BorderRadius.all(Radius.circular(20));
-  static BorderRadius borderRadius1 = const BorderRadius.all(Radius.circular(10));
+  static BorderRadius borderRadius2 =
+      const BorderRadius.all(Radius.circular(20));
+  static BorderRadius borderRadius1 =
+      const BorderRadius.all(Radius.circular(10));
 
   //padding
   static EdgeInsets padding2 = const EdgeInsets.all(20);
