@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:service_plus_app/utils/constants/app_colors.dart';
+import 'package:service_plus_app/utils/constants/general_sizes.dart';
 
 Widget commonTextField({
    String? labelText,
@@ -16,10 +18,19 @@ Widget commonTextField({
     decoration: InputDecoration(
       labelText: labelText,
       hintText: hintText,
-      border: const OutlineInputBorder(),
+      border: OutlineInputBorder(
+        borderSide: BorderSide.none,
+        borderRadius: GeneralSize.borderRadius1
+      ),
       prefixIcon: prefixIcon,
       suffixIcon: suffixIcon,
-      contentPadding: padding
+      contentPadding: padding ?? const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+      hintStyle: TextStyle(
+        fontWeight: FontWeight.w400,
+        fontSize: GeneralSize.textsize5
+      ),
+      filled: true,
+      fillColor: AppColors.greyColor1,
     ),
     controller: controller,
     keyboardType: keyboardType,

@@ -13,6 +13,37 @@ const String serviceProvider = "Service Provider";
 const String payments = "Payments";
 const String service = "Services";
 
+//customer
+const String chooseService = "Choose service \nyou want to need";
+const String search = "Search";
+const String rating = "Rating";
+const String charge = "Charge";
+const String book = "Book";
+const String location = "Location";
+const String timing = "Timing";
+const String call = "Call";
+const String experience = "Experience";
+const String place = "Type Your Place";
+const String selectServices = "Select Services";
+const String howMuchTimes = "How Much Time Do You Need";
+const String selectDate = "Select Date";
+const String startTime = "Start Time";
+const String endTime = "End Time";
+const String selectPayOption = "Select Payment Option";
+const String online = "Online";
+const String cash = "Cash";
+const String proceedToPay = "Proceed to Pay";
+const String myBooking = "My Bookings";
+const String messages = "Messages";
+const String notifications = "Notifications";
+const String clear = "Clear";
+const String profile = "Profile";
+const String editProfile = "Edit Profile";
+const String name = "Name";
+const String email = "Email";
+const String no = "Mobile No";
+const String updateProfile = "Update Profile";
+const String logout = "Logout";
 
 //text scale
 textScale(context) =>
