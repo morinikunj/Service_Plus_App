@@ -15,7 +15,6 @@ class CategoryDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black26,
       body: SafeArea(
           key: key,
           child: SingleChildScrollView(

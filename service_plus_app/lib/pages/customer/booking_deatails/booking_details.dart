@@ -21,7 +21,7 @@ class _BookingDetailsPageState extends State<BookingDetailsPage> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
-            children: [],
+            children: [Text("data")],
           ),
         ),
       ),

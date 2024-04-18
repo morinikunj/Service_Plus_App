@@ -26,93 +26,110 @@ class _EditProfilePageState extends State<EditProfilePage> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
-            children: [],
+            children: [
+              header(context),
+              SizedBox(
+                height: ResponsiveUtil.height(30, context),
+              ),
+              editImage(context),
+              form(context),
+              submitButton(context)
+            ],
           ),
         ),
       ),
     );
   }
 
-  Widget header() {
+  Widget header(BuildContext context) {
     return customContainer(
         isGradient: true,
         padding: commonSysmPadding(context, horizontal: 24, vertical: 24),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             backButton(context),
-            Center(
-              child: Text(
-                editProfile,
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineMedium!
-                    .copyWith(color: AppColors.secondaryColor),
-                textScaler: textScale(context),
-              ),
+            SizedBox(
+              width: ResponsiveUtil.width(20, context),
+            ),
+            Text(
+              editProfile,
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineMedium!
+                  .copyWith(color: AppColors.secondaryColor),
+              textAlign: TextAlign.center,
+              textScaler: textScale(context),
             )
           ],
         ));
   }
 
-  Widget editImage() {
+  Widget editImage(BuildContext context) {
     return Column(
       children: [
         customContainer(
             borderRadius: 100,
+            padding: EdgeInsets.zero,
             border: Border.all(
                 color: AppColors.whiteColor,
-                width: 2 * ResponsiveUtil.instance.textScaleFactor(context)),
+                width: 3 * ResponsiveUtil.instance.textScaleFactor(context)),
             child: CircleAvatar(
               radius: 80 * ResponsiveUtil.instance.textScaleFactor(context),
               backgroundColor: AppColors.greenColor,
             )),
         Transform.translate(
-          offset: Offset(0, ResponsiveUtil.height(-30, context)),
-          child: customContainer(
-              borderRadius: 100,
-              border: Border.all(
-                  color: AppColors.whiteColor,
-                  width: 1 * ResponsiveUtil.instance.textScaleFactor(context)),
-              child: Center(
-                child: Icon(
-                  AppIcons.imgIcon,
-                  size: GeneralSize.iconSize *
-                      ResponsiveUtil.instance.textScaleFactor(context),
-                ),
-              )),
+          offset: Offset(ResponsiveUtil.width(55, context),
+              ResponsiveUtil.height(-60, context)),
+          child: IconButton(
+            onPressed: () {},
+            style: IconButton.styleFrom(
+                backgroundColor: AppColors.yellowColor,
+                side: BorderSide(color: AppColors.whiteColor, width: 3)),
+            icon: Icon(
+              AppIcons.imgIcon,
+              size: GeneralSize.iconSize *
+                  ResponsiveUtil.instance.textScaleFactor(context),
+            ),
+          ),
         )
       ],
     );
   }
 
   Widget form(BuildContext context) {
-    return Column(
-      children: [
-        detailsInput(
-          context,
-          title: name,
-        ),
-        SizedBox(
-          height: ResponsiveUtil.height(20, context),
-        ),
-        detailsInput(
-          context,
-          title: email,
-        ),
-        SizedBox(
-          height: ResponsiveUtil.height(20, context),
-        ),
-        detailsInput(
-          context,
-          title: no,
-        ),
-      ],
+    return Padding(
+      padding: commonSysmPadding(context, horizontal: 24, vertical: 0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          detailsInput(
+            context,
+            title: name,
+          ),
+          SizedBox(
+            height: ResponsiveUtil.height(20, context),
+          ),
+          detailsInput(
+            context,
+            title: email,
+          ),
+          SizedBox(
+            height: ResponsiveUtil.height(20, context),
+          ),
+          detailsInput(
+            context,
+            title: no,
+          ),
+        ],
+      ),
     );
   }
 
   Widget detailsInput(BuildContext context,
       {String? title, TextEditingController? controller}) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           title ?? "",
@@ -134,11 +151,20 @@ class _EditProfilePageState extends State<EditProfilePage> {
   }
 
   Widget submitButton(BuildContext context) {
-    return customElevatedButton(context,
-        child: Text(
-          updateProfile.toUpperCase(),
-          style: Theme.of(context).textTheme.titleSmall,
-          textScaler: textScale(context),
-        ));
+    return Padding(
+      padding: commonSysmPadding(context, horizontal: 24, vertical: 30),
+      child: SizedBox(
+        width: double.infinity,
+        child: customElevatedButton(context,
+            child: Text(
+              updateProfile.toUpperCase(),
+              style: Theme.of(context)
+                  .textTheme
+                  .titleMedium!
+                  .copyWith(color: AppColors.whiteColor),
+              textScaler: textScale(context),
+            )),
+      ),
+    );
   }
 }

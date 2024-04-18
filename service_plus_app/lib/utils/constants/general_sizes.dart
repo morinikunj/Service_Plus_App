@@ -28,4 +28,6 @@ class GeneralSize {
   //icon size
   static double iconSmall = 12;
   static double iconSize = 20;
+  static double iconMedium = 24;
+  static double iconBig = 28;
 }

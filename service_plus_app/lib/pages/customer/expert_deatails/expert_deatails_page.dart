@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:service_plus_app/components/back_button.dart';
 import 'package:service_plus_app/components/common_padding.dart';
 import 'package:service_plus_app/components/custom_button.dart';
@@ -17,7 +19,9 @@ class ExpertDetailsPage extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Column(),
+          child: Column(
+            children: [header(context), reviewCard(context)],
+          ),
         ),
       ),
     );
@@ -36,18 +40,28 @@ class ExpertDetailsPage extends StatelessWidget {
                 const Spacer(),
                 IconButton(
                   onPressed: () {},
-                  icon: Icon(AppIcons.chatIcon),
+                  icon: Icon(
+                    AppIcons.chatIcon,
+                    color: AppColors.whiteColor,
+                  ),
+                  style: IconButton.styleFrom(
+                      backgroundColor: AppColors.primaryColor),
                   iconSize: GeneralSize.iconSize *
                       ResponsiveUtil.instance.textScaleFactor(context),
                 )
               ],
             ),
             customContainer(
-              border: Border.all(color: AppColors.whiteColor, width: 1.5),
+              padding: EdgeInsets.zero,
+              borderRadius: 100,
+              border: Border.all(color: AppColors.whiteColor, width: 3),
               child: CircleAvatar(
                 backgroundColor: AppColors.yellowColor,
                 radius: 60 * ResponsiveUtil.instance.textScaleFactor(context),
               ),
+            ),
+            SizedBox(
+              height: ResponsiveUtil.height(10, context),
             ),
             Text(
               "Robin Hood",
@@ -58,6 +72,7 @@ class ExpertDetailsPage extends StatelessWidget {
               textScaler: textScale(context),
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
                   AppIcons.ratingIcon,
@@ -86,12 +101,15 @@ class ExpertDetailsPage extends StatelessWidget {
                 )
               ],
             ),
+            SizedBox(
+              height: ResponsiveUtil.height(10, context),
+            ),
             Row(
               children: [
                 Icon(
                   AppIcons.locationIcon,
                   color: AppColors.redColor,
-                  size: GeneralSize.iconSmall *
+                  size: GeneralSize.iconSize *
                       ResponsiveUtil.instance.textScaleFactor(context),
                 ),
                 Text(
@@ -113,12 +131,15 @@ class ExpertDetailsPage extends StatelessWidget {
                 )
               ],
             ),
+            SizedBox(
+              height: ResponsiveUtil.height(3, context),
+            ),
             Row(
               children: [
                 Icon(
                   AppIcons.timeIcon,
                   color: AppColors.blackColor,
-                  size: GeneralSize.iconSmall *
+                  size: GeneralSize.iconSize *
                       ResponsiveUtil.instance.textScaleFactor(context),
                 ),
                 Text(
@@ -140,12 +161,15 @@ class ExpertDetailsPage extends StatelessWidget {
                 )
               ],
             ),
+            SizedBox(
+              height: ResponsiveUtil.height(3, context),
+            ),
             Row(
               children: [
                 Icon(
                   AppIcons.experienceIcon,
                   color: AppColors.primaryColor,
-                  size: GeneralSize.iconSmall *
+                  size: GeneralSize.iconSize *
                       ResponsiveUtil.instance.textScaleFactor(context),
                 ),
                 Text(
@@ -171,26 +195,41 @@ class ExpertDetailsPage extends StatelessWidget {
               height: ResponsiveUtil.height(10, context),
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                ElevatedButton(
-                  onPressed: () {},
-                  child: Text(
-                    book,
-                    style: Theme.of(context).textTheme.titleSmall,
-                    textScaler: textScale(context),
-                  ),
-                  style: Theme.of(context).elevatedButtonTheme.style!.copyWith(
-                      backgroundColor:
-                          MaterialStatePropertyAll(AppColors.yellowColor)),
-                ),
-                ElevatedButton(
+                Expanded(
+                  child: ElevatedButton(
                     onPressed: () {},
                     child: Text(
-                      call,
-                      style: Theme.of(context).textTheme.titleSmall,
+                      book,
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleSmall!
+                          .copyWith(color: AppColors.whiteColor),
                       textScaler: textScale(context),
-                    ))
+                    ),
+                    style: Theme.of(context)
+                        .elevatedButtonTheme
+                        .style!
+                        .copyWith(
+                            backgroundColor: MaterialStatePropertyAll(
+                                AppColors.yellowColor)),
+                  ),
+                ),
+                SizedBox(
+                  width: ResponsiveUtil.width(20, context),
+                ),
+                Expanded(
+                  child: ElevatedButton(
+                      onPressed: () {},
+                      child: Text(
+                        call,
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleSmall!
+                            .copyWith(color: AppColors.whiteColor),
+                        textScaler: textScale(context),
+                      )),
+                )
               ],
             )
           ],
@@ -211,6 +250,7 @@ class ExpertDetailsPage extends StatelessWidget {
               "Robin hood",
               style: Theme.of(context).textTheme.labelSmall,
               textScaler: textScale(context),
+              maxLines: 2,
             ),
             const Spacer(),
             Icon(

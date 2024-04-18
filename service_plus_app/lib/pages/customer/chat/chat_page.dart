@@ -20,13 +20,29 @@ class _ChatPageState extends State<ChatPage> {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Column(),
+          child: Column(
+            children: [
+              header(context),
+              Padding(
+                padding:
+                    commonSysmPadding(context, horizontal: 15, vertical: 10),
+                child: ListView.builder(
+                  itemCount: 12,
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return personCard(context);
+                  },
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Widget header() {
+  Widget header(BuildContext context) {
     return customContainer(
         isGradient: true,
         padding: commonSysmPadding(context, horizontal: 24, vertical: 28),
@@ -45,7 +61,7 @@ class _ChatPageState extends State<ChatPage> {
               onPressed: () {},
               icon: Icon(
                 AppIcons.searchIcon,
-                size: GeneralSize.iconSmall *
+                size: GeneralSize.iconBig *
                     ResponsiveUtil.instance.textScaleFactor(context),
               ),
             )
@@ -53,7 +69,7 @@ class _ChatPageState extends State<ChatPage> {
         ));
   }
 
-  Widget personCard() {
+  Widget personCard(BuildContext context) {
     return Card(
       child: ListTile(
         leading: CircleAvatar(
@@ -71,7 +87,10 @@ class _ChatPageState extends State<ChatPage> {
             const Spacer(),
             Text(
               "9:00 PM",
-              style: Theme.of(context).textTheme.displaySmall,
+              style: Theme.of(context)
+                  .textTheme
+                  .displaySmall!
+                  .copyWith(color: AppColors.greyColor),
               textScaler: textScale(context),
             ),
           ],
@@ -85,14 +104,20 @@ class _ChatPageState extends State<ChatPage> {
               textScaler: textScale(context),
             ),
             const Spacer(),
-            customContainer(
-                color: AppColors.primaryColor,
-                padding: EdgeInsets.all(
-                    1 * ResponsiveUtil.instance.textScaleFactor(context)),
-                child: Text(
-                  "2",
-                  style: Theme.of(context).textTheme.displaySmall,
-                  textScaler: textScale(context),
+            CircleAvatar(
+                radius: 10 * ResponsiveUtil.instance.textScaleFactor(context),
+                backgroundColor: AppColors.primaryColor,
+                child: Center(
+                  child: FittedBox(
+                    child: Text(
+                      "2",
+                      style: Theme.of(context)
+                          .textTheme
+                          .displaySmall!
+                          .copyWith(color: AppColors.whiteColor),
+                      textScaler: textScale(context),
+                    ),
+                  ),
                 )),
           ],
         ),

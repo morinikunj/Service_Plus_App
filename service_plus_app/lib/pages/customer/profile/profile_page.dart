@@ -16,12 +16,42 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  List data = [
+    {"icon": AppIcons.profileEditIcon, "title": "Edit Profile"},
+    {"icon": AppIcons.profileEditIcon, "title": "Edit Profile"},
+    {"icon": AppIcons.profileEditIcon, "title": "Edit Profile"},
+    {"icon": AppIcons.profileEditIcon, "title": "Edit Profile"},
+    {"icon": AppIcons.profileEditIcon, "title": "Edit Profile"}
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Column(),
+          child: Column(
+            children: [
+              header(context),
+              SizedBox(height: ResponsiveUtil.height(10, context)),
+              ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: data.length,
+                itemBuilder: (context, index) {
+                  return itemCard(
+                    context,
+                    title: data[index]["title"],
+                    icon: data[index]["icon"],
+                    onPressed: () {},
+                  );
+                },
+              ),
+              SizedBox(
+                height: ResponsiveUtil.height(10, context),
+              ),
+              logoutButton(context)
+            ],
+          ),
         ),
       ),
     );
@@ -38,20 +68,18 @@ class _ProfilePageState extends State<ProfilePage> {
               profile,
               style: Theme.of(context)
                   .textTheme
-                  .headlineSmall!
+                  .headlineMedium!
                   .copyWith(color: AppColors.secondaryColor),
               textScaler: textScale(context),
             ),
+            SizedBox(
+              height: ResponsiveUtil.height(20, context),
+            ),
             ListTile(
-              leading: customContainer(
-                  padding: EdgeInsets.all(
-                      1 * ResponsiveUtil.instance.textScaleFactor(context)),
-                  borderRadius: 100,
-                  child: CircleAvatar(
-                    radius:
-                        40 * ResponsiveUtil.instance.textScaleFactor(context),
-                    backgroundColor: AppColors.yellowColor,
-                  )),
+              leading: CircleAvatar(
+                radius: 40 * ResponsiveUtil.instance.textScaleFactor(context),
+                backgroundColor: AppColors.yellowColor,
+              ),
               title: Text(
                 "Robin Hood",
                 style: Theme.of(context).textTheme.titleMedium,
@@ -61,7 +89,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 children: [
                   Icon(
                     AppIcons.emailIcon,
-                    size: GeneralSize.iconSmall *
+                    size: GeneralSize.iconSize *
                         ResponsiveUtil.instance.textScaleFactor(context),
                   ),
                   Text(
@@ -82,33 +110,36 @@ class _ProfilePageState extends State<ProfilePage> {
     IconData? icon,
     VoidCallback? onPressed,
   }) {
-    return Card(
-      child: ListTile(
-        leading: Icon(
-          icon,
-          size: GeneralSize.iconSize *
-              ResponsiveUtil.instance.textScaleFactor(context),
-          color: AppColors.greyColor,
-        ),
-        title: Text(
-          title ?? "",
-          style: Theme.of(context)
-              .textTheme
-              .bodySmall!
-              .copyWith(color: AppColors.greyColor),
-          textScaler: textScale(context),
-        ),
-        trailing: Icon(
-          AppIcons.rightArraw,
-          size: GeneralSize.iconSize *
-              ResponsiveUtil.instance.textScaleFactor(context),
-          color: AppColors.greyColor,
+    return Padding(
+      padding: commonSysmPadding(context, horizontal: 15, vertical: 0),
+      child: Card(
+        child: ListTile(
+          leading: Icon(
+            icon,
+            size: GeneralSize.iconSize *
+                ResponsiveUtil.instance.textScaleFactor(context),
+            color: AppColors.greyColor,
+          ),
+          title: Text(
+            title ?? "",
+            style: Theme.of(context)
+                .textTheme
+                .bodySmall!
+                .copyWith(color: AppColors.blackColor),
+            textScaler: textScale(context),
+          ),
+          trailing: Icon(
+            AppIcons.rightArraw,
+            size: GeneralSize.iconSize *
+                ResponsiveUtil.instance.textScaleFactor(context),
+            color: AppColors.greyColor,
+          ),
         ),
       ),
     );
   }
 
-  Widget customSpacer() {
+  Widget customSpacer(BuildContext context) {
     return SizedBox(
       height: ResponsiveUtil.height(15, context),
     );
@@ -118,7 +149,10 @@ class _ProfilePageState extends State<ProfilePage> {
     return customElevatedButton(context,
         child: Text(
           logout,
-          style: Theme.of(context).textTheme.titleSmall,
+          style: Theme.of(context)
+              .textTheme
+              .titleSmall!
+              .copyWith(color: AppColors.whiteColor),
           textScaler: textScale(context),
         ),
         buttonStyle: Theme.of(context).elevatedButtonTheme.style!.copyWith(

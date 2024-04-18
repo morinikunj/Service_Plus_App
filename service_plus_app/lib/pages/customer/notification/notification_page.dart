@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:service_plus_app/components/common_padding.dart';
 import 'package:service_plus_app/components/custom_container.dart';
 import 'package:service_plus_app/utils/constants/app_colors.dart';
@@ -19,16 +20,28 @@ class _NotificationPageState extends State<NotificationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [],
-          ),
+        child: Column(
+          children: [
+            header(context),
+            Expanded(
+              child: Padding(
+                padding:
+                    commonSysmPadding(context, horizontal: 15, vertical: 10),
+                child: ListView.builder(
+                  itemCount: 10,
+                  itemBuilder: (context, index) {
+                    return notifyCard(context);
+                  },
+                ),
+              ),
+            )
+          ],
         ),
       ),
     );
   }
 
-  Widget header() {
+  Widget header(BuildContext context) {
     return customContainer(
         isGradient: true,
         padding: commonSysmPadding(context, horizontal: 24, vertical: 28),
@@ -55,7 +68,7 @@ class _NotificationPageState extends State<NotificationPage> {
         ));
   }
 
-  Widget notifyCard() {
+  Widget notifyCard(BuildContext context) {
     return Card(
       child: Column(
         children: [
@@ -79,7 +92,9 @@ class _NotificationPageState extends State<NotificationPage> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(right: ResponsiveUtil.width(20, context)),
+            padding: EdgeInsets.only(
+                right: ResponsiveUtil.width(20, context),
+                bottom: ResponsiveUtil.height(10, context)),
             child: Align(
               alignment: Alignment.topRight,
               child: Text(
@@ -95,4 +110,5 @@ class _NotificationPageState extends State<NotificationPage> {
   }
 }
 
-String desc = "Your booking has been successfully.";
+String desc =
+    "Your booking has been successfully uccessfully successfully uccessfully.";

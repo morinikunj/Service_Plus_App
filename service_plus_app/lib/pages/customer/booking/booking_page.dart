@@ -28,7 +28,9 @@ class _BookingPageState extends State<BookingPage> {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Column(),
+          child: Column(
+            children: [header(context), body(context)],
+          ),
         ),
       ),
     );
@@ -47,14 +49,21 @@ class _BookingPageState extends State<BookingPage> {
                 const Spacer(),
                 IconButton(
                   onPressed: () {},
-                  icon: Icon(AppIcons.chatIcon),
+                  style: IconButton.styleFrom(
+                      backgroundColor: AppColors.primaryColor),
+                  icon: Icon(
+                    AppIcons.chatIcon,
+                    color: AppColors.whiteColor,
+                  ),
                   iconSize: GeneralSize.iconSize *
                       ResponsiveUtil.instance.textScaleFactor(context),
                 )
               ],
             ),
             customContainer(
-              border: Border.all(color: AppColors.whiteColor, width: 1.5),
+              borderRadius: 100,
+              padding: EdgeInsets.zero,
+              border: Border.all(color: AppColors.whiteColor, width: 3),
               child: CircleAvatar(
                 backgroundColor: AppColors.yellowColor,
                 radius: 60 * ResponsiveUtil.instance.textScaleFactor(context),
@@ -69,6 +78,7 @@ class _BookingPageState extends State<BookingPage> {
               textScaler: textScale(context),
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
                   AppIcons.ratingIcon,
@@ -105,6 +115,7 @@ class _BookingPageState extends State<BookingPage> {
     return Padding(
       padding: commonSysmPadding(context, horizontal: 24, vertical: 18),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           customInputField(context,
               title: place,
@@ -118,8 +129,9 @@ class _BookingPageState extends State<BookingPage> {
               onPressed: () {}),
           customSpacer(context),
           customInputField(context,
+              title: howMuchTimes,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ...List.generate(times.length, (index) {
                     return InkWell(
@@ -134,7 +146,7 @@ class _BookingPageState extends State<BookingPage> {
                               ? AppColors.whiteColor
                               : AppColors.secondaryColor,
                           child: Text(
-                            "day",
+                            times[index],
                             style: Theme.of(context)
                                 .textTheme
                                 .labelSmall!
@@ -178,11 +190,21 @@ class _BookingPageState extends State<BookingPage> {
             ],
           ),
           customSpacer(context),
-          customElevatedButton(context,
+          customSpacer(context),
+          SizedBox(
+            width: double.infinity,
+            child: customElevatedButton(
+              context,
               child: Text(
                 proceedToPay.toUpperCase(),
-                style: Theme.of(context).textTheme.titleSmall,
-              ))
+                style: Theme.of(context)
+                    .textTheme
+                    .titleMedium!
+                    .copyWith(color: AppColors.whiteColor),
+                textScaler: textScale(context),
+              ),
+            ),
+          )
         ],
       ),
     );
@@ -197,12 +219,13 @@ class _BookingPageState extends State<BookingPage> {
       Widget? child,
       bool isPassword = false}) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           title ?? "",
           style: Theme.of(context)
               .textTheme
-              .displaySmall!
+              .bodySmall!
               .copyWith(color: AppColors.greyColor),
           textScaler: textScale(context),
         ),
@@ -221,7 +244,7 @@ class _BookingPageState extends State<BookingPage> {
                     icon: Icon(
                       icon,
                       color: iconColor ?? AppColors.blackColor,
-                      size: GeneralSize.iconSmall *
+                      size: GeneralSize.iconSize *
                           ResponsiveUtil.instance.textScaleFactor(context),
                     )))
       ],
