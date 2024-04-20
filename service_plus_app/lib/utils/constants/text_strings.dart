@@ -45,6 +45,18 @@ const String no = "Mobile No";
 const String updateProfile = "Update Profile";
 const String logout = "Logout";
 
+//service provider
+const String bookingId = "Booking ID";
+const String callNow = "Call Now";
+const String message = "Message";
+const String bookingStatus = "Booking Status";
+const String requestRecieved = "Request Recieved";
+const String bookingConfirmed = "Booking Confirmed";
+const String startedJob = "Started a Job";
+const String completedJob = "Completed Job";
+const String accept = "Accept";
+const String reject = "Reject";
+
 //text scale
 textScale(context) =>
     TextScaler.linear(ResponsiveUtil.instance.textScaleFactor(context));

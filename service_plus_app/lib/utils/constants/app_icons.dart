@@ -31,4 +31,8 @@ class AppIcons {
   static IconData tAC = Icons.wordpress;
   static IconData pP = Icons.privacy_tip;
   static IconData report = Icons.report;
+
+  //service provider
+  static IconData callIcon = Icons.call;
+  static IconData checkIcon = Icons.check;
 }
