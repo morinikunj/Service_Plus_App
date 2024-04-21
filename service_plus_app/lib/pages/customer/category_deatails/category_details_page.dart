@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:service_plus_app/components/back_button.dart';
 import 'package:service_plus_app/components/common_padding.dart';
-import 'package:service_plus_app/components/custom_button.dart';
 import 'package:service_plus_app/components/custom_container.dart';
+import 'package:service_plus_app/pages/customer/category_deatails/category_details_controller.dart';
 import 'package:service_plus_app/utils/constants/app_colors.dart';
 import 'package:service_plus_app/utils/constants/app_icons.dart';
-import 'package:service_plus_app/utils/constants/general_sizes.dart';
 import 'package:service_plus_app/utils/constants/text_strings.dart';
 import 'package:service_plus_app/utils/responsive_util/responsive_util.dart';
 
@@ -14,19 +14,23 @@ class CategoryDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-          key: key,
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                //header
-                header(context),
-                //item list
-                itemList(context)
-              ],
-            ),
-          )),
+    return GetBuilder(
+      id: "category_details",
+      init: CategoryDetailsController(),
+      builder: (controller) => Scaffold(
+        body: SafeArea(
+            key: key,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  //header
+                  header(context),
+                  //item list
+                  itemList(context)
+                ],
+              ),
+            )),
+      ),
     );
   }
 
@@ -46,7 +50,7 @@ class CategoryDetailsPage extends StatelessWidget {
               backgroundColor: AppColors.whiteColor,
               child: FittedBox(
                   child: CircleAvatar(
-                radius: 36 * ResponsiveUtil.instance.textScaleFactor(context),
+                radius: 38 * ResponsiveUtil.instance.textScaleFactor(context),
                 backgroundColor: Colors.amber,
               )),
             ),

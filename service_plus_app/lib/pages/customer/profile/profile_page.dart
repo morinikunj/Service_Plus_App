@@ -1,50 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:service_plus_app/components/common_padding.dart';
-import 'package:service_plus_app/components/custom_button.dart';
 import 'package:service_plus_app/components/custom_container.dart';
+import 'package:service_plus_app/pages/customer/profile/profile_controller.dart';
 import 'package:service_plus_app/utils/constants/app_colors.dart';
 import 'package:service_plus_app/utils/constants/app_icons.dart';
 import 'package:service_plus_app/utils/constants/general_sizes.dart';
 import 'package:service_plus_app/utils/constants/text_strings.dart';
 import 'package:service_plus_app/utils/responsive_util/responsive_util.dart';
 
-class ProfilePage extends StatefulWidget {
+class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
 
   @override
-  State<ProfilePage> createState() => _ProfilePageState();
-}
-
-class _ProfilePageState extends State<ProfilePage> {
-  List data = [
-    {"icon": AppIcons.profileEditIcon, "title": "Edit Profile"},
-    {"icon": AppIcons.profileEditIcon, "title": "Edit Profile"},
-    {"icon": AppIcons.profileEditIcon, "title": "Edit Profile"},
-    {"icon": AppIcons.profileEditIcon, "title": "Edit Profile"},
-    {"icon": AppIcons.profileEditIcon, "title": "Edit Profile"}
-  ];
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
+    return GetBuilder(
+      id: "profile",
+      init: ProfileController(),
+      builder: (controller) => Scaffold(
+        body: SafeArea(
           child: Column(
             children: [
               header(context),
               SizedBox(height: ResponsiveUtil.height(10, context)),
-              ListView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: data.length,
-                itemBuilder: (context, index) {
-                  return itemCard(
-                    context,
-                    title: data[index]["title"],
-                    icon: data[index]["icon"],
-                    onPressed: () {},
-                  );
-                },
+              Expanded(
+                child: ListView.builder(
+                  itemCount: controller.data.length,
+                  itemBuilder: (context, index) {
+                    return itemCard(
+                      context,
+                      title: controller.data[index]["title"],
+                      icon: controller.data[index]["icon"],
+                      onPressed: controller.data[index]["onpress"] ?? () {},
+                    );
+                  },
+                ),
               ),
               SizedBox(
                 height: ResponsiveUtil.height(10, context),

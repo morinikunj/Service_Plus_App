@@ -50,6 +50,7 @@ const String password = "Password";
 const String alreadyHaveAccount = "Already have an Account";
 const String register = "Register";
 const String forgetPassword = "Forget Password";
+const String recomandedServices = "Recomanded Services";
 
 //service provider
 const String bookingId = "Booking ID";

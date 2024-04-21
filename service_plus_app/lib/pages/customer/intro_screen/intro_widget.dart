@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:service_plus_app/components/common_padding.dart';
 import 'package:service_plus_app/pages/customer/login/login_page.dart';
+import 'package:service_plus_app/routes/app_routes.dart';
 import 'package:service_plus_app/utils/constants/app_colors.dart';
 import 'package:service_plus_app/utils/constants/app_icons.dart';
 import 'package:service_plus_app/utils/constants/text_strings.dart';
@@ -131,7 +132,7 @@ class IntroWidget extends StatelessWidget {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8)),
                           onPressed: () {
-                            Get.off(LoginPage());
+                            Get.offAndToNamed(AppRoutes.login);
                           },
                           child: Text(
                             getStarted,

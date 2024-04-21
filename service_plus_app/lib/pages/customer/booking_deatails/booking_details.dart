@@ -1,29 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:service_plus_app/components/common_padding.dart';
 import 'package:service_plus_app/components/custom_container.dart';
+import 'package:service_plus_app/pages/customer/booking_deatails/booking_details_controller.dart';
 import 'package:service_plus_app/utils/constants/app_colors.dart';
 import 'package:service_plus_app/utils/constants/app_icons.dart';
 import 'package:service_plus_app/utils/constants/general_sizes.dart';
 import 'package:service_plus_app/utils/constants/text_strings.dart';
 import 'package:service_plus_app/utils/responsive_util/responsive_util.dart';
 
-class BookingDetailsPage extends StatefulWidget {
+class BookingDetailsPage extends StatelessWidget {
   const BookingDetailsPage({super.key});
 
   @override
-  State<BookingDetailsPage> createState() => _BookingDetailsPageState();
-}
-
-class _BookingDetailsPageState extends State<BookingDetailsPage> {
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
+    return GetBuilder(
+      id: "bookings",
+      init: BookingDetailsController(),
+      builder: (controller) => Scaffold(
+        body: SafeArea(
           child: Column(
             children: [
               header(context),
-              
             ],
           ),
         ),

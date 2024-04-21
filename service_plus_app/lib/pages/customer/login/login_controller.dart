@@ -32,9 +32,10 @@ class LoginController extends GetxController {
   void forgetPassword() {}
 
   void login() {
-    if (key.currentState!.validate()) {
-      key.currentState?.save();
-    }
+    Get.offAndToNamed(AppRoutes.bottomNavbar);
+    // if (key.currentState!.validate()) {
+    //   key.currentState?.save();
+    // }
   }
 
   void registerButtonClick() {

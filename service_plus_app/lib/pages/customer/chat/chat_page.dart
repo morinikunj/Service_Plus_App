@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 import 'package:service_plus_app/components/common_padding.dart';
 import 'package:service_plus_app/components/custom_container.dart';
+import 'package:service_plus_app/pages/customer/chat/chat_controller.dart';
 import 'package:service_plus_app/utils/constants/app_colors.dart';
 import 'package:service_plus_app/utils/constants/app_icons.dart';
 import 'package:service_plus_app/utils/constants/general_sizes.dart';
@@ -18,24 +19,28 @@ class ChatPage extends StatefulWidget {
 class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            header(context),
-            Expanded(
-              child: Padding(
-                padding:
-                    commonSysmPadding(context, horizontal: 15, vertical: 10),
-                child: ListView.builder(
-                  itemCount: 12,
-                  itemBuilder: (context, index) {
-                    return personCard(context);
-                  },
+    return GetBuilder(
+      id: "chat",
+      init: ChatController(),
+      builder: (controller) => Scaffold(
+        body: SafeArea(
+          child: Column(
+            children: [
+              header(context),
+              Expanded(
+                child: Padding(
+                  padding:
+                      commonSysmPadding(context, horizontal: 15, vertical: 10),
+                  child: ListView.builder(
+                    itemCount: 12,
+                    itemBuilder: (context, index) {
+                      return personCard(context);
+                    },
+                  ),
                 ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );

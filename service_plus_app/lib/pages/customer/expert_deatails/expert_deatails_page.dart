@@ -1,10 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 import 'package:service_plus_app/components/back_button.dart';
 import 'package:service_plus_app/components/common_padding.dart';
-import 'package:service_plus_app/components/custom_button.dart';
 import 'package:service_plus_app/components/custom_container.dart';
+import 'package:service_plus_app/pages/customer/expert_deatails/expert_details_controller.dart';
 import 'package:service_plus_app/utils/constants/app_colors.dart';
 import 'package:service_plus_app/utils/constants/app_icons.dart';
 import 'package:service_plus_app/utils/constants/general_sizes.dart';
@@ -16,11 +15,15 @@ class ExpertDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [header(context), reviewCard(context)],
+    return GetBuilder(
+      id: "experts",
+      init: ExpertDetailsController(),
+      builder: (controller) => Scaffold(
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [header(context), reviewCard(context)],
+            ),
           ),
         ),
       ),
@@ -276,6 +279,59 @@ class ExpertDetailsPage extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
         ),
       ),
+    );
+  }
+
+  Widget services(
+    BuildContext context,
+  ) {
+    return Padding(
+      padding: commonSysmPadding(context, vertical: 0, horizontal: 24),
+      child: GridView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: 4,
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 1,
+              childAspectRatio: 1,
+              crossAxisSpacing: ResponsiveUtil.height(20, context),
+              mainAxisSpacing: ResponsiveUtil.width(18, context)),
+          itemBuilder: (context, index) {
+            return InkWell(
+              onTap: () {},
+              child: Card(
+                  child: Column(
+                children: [
+                  //add img inside container
+                  Expanded(
+                    child: Container(
+                      decoration: const BoxDecoration(
+                          color: Colors.amber,
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(10),
+                              topRight: Radius.circular(10))),
+                      // child: Image.asset(
+                      //   AppImage.demoImg,
+                      //   fit: BoxFit.contain,
+                      // ),
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        commonSysmPadding(context, vertical: 3, horizontal: 0),
+                    child: Text(
+                      "Cooking",
+                      style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                            color: AppColors.secondaryColor,
+                          ),
+                      textScaler: textScale(context),
+                    ),
+                  ),
+                ],
+              )),
+            );
+          }),
     );
   }
 }
