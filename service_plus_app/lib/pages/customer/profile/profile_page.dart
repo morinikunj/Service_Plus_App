@@ -68,7 +68,7 @@ class _ProfilePageState extends State<ProfilePage> {
               profile,
               style: Theme.of(context)
                   .textTheme
-                  .headlineMedium!
+                  .headlineLarge!
                   .copyWith(color: AppColors.secondaryColor),
               textScaler: textScale(context),
             ),
@@ -89,12 +89,12 @@ class _ProfilePageState extends State<ProfilePage> {
                 children: [
                   Icon(
                     AppIcons.emailIcon,
-                    size: GeneralSize.iconSize *
-                        ResponsiveUtil.instance.textScaleFactor(context),
+                    size: 18 * ResponsiveUtil.instance.textScaleFactor(context),
+                    color: AppColors.secondaryColor,
                   ),
                   Text(
                     "abc123@gmail.com",
-                    style: Theme.of(context).textTheme.displaySmall,
+                    style: Theme.of(context).textTheme.bodySmall,
                     textScaler: textScale(context),
                   )
                 ],
@@ -146,16 +146,17 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Widget logoutButton(BuildContext context) {
-    return customElevatedButton(context,
+    return ElevatedButton(
+        onPressed: () {},
         child: Text(
-          logout,
+          logout.toUpperCase(),
           style: Theme.of(context)
               .textTheme
               .titleSmall!
               .copyWith(color: AppColors.whiteColor),
           textScaler: textScale(context),
         ),
-        buttonStyle: Theme.of(context).elevatedButtonTheme.style!.copyWith(
+        style: Theme.of(context).elevatedButtonTheme.style!.copyWith(
             backgroundColor: MaterialStatePropertyAll(AppColors.redColor)));
   }
 }

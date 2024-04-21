@@ -102,13 +102,12 @@ class HomePage extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(right: ResponsiveUtil.width(24, context)),
       child: FractionallySizedBox(
-        widthFactor: 0.5,
-        child: customElevatedButton(
-          context,
-          buttonStyle: Theme.of(context).elevatedButtonTheme.style!.copyWith(
+        widthFactor: 0.48,
+        child: ElevatedButton(
+          onPressed: () {},
+          style: Theme.of(context).elevatedButtonTheme.style!.copyWith(
               foregroundColor: MaterialStatePropertyAll(AppColors.whiteColor),
               backgroundColor: MaterialStatePropertyAll(AppColors.yellowColor)),
-          onPressed: () {},
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -120,7 +119,7 @@ class HomePage extends StatelessWidget {
                 search.toUpperCase(),
                 style: Theme.of(context)
                     .textTheme
-                    .titleLarge!
+                    .titleMedium!
                     .copyWith(color: AppColors.whiteColor),
                 textScaler: textScale(context),
               )
@@ -167,12 +166,12 @@ class HomePage extends StatelessWidget {
                   ),
                   Padding(
                     padding:
-                        commonSysmPadding(context, vertical: 8, horizontal: 0),
+                        commonSysmPadding(context, vertical: 3, horizontal: 0),
                     child: Text(
                       "Cooking",
                       style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                          color: AppColors.secondaryColor,
-                          fontWeight: GeneralSize.mediumBoldFont),
+                            color: AppColors.secondaryColor,
+                          ),
                       textScaler: textScale(context),
                     ),
                   ),

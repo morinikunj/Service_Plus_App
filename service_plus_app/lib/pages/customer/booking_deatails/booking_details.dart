@@ -21,14 +21,17 @@ class _BookingDetailsPageState extends State<BookingDetailsPage> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
-            children: [Text("data")],
+            children: [
+              header(context),
+              
+            ],
           ),
         ),
       ),
     );
   }
 
-  Widget header() {
+  Widget header(BuildContext context) {
     return customContainer(
         isGradient: true,
         padding: commonSysmPadding(context, horizontal: 24, vertical: 28),
@@ -46,82 +49,89 @@ class _BookingDetailsPageState extends State<BookingDetailsPage> {
         ));
   }
 
-  Widget bookingCard() {
+  Widget bookingCard(BuildContext context) {
     return Card(
-      child: Column(
-        children: [
-          ListTile(
-            leading: CircleAvatar(
-              backgroundColor: AppColors.yellowColor,
-              radius: GeneralSize.iconSize *
-                  ResponsiveUtil.instance.textScaleFactor(context),
+      child: Padding(
+        padding: commonSysmPadding(context, horizontal: 18, vertical: 15),
+        child: Column(
+          children: [
+            ListTile(
+              contentPadding: EdgeInsets.zero,
+              leading: CircleAvatar(
+                backgroundColor: AppColors.yellowColor,
+                radius: GeneralSize.iconSize *
+                    ResponsiveUtil.instance.textScaleFactor(context),
+              ),
+              title: Text(
+                "Robin Hood",
+                style: Theme.of(context).textTheme.titleMedium,
+                textScaler: textScale(context),
+              ),
+              subtitle: Text(
+                "Cleaning",
+                style: Theme.of(context)
+                    .textTheme
+                    .bodySmall!
+                    .copyWith(color: AppColors.greyColor),
+                textScaler: textScale(context),
+              ),
+              trailing: customContainer(
+                  color: AppColors.greyColor1,
+                  borderRadius: 15,
+                  padding:
+                      commonSysmPadding(context, horizontal: 8, vertical: 5),
+                  child: Text(
+                    "Running",
+                    style: Theme.of(context)
+                        .textTheme
+                        .labelSmall!
+                        .copyWith(color: AppColors.redColor),
+                  )),
             ),
-            title: Text(
-              "Robin Hood",
-              style: Theme.of(context).textTheme.titleMedium,
-              textScaler: textScale(context),
-            ),
-            subtitle: Text(
-              "Cleaning",
-              style: Theme.of(context)
-                  .textTheme
-                  .displaySmall!
-                  .copyWith(color: AppColors.greyColor),
-              textScaler: textScale(context),
-            ),
-            trailing: customContainer(
-                color: AppColors.accentColor,
-                padding: commonSysmPadding(context, horizontal: 5, vertical: 5),
-                child: Text(
-                  "Running",
+            Row(
+              children: [
+                Icon(
+                  AppIcons.bookingIcon,
+                  size: 16 * ResponsiveUtil.instance.textScaleFactor(context),
+                  color: AppColors.greyColor,
+                ),
+                Text(
+                  "09/05/2024",
+                  style: Theme.of(context)
+                      .textTheme
+                      .displaySmall!
+                      .copyWith(color: AppColors.greyColor),
+                  textScaler: textScale(context),
+                ),
+                SizedBox(
+                  width: ResponsiveUtil.width(10, context),
+                ),
+                Icon(
+                  AppIcons.clockIcon,
+                  size: 16 * ResponsiveUtil.instance.textScaleFactor(context),
+                  color: AppColors.greyColor,
+                ),
+                Text(
+                  "09:00 PM",
+                  style: Theme.of(context)
+                      .textTheme
+                      .displaySmall!
+                      .copyWith(color: AppColors.greyColor),
+                  textScaler: textScale(context),
+                ),
+                const Spacer(),
+                Text(
+                  "Rs 200/hr",
                   style: Theme.of(context)
                       .textTheme
                       .labelSmall!
-                      .copyWith(color: AppColors.redColor),
-                )),
-          ),
-          Row(
-            children: [
-              Icon(
-                AppIcons.bookingIcon,
-                size: GeneralSize.iconSmall *
-                    ResponsiveUtil.instance.textScaleFactor(context),
-                color: AppColors.greyColor,
-              ),
-              Text(
-                "09/05/2024",
-                style: Theme.of(context)
-                    .textTheme
-                    .displaySmall!
-                    .copyWith(color: AppColors.greyColor),
-                textScaler: textScale(context),
-              ),
-              SizedBox(
-                width: ResponsiveUtil.width(10, context),
-              ),
-              Icon(
-                AppIcons.clockIcon,
-                size: GeneralSize.iconSmall *
-                    ResponsiveUtil.instance.textScaleFactor(context),
-                color: AppColors.greyColor,
-              ),
-              Text(
-                "09:00 PM",
-                style: Theme.of(context)
-                    .textTheme
-                    .displaySmall!
-                    .copyWith(color: AppColors.greyColor),
-                textScaler: textScale(context),
-              ),
-              const Spacer(),
-              Text(
-                "Rs 200",
-                style: Theme.of(context).textTheme.labelSmall,
-                textScaler: textScale(context),
-              ),
-            ],
-          )
-        ],
+                      .copyWith(color: AppColors.secondaryColor),
+                  textScaler: textScale(context),
+                ),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

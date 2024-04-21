@@ -44,6 +44,12 @@ const String email = "Email";
 const String no = "Mobile No";
 const String updateProfile = "Update Profile";
 const String logout = "Logout";
+const String login = "Login";
+const String createAccount = "Create an Account";
+const String password = "Password";
+const String alreadyHaveAccount = "Already have an Account";
+const String register = "Register";
+const String forgetPassword = "Forget Password";
 
 //service provider
 const String bookingId = "Booking ID";
@@ -56,6 +62,10 @@ const String startedJob = "Started a Job";
 const String completedJob = "Completed Job";
 const String accept = "Accept";
 const String reject = "Reject";
+
+//introscreen
+const String getStarted = "Get Started";
+const String skipNow = "Skip Now";
 
 //text scale
 textScale(context) =>

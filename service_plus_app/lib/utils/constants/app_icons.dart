@@ -17,7 +17,7 @@ class AppIcons {
   static IconData searchIcon = Icons.search_outlined;
   static IconData backIcon = Icons.arrow_back_ios;
   static IconData ratingIcon = Icons.star;
-  static IconData chatIcon = Icons.chat_bubble_outline;
+  static IconData chatIcon = Icons.chat;
   static IconData timeIcon = Icons.work_outline;
   static IconData experienceIcon = Icons.work;
   static IconData clockIcon = Icons.lock_clock_outlined;
@@ -31,8 +31,15 @@ class AppIcons {
   static IconData tAC = Icons.wordpress;
   static IconData pP = Icons.privacy_tip;
   static IconData report = Icons.report;
+  static IconData userIcon = Icons.person;
+  static IconData visiblePassIcon = Icons.visibility_outlined;
+  static IconData visibleOffPassIcon = Icons.visibility_off_outlined;
+  static IconData homeIcon = Icons.home_rounded;
 
   //service provider
   static IconData callIcon = Icons.call;
   static IconData checkIcon = Icons.check;
+
+  //intro screen
+  static IconData arrawRightCircle = Icons.arrow_circle_right;
 }

@@ -12,13 +12,22 @@ Widget commonTextField(
     String? Function(String?)? validator,
     Widget? prefixIcon,
     Widget? suffixIcon,
+    bool? fill,
+    Color? hintTextColor,
+    InputBorder? border,
     EdgeInsets? padding}) {
   return TextFormField(
+    style: TextStyle(
+        fontWeight: FontWeight.w400,
+        fontSize: GeneralSize.textsize5,
+        color: hintTextColor ?? AppColors.greyColor),
     decoration: InputDecoration(
       labelText: labelText,
       hintText: hintText,
-      border: OutlineInputBorder(
-          borderSide: BorderSide.none, borderRadius: GeneralSize.borderRadius1),
+      border: border ??
+          OutlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: GeneralSize.borderRadius1),
       prefixIcon: prefixIcon,
       suffixIcon: suffixIcon,
       contentPadding:
@@ -26,8 +35,8 @@ Widget commonTextField(
       hintStyle: TextStyle(
           fontWeight: FontWeight.w400,
           fontSize: GeneralSize.textsize5,
-          color: AppColors.greyColor),
-      filled: true,
+          color: hintTextColor ?? AppColors.greyColor),
+      filled: fill ?? true,
       fillColor: Colors.black12,
     ),
     controller: controller,

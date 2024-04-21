@@ -99,8 +99,13 @@ class _NotificationPageState extends State<NotificationPage> {
               alignment: Alignment.topRight,
               child: Text(
                 "09:00 PM",
-                style: Theme.of(context).textTheme.displaySmall,
+                style: Theme.of(context)
+                    .textTheme
+                    .displaySmall!
+                    .copyWith(color: AppColors.greyColor),
                 textScaler: textScale(context),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
               ),
             ),
           )

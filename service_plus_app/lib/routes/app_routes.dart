@@ -2,13 +2,17 @@ import 'package:get/get.dart';
 import 'package:service_plus_app/pages/admin/admin_page.dart';
 import 'package:service_plus_app/pages/customer/booking/booking_page.dart';
 import 'package:service_plus_app/pages/customer/booking_deatails/booking_details.dart';
+import 'package:service_plus_app/pages/customer/bottom_navbar/bottom_navbar_page.dart';
 import 'package:service_plus_app/pages/customer/category_deatails/category_details_page.dart';
 import 'package:service_plus_app/pages/customer/chat/chat_page.dart';
 import 'package:service_plus_app/pages/customer/edit_profile/edit_profile_page.dart';
 import 'package:service_plus_app/pages/customer/expert_deatails/expert_deatails_page.dart';
 import 'package:service_plus_app/pages/customer/home/home_page.dart';
+import 'package:service_plus_app/pages/customer/intro_screen/intro_page.dart';
+import 'package:service_plus_app/pages/customer/login/login_page.dart';
 import 'package:service_plus_app/pages/customer/notification/notification_page.dart';
 import 'package:service_plus_app/pages/customer/profile/profile_page.dart';
+import 'package:service_plus_app/pages/customer/register/register_page.dart';
 
 import '../bindings/general_bindings.dart';
 
@@ -25,6 +29,10 @@ class AppRoutes {
   static String notification = "/notification";
   static String profile = "/profile";
   static String editProfile = "/edit_profile";
+  static String intro = "/intro";
+  static String login = "/login";
+  static String register = "/Register";
+  static String bottomNavbar = "/bottom_navbar";
 
   //admin
   static String admin = "/admin_page";
@@ -62,6 +70,20 @@ class AppRoutes {
         name: profile,
         page: () => const ProfilePage(),
         binding: GeneralBinding()),
-    GetPage(name: editProfile, page: () => const EditProfilePage())
+    GetPage(
+        name: editProfile,
+        page: () => const EditProfilePage(),
+        binding: GeneralBinding()),
+    GetPage(name: intro, page: () => IntroPage(), binding: GeneralBinding()),
+    GetPage(
+        name: login, page: () => const LoginPage(), binding: GeneralBinding()),
+    GetPage(
+        name: register,
+        page: () => const RegisterPage(),
+        binding: GeneralBinding()),
+    GetPage(
+        name: bottomNavbar,
+        page: () => const BottomNavbarPage(),
+        binding: GeneralBinding())
   ];
 }

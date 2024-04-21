@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:service_plus_app/components/common_padding.dart';
 import 'package:service_plus_app/components/custom_container.dart';
 import 'package:service_plus_app/utils/constants/app_colors.dart';
@@ -19,24 +20,22 @@ class _ChatPageState extends State<ChatPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              header(context),
-              Padding(
+        child: Column(
+          children: [
+            header(context),
+            Expanded(
+              child: Padding(
                 padding:
                     commonSysmPadding(context, horizontal: 15, vertical: 10),
                 child: ListView.builder(
                   itemCount: 12,
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
                   itemBuilder: (context, index) {
                     return personCard(context);
                   },
                 ),
-              )
-            ],
-          ),
+              ),
+            )
+          ],
         ),
       ),
     );
