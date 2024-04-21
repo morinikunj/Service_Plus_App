@@ -25,10 +25,6 @@ const userSchema = mongoose.Schema({
         required: true,
         trim: true,
     },
-    profile_image:{
-        type: String,
-        default: ''
-    },
     type: {
         type: String,
         default: 'user',
