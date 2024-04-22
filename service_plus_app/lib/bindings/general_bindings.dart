@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:service_plus_app/controllers/admin/dashboard_controller.dart';
 import 'package:service_plus_app/controllers/admin/sidemenu_controller.dart';
+import 'package:service_plus_app/pages/customer/booking/booking_controller.dart';
 import 'package:service_plus_app/pages/customer/booking_deatails/booking_details_controller.dart';
 import 'package:service_plus_app/pages/customer/category_deatails/category_details_controller.dart';
 import 'package:service_plus_app/pages/customer/chat/chat_controller.dart';
@@ -26,5 +27,6 @@ class GeneralBinding extends Bindings {
     Get.lazyPut(() => ProfileController());
     Get.lazyPut(() => BookingDetailsController());
     Get.lazyPut(() => ChatController());
+    Get.lazyPut(() => BookingController());
   }
 }

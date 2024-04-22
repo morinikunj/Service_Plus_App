@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:service_plus_app/pages/admin/admin_page.dart';
 import 'package:service_plus_app/pages/customer/booking/booking_page.dart';
+import 'package:service_plus_app/pages/customer/booking/sucessful_page.dart';
 import 'package:service_plus_app/pages/customer/booking_deatails/booking_details.dart';
 import 'package:service_plus_app/pages/customer/bottom_navbar/bottom_navbar_page.dart';
 import 'package:service_plus_app/pages/customer/category_deatails/category_details_page.dart';
@@ -33,6 +34,7 @@ class AppRoutes {
   static String login = "/login";
   static String register = "/Register";
   static String bottomNavbar = "/bottom_navbar";
+  static String bookingSuccess = "/booking_sucessful";
 
   //admin
   static String admin = "/admin_page";
@@ -84,6 +86,10 @@ class AppRoutes {
     GetPage(
         name: bottomNavbar,
         page: () => const BottomNavbarPage(),
+        binding: GeneralBinding()),
+    GetPage(
+        name: bookingSuccess,
+        page: () => const BookingSuccessPage(),
         binding: GeneralBinding())
   ];
 }

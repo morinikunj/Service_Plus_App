@@ -3,9 +3,11 @@ import 'package:get/get.dart';
 import 'package:service_plus_app/components/common_padding.dart';
 import 'package:service_plus_app/components/custom_container.dart';
 import 'package:service_plus_app/pages/customer/profile/profile_controller.dart';
+import 'package:service_plus_app/routes/app_routes.dart';
 import 'package:service_plus_app/utils/constants/app_colors.dart';
 import 'package:service_plus_app/utils/constants/app_icons.dart';
 import 'package:service_plus_app/utils/constants/general_sizes.dart';
+import 'package:service_plus_app/utils/constants/image_strings.dart';
 import 'package:service_plus_app/utils/constants/text_strings.dart';
 import 'package:service_plus_app/utils/responsive_util/responsive_util.dart';
 
@@ -31,7 +33,9 @@ class ProfilePage extends StatelessWidget {
                       context,
                       title: controller.data[index]["title"],
                       icon: controller.data[index]["icon"],
-                      onPressed: controller.data[index]["onpress"] ?? () {},
+                      onPressed: () {
+                        Get.toNamed(AppRoutes.editProfile);
+                      },
                     );
                   },
                 ),
@@ -58,7 +62,7 @@ class ProfilePage extends StatelessWidget {
               profile,
               style: Theme.of(context)
                   .textTheme
-                  .headlineLarge!
+                  .headlineMedium!
                   .copyWith(color: AppColors.secondaryColor),
               textScaler: textScale(context),
             ),
@@ -104,6 +108,7 @@ class ProfilePage extends StatelessWidget {
       padding: commonSysmPadding(context, horizontal: 15, vertical: 0),
       child: Card(
         child: ListTile(
+          onTap: onPressed,
           leading: Icon(
             icon,
             size: GeneralSize.iconSize *

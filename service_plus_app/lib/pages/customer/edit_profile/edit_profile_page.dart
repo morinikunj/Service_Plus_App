@@ -155,7 +155,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
       padding: commonSysmPadding(context, horizontal: 24, vertical: 30),
       child: SizedBox(
         width: double.infinity,
-        child: customElevatedButton(context,
+        child: ElevatedButton(
+            onPressed: () {},
             child: Text(
               updateProfile.toUpperCase(),
               style: Theme.of(context)

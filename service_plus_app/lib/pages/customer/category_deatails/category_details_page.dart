@@ -4,6 +4,7 @@ import 'package:service_plus_app/components/back_button.dart';
 import 'package:service_plus_app/components/common_padding.dart';
 import 'package:service_plus_app/components/custom_container.dart';
 import 'package:service_plus_app/pages/customer/category_deatails/category_details_controller.dart';
+import 'package:service_plus_app/routes/app_routes.dart';
 import 'package:service_plus_app/utils/constants/app_colors.dart';
 import 'package:service_plus_app/utils/constants/app_icons.dart';
 import 'package:service_plus_app/utils/constants/text_strings.dart';
@@ -176,7 +177,9 @@ class CategoryDetailsPage extends StatelessWidget {
                           .copyWith(
                               backgroundColor: MaterialStatePropertyAll(
                                   AppColors.yellowColor)),
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.toNamed(AppRoutes.expertDetails);
+                      },
                       child: Text(
                         book,
                         style: Theme.of(context)

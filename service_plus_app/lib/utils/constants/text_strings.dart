@@ -50,7 +50,14 @@ const String password = "Password";
 const String alreadyHaveAccount = "Already have an Account";
 const String register = "Register";
 const String forgetPassword = "Forget Password";
-const String recomandedServices = "Recomanded Services";
+const String servicesText = "Services";
+const String avilableTimings = "Avilable Timings";
+const String workPortfolio = "Work Portfolio";
+const String topreviwes = "Top Reviews";
+const String selectAddress = "Select Address";
+const String confirm = "Confirm";
+const String bookingSucessDesc =
+    "Your booking request has been sent sucessfully.";
 
 //service provider
 const String bookingId = "Booking ID";

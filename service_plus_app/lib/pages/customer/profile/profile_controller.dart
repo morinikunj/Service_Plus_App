@@ -7,11 +7,22 @@ class ProfileController extends GetxController {
     {
       "icon": AppIcons.profileEditIcon,
       "title": "Edit Profile",
-      "onpress": Get.toNamed(AppRoutes.editProfile)
     },
-    {"icon": AppIcons.profileEditIcon, "title": "Edit Profile"},
-    {"icon": AppIcons.profileEditIcon, "title": "Edit Profile"},
-    {"icon": AppIcons.profileEditIcon, "title": "Edit Profile"},
-    {"icon": AppIcons.profileEditIcon, "title": "Edit Profile"}
+    {
+      "icon": AppIcons.profileEditIcon,
+      "title": "Edit Profile",
+    },
+    {
+      "icon": AppIcons.profileEditIcon,
+      "title": "Edit Profile",
+    },
+    {
+      "icon": AppIcons.profileEditIcon,
+      "title": "Edit Profile",
+    },
+    {
+      "icon": AppIcons.profileEditIcon,
+      "title": "Edit Profile",
+    },
   ];
 }

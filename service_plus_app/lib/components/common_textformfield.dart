@@ -15,8 +15,12 @@ Widget commonTextField(
     bool? fill,
     Color? hintTextColor,
     InputBorder? border,
+    VoidCallback? onTap,
+    bool? readOnly,
     EdgeInsets? padding}) {
   return TextFormField(
+    enabled: readOnly,
+    onTap: onTap,
     style: TextStyle(
         fontWeight: FontWeight.w400,
         fontSize: GeneralSize.textsize5,
