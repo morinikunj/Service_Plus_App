@@ -3,14 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:service_plus_app/components/common_padding.dart';
-import 'package:service_plus_app/components/custom_button.dart';
 import 'package:service_plus_app/components/custom_container.dart';
-import 'package:service_plus_app/pages/customer/category_deatails/category_details_page.dart';
+import 'package:service_plus_app/pages/customer/home/home_controller.dart';
 import 'package:service_plus_app/routes/app_routes.dart';
 import 'package:service_plus_app/utils/constants/app_colors.dart';
 import 'package:service_plus_app/utils/constants/app_icons.dart';
 import 'package:service_plus_app/utils/constants/general_sizes.dart';
-import 'package:service_plus_app/utils/constants/image_strings.dart';
 import 'package:service_plus_app/utils/constants/text_strings.dart';
 import 'package:service_plus_app/utils/responsive_util/responsive_util.dart';
 
@@ -19,25 +17,29 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              // header
-              header(context),
-              //search button
-              Transform.translate(
-                offset: Offset(0, ResponsiveUtil.height(-25, context)),
-                child: searchButton(context),
-              ),
-              //services
-              services(context),
-              SizedBox(
-                height: ResponsiveUtil.height(24, context),
-              )
-            ],
+    return GetBuilder(
+      id: "home",
+      init: HomeController(),
+      builder: (controller) => Scaffold(
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                // header
+                header(context),
+                //search button
+                Transform.translate(
+                  offset: Offset(0, ResponsiveUtil.height(-25, context)),
+                  child: searchButton(context),
+                ),
+                //services
+                services(context, controller),
+                SizedBox(
+                  height: ResponsiveUtil.height(24, context),
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -130,7 +132,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget services(BuildContext context) {
+  Widget services(BuildContext context, HomeController controller) {
     return Padding(
       padding: commonSysmPadding(context, vertical: 0, horizontal: 24),
       child: GridView.builder(
@@ -144,9 +146,7 @@ class HomePage extends StatelessWidget {
               mainAxisSpacing: ResponsiveUtil.width(18, context)),
           itemBuilder: (context, index) {
             return InkWell(
-              onTap: () {
-                Get.toNamed(AppRoutes.categoryDetails);
-              },
+              onTap: controller.selectCategory,
               child: Card(
                   child: Column(
                 children: [

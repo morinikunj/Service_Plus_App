@@ -1,30 +1,48 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 import 'package:service_plus_app/components/common_padding.dart';
 import 'package:service_plus_app/components/custom_container.dart';
+import 'package:service_plus_app/pages/customer/booking_deatails/booking_details_controller.dart';
 import 'package:service_plus_app/utils/constants/app_colors.dart';
 import 'package:service_plus_app/utils/constants/app_icons.dart';
 import 'package:service_plus_app/utils/constants/general_sizes.dart';
 import 'package:service_plus_app/utils/constants/text_strings.dart';
 import 'package:service_plus_app/utils/responsive_util/responsive_util.dart';
 
-class BookingDetailsPage extends StatefulWidget {
+class BookingDetailsPage extends StatelessWidget {
   const BookingDetailsPage({super.key});
 
   @override
-  State<BookingDetailsPage> createState() => _BookingDetailsPageState();
-}
-
-class _BookingDetailsPageState extends State<BookingDetailsPage> {
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              header(context),
-              
-            ],
+    return GetBuilder(
+      id: "bookings",
+      init: BookingDetailsController(),
+      builder: (controller) => DefaultTabController(
+        length: 3,
+        child: Scaffold(
+          body: SafeArea(
+            child: Column(
+              children: [
+                header(context),
+                Expanded(
+                  child: TabBarView(
+                    children: [
+                      Container(
+                        color: AppColors.redColor,
+                      ),
+                      Container(
+                        color: AppColors.greenColor,
+                      ),
+                      Container(
+                        color: AppColors.secondaryColor,
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -33,18 +51,42 @@ class _BookingDetailsPageState extends State<BookingDetailsPage> {
 
   Widget header(BuildContext context) {
     return customContainer(
+        padding: EdgeInsets.zero,
         isGradient: true,
-        padding: commonSysmPadding(context, horizontal: 24, vertical: 28),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Column(
           children: [
-            Text(
-              myBooking,
-              style: Theme.of(context)
-                  .textTheme
-                  .headlineMedium!
-                  .copyWith(color: AppColors.secondaryColor),
-            )
+            Padding(
+              padding: commonSysmPadding(context, horizontal: 24, vertical: 28),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    myBooking,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineMedium!
+                        .copyWith(color: AppColors.secondaryColor),
+                  )
+                ],
+              ),
+            ),
+            TabBar(indicatorColor: AppColors.yellowColor, tabs: [
+              Text(
+                upcoming,
+                style: Theme.of(context).textTheme.titleSmall,
+                textScaler: textScale(context),
+              ),
+              Text(
+                completed,
+                style: Theme.of(context).textTheme.titleSmall,
+                textScaler: textScale(context),
+              ),
+              Text(
+                cancelled,
+                style: Theme.of(context).textTheme.titleSmall,
+                textScaler: textScale(context),
+              )
+            ])
           ],
         ));
   }

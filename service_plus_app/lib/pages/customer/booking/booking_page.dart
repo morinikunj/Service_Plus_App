@@ -29,7 +29,10 @@ class _BookingPageState extends State<BookingPage> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
-            children: [header(context), body(context)],
+            children: [
+              header(context),
+              body(context),
+            ],
           ),
         ),
       ),

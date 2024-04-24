@@ -25,9 +25,9 @@ class RegisterPage extends StatelessWidget {
         backgroundColor: AppColors.secondaryColor,
         body: SafeArea(
             child: SingleChildScrollView(
-              child: Padding(
-                        padding: commonSysmPadding(context, horizontal: 24, vertical: 18),
-                        child: Column(
+          child: Padding(
+            padding: commonSysmPadding(context, horizontal: 24, vertical: 18),
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
@@ -74,9 +74,9 @@ class RegisterPage extends StatelessWidget {
                   ],
                 )
               ],
-                        ),
-                      ),
-            )),
+            ),
+          ),
+        )),
       ),
     );
   }
@@ -147,18 +147,17 @@ class RegisterPage extends StatelessWidget {
               Transform.translate(
                 offset: const Offset(0, 30),
                 child: SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                      onPressed: controller.register,
-                      child: Text(
-                        register.toUpperCase(),
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleSmall!
-                            .copyWith(color: AppColors.whiteColor),
-                        textScaler: textScale(context),
-                      )),
-                ),
+                    width: double.infinity,
+                    child: ElevatedButton(
+                        onPressed: controller.register,
+                        child: Text(
+                          register.toUpperCase(),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(color: AppColors.whiteColor),
+                          textScaler: textScale(context),
+                        ))),
               )
             ],
           ),

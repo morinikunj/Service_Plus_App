@@ -15,11 +15,16 @@ Widget commonTextField(
     bool? fill,
     Color? hintTextColor,
     InputBorder? border,
+    VoidCallback? onTap,
+    bool? readOnly,
+    double? fontSize,
     EdgeInsets? padding}) {
   return TextFormField(
+    enabled: readOnly,
+    onTap: onTap,
     style: TextStyle(
         fontWeight: FontWeight.w400,
-        fontSize: GeneralSize.textsize5,
+        fontSize: fontSize ?? GeneralSize.textsize5,
         color: hintTextColor ?? AppColors.greyColor),
     decoration: InputDecoration(
       labelText: labelText,
@@ -34,7 +39,7 @@ Widget commonTextField(
           padding ?? const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
       hintStyle: TextStyle(
           fontWeight: FontWeight.w400,
-          fontSize: GeneralSize.textsize5,
+          fontSize: fontSize ?? GeneralSize.textsize5,
           color: hintTextColor ?? AppColors.greyColor),
       filled: fill ?? true,
       fillColor: Colors.black12,

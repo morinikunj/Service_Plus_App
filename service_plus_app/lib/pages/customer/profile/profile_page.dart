@@ -1,50 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 import 'package:service_plus_app/components/common_padding.dart';
-import 'package:service_plus_app/components/custom_button.dart';
 import 'package:service_plus_app/components/custom_container.dart';
+import 'package:service_plus_app/pages/customer/profile/profile_controller.dart';
 import 'package:service_plus_app/utils/constants/app_colors.dart';
 import 'package:service_plus_app/utils/constants/app_icons.dart';
 import 'package:service_plus_app/utils/constants/general_sizes.dart';
 import 'package:service_plus_app/utils/constants/text_strings.dart';
 import 'package:service_plus_app/utils/responsive_util/responsive_util.dart';
 
-class ProfilePage extends StatefulWidget {
+class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
 
   @override
-  State<ProfilePage> createState() => _ProfilePageState();
-}
-
-class _ProfilePageState extends State<ProfilePage> {
-  List data = [
-    {"icon": AppIcons.profileEditIcon, "title": "Edit Profile"},
-    {"icon": AppIcons.profileEditIcon, "title": "Edit Profile"},
-    {"icon": AppIcons.profileEditIcon, "title": "Edit Profile"},
-    {"icon": AppIcons.profileEditIcon, "title": "Edit Profile"},
-    {"icon": AppIcons.profileEditIcon, "title": "Edit Profile"}
-  ];
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
+    return GetBuilder(
+      id: "profile",
+      init: ProfileController(),
+      builder: (controller) => Scaffold(
+        body: SafeArea(
           child: Column(
             children: [
               header(context),
               SizedBox(height: ResponsiveUtil.height(10, context)),
-              ListView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: data.length,
-                itemBuilder: (context, index) {
-                  return itemCard(
-                    context,
-                    title: data[index]["title"],
-                    icon: data[index]["icon"],
-                    onPressed: () {},
-                  );
-                },
+              SingleChildScrollView(
+                child: Column(
+                  children: List.generate(controller.data.length, (index) {
+                    return itemCard(
+                      context,
+                      title: controller.data[index]["title"],
+                      icon: controller.data[index]["icon"],
+                      onPressed: () {
+                        controller.onPress(index);
+                      },
+                    );
+                  }),
+                ),
               ),
               SizedBox(
                 height: ResponsiveUtil.height(10, context),
@@ -68,7 +60,7 @@ class _ProfilePageState extends State<ProfilePage> {
               profile,
               style: Theme.of(context)
                   .textTheme
-                  .headlineLarge!
+                  .headlineMedium!
                   .copyWith(color: AppColors.secondaryColor),
               textScaler: textScale(context),
             ),
@@ -114,11 +106,12 @@ class _ProfilePageState extends State<ProfilePage> {
       padding: commonSysmPadding(context, horizontal: 15, vertical: 0),
       child: Card(
         child: ListTile(
+          onTap: onPressed,
           leading: Icon(
             icon,
             size: GeneralSize.iconSize *
                 ResponsiveUtil.instance.textScaleFactor(context),
-            color: AppColors.greyColor,
+            color: AppColors.primaryColor,
           ),
           title: Text(
             title ?? "",
@@ -132,7 +125,7 @@ class _ProfilePageState extends State<ProfilePage> {
             AppIcons.rightArraw,
             size: GeneralSize.iconSize *
                 ResponsiveUtil.instance.textScaleFactor(context),
-            color: AppColors.greyColor,
+            color: AppColors.greyColor.withOpacity(0.7),
           ),
         ),
       ),
@@ -146,17 +139,21 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Widget logoutButton(BuildContext context) {
-    return ElevatedButton(
-        onPressed: () {},
-        child: Text(
-          logout.toUpperCase(),
-          style: Theme.of(context)
-              .textTheme
-              .titleSmall!
-              .copyWith(color: AppColors.whiteColor),
-          textScaler: textScale(context),
-        ),
-        style: Theme.of(context).elevatedButtonTheme.style!.copyWith(
-            backgroundColor: MaterialStatePropertyAll(AppColors.redColor)));
+    return customContainer(
+      padding: commonSysmPadding(context, horizontal: 30, vertical: 0),
+      width: double.infinity,
+      child: ElevatedButton(
+          onPressed: () {},
+          child: Text(
+            logout.toUpperCase(),
+            style: Theme.of(context)
+                .textTheme
+                .titleSmall!
+                .copyWith(color: AppColors.whiteColor),
+            textScaler: textScale(context),
+          ),
+          style: Theme.of(context).elevatedButtonTheme.style!.copyWith(
+              backgroundColor: MaterialStatePropertyAll(AppColors.redColor))),
+    );
   }
 }

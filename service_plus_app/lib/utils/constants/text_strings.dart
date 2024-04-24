@@ -50,6 +50,29 @@ const String password = "Password";
 const String alreadyHaveAccount = "Already have an Account";
 const String register = "Register";
 const String forgetPassword = "Forget Password";
+const String servicesText = "Services";
+const String avilableTimings = "Avilable Timings";
+const String workPortfolio = "Work Portfolio";
+const String topreviwes = "Top Reviews";
+const String selectAddress = "Select Address";
+const String confirm = "Confirm";
+const String bookingSucessDesc =
+    "Your booking request has been sent sucessfully.";
+const String gotoBooking = "My Bookings";
+const String upcoming = "Upcoming";
+const String completed = "Completed";
+const String cancelled = "Cancelled";
+const String avilableBalance = "Avilable Balance";
+const String addMoney = "Add Money";
+const String sendMoney = "Send Money";
+const String manageAddress = "Manage Address";
+const String presavedAddrs = "Pre Saved Addresses";
+const String addNewAddress = "Add New Address";
+const String title = "Title";
+const String address = "Address";
+const String titleError = "Please enter title!";
+const String addressError = "Please enter address!";
+const String submit = "Submit";
 
 //service provider
 const String bookingId = "Booking ID";

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -6,7 +8,9 @@ import 'package:service_plus_app/components/common_padding.dart';
 import 'package:service_plus_app/components/common_textformfield.dart';
 import 'package:service_plus_app/components/custom_button.dart';
 import 'package:service_plus_app/components/custom_container.dart';
+import 'package:service_plus_app/models/response/login_response.dart';
 import 'package:service_plus_app/pages/customer/login/login_controller.dart';
+import 'package:service_plus_app/services/auth_services.dart';
 import 'package:service_plus_app/utils/constants/app_colors.dart';
 import 'package:service_plus_app/utils/constants/app_icons.dart';
 import 'package:service_plus_app/utils/constants/general_sizes.dart';
@@ -21,6 +25,11 @@ class LoginPage extends StatelessWidget {
     return GetBuilder(
       id: "login",
       init: LoginController(),
+      initState: (state) async {
+        Map data = {"email": "krish123@gmail.com", "password": "Krish@123"};
+        await AuthServices().login(jsonEncode(data));
+        // print("response : ${user!.token}");
+      },
       builder: (controller) => Scaffold(
         backgroundColor: AppColors.secondaryColor,
         body: SafeArea(
@@ -149,21 +158,29 @@ class LoginPage extends StatelessWidget {
                 ),
               ),
               Transform.translate(
-                offset: Offset(0, ResponsiveUtil.height(30, context)),
-                child: SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                      onPressed: controller.login,
-                      child: Text(
-                        login.toUpperCase(),
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleMedium!
-                            .copyWith(color: AppColors.whiteColor),
-                        textScaler: textScale(context),
-                      )),
-                ),
-              )
+                  offset: Offset(0, ResponsiveUtil.height(30, context)),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: controller.isLoading
+                        ? Center(
+                            child: CircularProgressIndicator(
+                              color: AppColors.accentColor,
+                            ),
+                          )
+                        : ElevatedButton(
+                            onPressed: () {
+                              controller.login();
+                            },
+                            child: Text(
+                              login.toUpperCase(),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium!
+                                  .copyWith(color: AppColors.whiteColor),
+                              textScaler: textScale(context),
+                            ),
+                          ),
+                  )),
             ],
           ),
         ));

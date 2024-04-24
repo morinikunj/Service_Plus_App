@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.lightTheme,
       initialBinding: GeneralBinding(),
       getPages: AppRoutes.routes,
-      initialRoute: AppRoutes.bottomNavbar,
+      initialRoute: AppRoutes.register,
       debugShowCheckedModeBanner: false,
     );
   }

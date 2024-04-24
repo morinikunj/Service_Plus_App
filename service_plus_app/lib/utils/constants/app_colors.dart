@@ -10,7 +10,7 @@ class AppColors {
   static Color secondaryColor = const Color.fromRGBO(23, 25, 81, 1);
   static Color yellowColor = const Color.fromRGBO(252, 194, 49, 1);
   // static Color greyColor = const Color(0x00686060);
-  static Color accentColor = Color.fromARGB(255, 250, 249, 249);
+  static Color accentColor = const Color.fromARGB(255, 250, 249, 249);
 
   //  Gradient Colors
   static Color primaryGredientColor = const Color.fromRGBO(175, 234, 252, 1);
@@ -23,6 +23,7 @@ class AppColors {
 
   //Background Colors
   static Color greenColor = Colors.green;
+  static Color chatBubbleColor = const Color(0xffE7E7ED);
 
   //Error Color
   static Color redColor = Colors.red;
