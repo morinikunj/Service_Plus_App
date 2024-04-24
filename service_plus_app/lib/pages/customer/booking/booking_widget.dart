@@ -149,7 +149,7 @@ class Booking extends StatelessWidget {
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: controller.confirm,
                     child: Text(
                       confirm.toUpperCase(),
                       style: Theme.of(context)

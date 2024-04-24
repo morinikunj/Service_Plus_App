@@ -1,10 +1,12 @@
 import 'package:get/get.dart';
 import 'package:service_plus_app/pages/admin/admin_page.dart';
+import 'package:service_plus_app/pages/customer/add_address/add_address_page.dart';
 import 'package:service_plus_app/pages/customer/booking/booking_page.dart';
 import 'package:service_plus_app/pages/customer/booking/sucessful_page.dart';
 import 'package:service_plus_app/pages/customer/booking_deatails/booking_details.dart';
 import 'package:service_plus_app/pages/customer/bottom_navbar/bottom_navbar_page.dart';
 import 'package:service_plus_app/pages/customer/category_deatails/category_details_page.dart';
+import 'package:service_plus_app/pages/customer/chat/chat_details_page.dart';
 import 'package:service_plus_app/pages/customer/chat/chat_page.dart';
 import 'package:service_plus_app/pages/customer/edit_profile/edit_profile_page.dart';
 import 'package:service_plus_app/pages/customer/expert_deatails/expert_deatails_page.dart';
@@ -14,6 +16,8 @@ import 'package:service_plus_app/pages/customer/login/login_page.dart';
 import 'package:service_plus_app/pages/customer/notification/notification_page.dart';
 import 'package:service_plus_app/pages/customer/profile/profile_page.dart';
 import 'package:service_plus_app/pages/customer/register/register_page.dart';
+import 'package:service_plus_app/pages/customer/register/register_success_page.dart';
+import 'package:service_plus_app/pages/customer/wallet/wallet_page.dart';
 
 import '../bindings/general_bindings.dart';
 
@@ -35,6 +39,10 @@ class AppRoutes {
   static String register = "/Register";
   static String bottomNavbar = "/bottom_navbar";
   static String bookingSuccess = "/booking_sucessful";
+  static String chatDetails = "/chat_details";
+  static String wallet = "/wallet";
+  static String addAddress = "/add_address";
+  static String registerSuccess = "/register_success";
 
   //admin
   static String admin = "/admin_page";
@@ -90,6 +98,22 @@ class AppRoutes {
     GetPage(
         name: bookingSuccess,
         page: () => const BookingSuccessPage(),
+        binding: GeneralBinding()),
+    GetPage(
+        name: chatDetails,
+        page: () => const ChatDetailsPage(),
+        binding: GeneralBinding()),
+    GetPage(
+        name: wallet,
+        page: () => const WalletPage(),
+        binding: GeneralBinding()),
+    GetPage(
+        name: addAddress,
+        page: () => const AddAddressPage(),
+        binding: GeneralBinding()),
+    GetPage(
+        name: registerSuccess,
+        page: () => const RegistrationSuccessPage(),
         binding: GeneralBinding())
   ];
 }

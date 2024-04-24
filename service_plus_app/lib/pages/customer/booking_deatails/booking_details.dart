@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:service_plus_app/components/common_padding.dart';
 import 'package:service_plus_app/components/custom_container.dart';
@@ -17,12 +19,30 @@ class BookingDetailsPage extends StatelessWidget {
     return GetBuilder(
       id: "bookings",
       init: BookingDetailsController(),
-      builder: (controller) => Scaffold(
-        body: SafeArea(
-          child: Column(
-            children: [
-              header(context),
-            ],
+      builder: (controller) => DefaultTabController(
+        length: 3,
+        child: Scaffold(
+          body: SafeArea(
+            child: Column(
+              children: [
+                header(context),
+                Expanded(
+                  child: TabBarView(
+                    children: [
+                      Container(
+                        color: AppColors.redColor,
+                      ),
+                      Container(
+                        color: AppColors.greenColor,
+                      ),
+                      Container(
+                        color: AppColors.secondaryColor,
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -31,18 +51,42 @@ class BookingDetailsPage extends StatelessWidget {
 
   Widget header(BuildContext context) {
     return customContainer(
+        padding: EdgeInsets.zero,
         isGradient: true,
-        padding: commonSysmPadding(context, horizontal: 24, vertical: 28),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Column(
           children: [
-            Text(
-              myBooking,
-              style: Theme.of(context)
-                  .textTheme
-                  .headlineMedium!
-                  .copyWith(color: AppColors.secondaryColor),
-            )
+            Padding(
+              padding: commonSysmPadding(context, horizontal: 24, vertical: 28),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    myBooking,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineMedium!
+                        .copyWith(color: AppColors.secondaryColor),
+                  )
+                ],
+              ),
+            ),
+            TabBar(indicatorColor: AppColors.yellowColor, tabs: [
+              Text(
+                upcoming,
+                style: Theme.of(context).textTheme.titleSmall,
+                textScaler: textScale(context),
+              ),
+              Text(
+                completed,
+                style: Theme.of(context).textTheme.titleSmall,
+                textScaler: textScale(context),
+              ),
+              Text(
+                cancelled,
+                style: Theme.of(context).textTheme.titleSmall,
+                textScaler: textScale(context),
+              )
+            ])
           ],
         ));
   }

@@ -25,7 +25,7 @@ class AppIcons {
   static IconData emailIcon = Icons.email_outlined;
   static IconData rightArraw = Icons.arrow_forward_ios;
   static IconData imgIcon = Icons.image_outlined;
-  static IconData profileEditIcon = Icons.edit;
+  static IconData profileEditIcon = Icons.person_pin_rounded;
   static IconData passwordIcon = Icons.lock;
   static IconData helpIcon = Icons.chat;
   static IconData tAC = Icons.wordpress;
@@ -35,6 +35,10 @@ class AppIcons {
   static IconData visiblePassIcon = Icons.visibility_outlined;
   static IconData visibleOffPassIcon = Icons.visibility_off_outlined;
   static IconData homeIcon = Icons.home_rounded;
+  static IconData sendIcon = Icons.send;
+  static IconData upArrowIcon = Icons.arrow_upward_rounded;
+  static IconData downArrowIcon = Icons.arrow_downward_sharp;
+  static IconData addIcon = Icons.add;
 
   //service provider
   static IconData callIcon = Icons.call;

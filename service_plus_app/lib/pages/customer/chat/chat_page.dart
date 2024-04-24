@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:service_plus_app/components/common_padding.dart';
 import 'package:service_plus_app/components/custom_container.dart';
 import 'package:service_plus_app/pages/customer/chat/chat_controller.dart';
+import 'package:service_plus_app/routes/app_routes.dart';
 import 'package:service_plus_app/utils/constants/app_colors.dart';
 import 'package:service_plus_app/utils/constants/app_icons.dart';
 import 'package:service_plus_app/utils/constants/general_sizes.dart';
@@ -76,6 +77,9 @@ class _ChatPageState extends State<ChatPage> {
   Widget personCard(BuildContext context) {
     return Card(
       child: ListTile(
+        onTap: () {
+          Get.toNamed(AppRoutes.chatDetails);
+        },
         leading: CircleAvatar(
           backgroundColor: AppColors.yellowColor,
           radius: GeneralSize.iconSize *

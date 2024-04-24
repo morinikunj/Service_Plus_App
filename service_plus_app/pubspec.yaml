@@ -40,6 +40,9 @@ dependencies:
   logger: ^2.2.0
   date_picker_timeline: ^1.2.6
   lottie: ^3.1.0
+  confetti: ^0.7.0
+  flutter_chat_bubble: ^2.0.2
+  shared_preferences: ^2.2.3
 
 dev_dependencies:
   flutter_test:

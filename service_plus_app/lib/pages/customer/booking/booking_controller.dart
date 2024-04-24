@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:service_plus_app/routes/app_routes.dart';
 
 class BookingController extends GetxController {
   DateTime startDate = DateTime.now();
@@ -24,5 +25,9 @@ class BookingController extends GetxController {
   selectTime(index) {
     currentSlot = index;
     update(["booking"]);
+  }
+
+  void confirm() {
+    Get.offAndToNamed(AppRoutes.bookingSuccess);
   }
 }
