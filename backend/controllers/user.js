@@ -1,6 +1,8 @@
 const User = require("../models/users");
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const UserProfile = require("../models/user_profile");
+const Wallet = require("../models/wallet");
 
 //sign up
 const signUp = async (req, res) => {
@@ -9,16 +11,19 @@ const signUp = async (req, res) => {
     const existingUser = await User.findOne({email});
     if (existingUser) {
         return res.status(400).json({
-            msg: "User is already exists!"
+            error: "User is already exists!"
         });
     }
     const hashedPassword = await bcryptjs.hash(password, 8);
 
     let user = new User({name, email, password : hashedPassword});
     user = await user.save();
-    return res.json({
-        msg: "Account is Created Successful."
-    });
+    let userProfile = new UserProfile({name, email});
+     await userProfile.save();
+    let wallet = new Wallet({email});
+    await wallet.save();
+    
+    return res.json(user);
     } catch (e) {
         return res.status(500).json({error: e.message});
     }
@@ -33,12 +38,12 @@ const signIn = async (req, res) => {
         
         const user = await User.findOne({email});
         if (!user) {
-            return res.status(400).json({ message: "User does not exists!"});
+            return res.status(400).json({ error: "User does not exists!"});
         }
 
         const isMatch = await bcryptjs.compare(password, user.password);
         if (!isMatch) {
-            return res.status(400).json({ message: "Incorrect password!"});
+            return res.status(400).json({ error: "Incorrect password!"});
         }
         const token = jwt.sign({id: user._id}, "passwordKey");
 
@@ -73,13 +78,13 @@ const tokenIsValid = async (req, res) => {
         const user = await User.findOne({email});
         const isMatch = await bcryptjs.compare(oldPassword, user.password);
         if (!isMatch) {
-            return res.status(400).json({ message: "Old password is incorrect!"});
+            return res.status(400).json({ error: "Old password is incorrect!"});
         }
           
         const hashedPassword = await bcryptjs.hash(newPassword, 8);
         user.password = hashedPassword; //update
         await user.save();
-        res.json({ message: "Password updated successfully."})
+        res.json({ msg: "Password updated successfully."})
     } catch (e) {
         res.status(500).json({ error: e.message });
     }
