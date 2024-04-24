@@ -84,7 +84,7 @@ const tokenIsValid = async (req, res) => {
         const hashedPassword = await bcryptjs.hash(newPassword, 8);
         user.password = hashedPassword; //update
         await user.save();
-        res.json({ message: "Password updated successfully."})
+        res.json({ msg: "Password updated successfully."})
     } catch (e) {
         res.status(500).json({ error: e.message });
     }

@@ -3,6 +3,7 @@ const connectdb = require("./db_connection");
 const authRouter = require("./routes/auth");
 const profileRouter = require("./routes/user_profile");
 const walletRouter = require("./routes/wallet");
+const adminRouter = require("./routes/admin");
 
 //initialize
 const app = express();
@@ -13,6 +14,7 @@ app.use(express.json());
 app.use(authRouter);
 app.use(profileRouter);
 app.use(walletRouter);
+app.use(adminRouter);
 
 //database connection
 connectdb();
