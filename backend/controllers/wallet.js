@@ -3,10 +3,10 @@ const Wallet = require("../models/wallet");
   // Define API endpoint to get user's wallet balance
   const walletBalance = async (req, res) => {
     try {
-      const { email} = req.params;
+      const { userId} = req.params;
   
       // Find wallet by user ID
-      const wallet = await Wallet.findOne({ email });
+      const wallet = await Wallet.findOne({userId});
   
       // Check if wallet exists
       if (!wallet) {
@@ -78,11 +78,11 @@ const Wallet = require("../models/wallet");
 
   const transaction = async (req, res) => {
     try {
-      const { email } = req.params;
+      const { userId} = req.params;
       const {type, description, amount, recipient } = req.body;
   
       // Find wallet by user ID
-      const wallet = await Wallet.findOne({ email });
+      const wallet = await Wallet.findOne({userId});
   
       // Check if wallet exists
       if (!wallet) {

@@ -23,7 +23,7 @@ const userProfileSchema = new mongoose.Schema({
     type: String,
     default: ""
   },
-  addresses: [addressSchema]
+  addresses: [addressSchema],
 });
 
 const UserProfile = mongoose.model('UserProfile', userProfileSchema);

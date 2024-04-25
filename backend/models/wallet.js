@@ -11,11 +11,10 @@ const transactionSchema = new mongoose.Schema({
 
 
 const walletSchema = new mongoose.Schema({
-    email: {
-      type: String,
-      ref: "User",
-      required: true
-    },
+   userId:{
+    type: mongoose.Schema.Types.ObjectId,
+    required: true
+   },
     balance: {
       type: Number,
       default: 0

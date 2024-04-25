@@ -4,7 +4,7 @@ const Wallet = require("../models/wallet");
 
 const userProfileDetails =  async (req, res) => {
     try {
-      const { email } = req.params;
+      const { email,} = req.params;
   
       // Fetch user profile from the database by email
       const userProfile = await UserProfile.findOne({email});
@@ -36,10 +36,6 @@ const userProfileDetails =  async (req, res) => {
       });
 
       const user = User.findOne({email});
-      const wallet = Wallet.findOne({email});
-      wallet.email = email;
-      await wallet.save();
-
       user.name = name;
       user.email = email;
       await user.save();
