@@ -69,8 +69,24 @@ const getAllServiceProviderDetails =  async (req, res) => {
   }
 };
 
+const getAllServiceProviderDetailsByCategory =  async (req, res) => {
+  const service = req.params.service;
+  try {
+      const providers = await ServiceProvider.find({ service: service });
+      if (providers.length === 0) {
+          res.status(404).json({ error: 'No providers found for the specified service' });
+      } else {
+          res.json(providers);
+      }
+  } catch (error) {
+      res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+
 module.exports = {
   spProfileDetails,
   updateProfileSp,
-  getAllServiceProviderDetails
+  getAllServiceProviderDetails,
+  getAllServiceProviderDetailsByCategory
 }
