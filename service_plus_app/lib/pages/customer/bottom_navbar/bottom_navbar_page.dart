@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:service_plus_app/components/custom_container.dart';
 import 'package:service_plus_app/pages/customer/bottom_navbar/bottom_navbar_controller.dart';
 import 'package:service_plus_app/utils/constants/app_colors.dart';
 import 'package:service_plus_app/utils/constants/general_sizes.dart';

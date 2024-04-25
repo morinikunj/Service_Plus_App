@@ -31,19 +31,25 @@ class ProfileController extends GetxController {
     },
   ];
 
-  UserProfileResponse? userProfileResponse;
+  UserProfileResponse? userProfile;
+  var isLoading = true.obs;
 
   @override
   void onInit() {
-    fetchData();
+    fetchProfileData();
     super.onInit();
   }
 
-  void fetchData() async {
+  void fetchProfileData() async {
     try {
-      userProfileResponse = await UserService().getUserProfile();
-    } catch (e) {
-      print("error : $e");
+      isLoading.value = true;
+      var userProfileResponse = await UserService().getUserProfile();
+      print("data: ${userProfileResponse!.name} ${userProfileResponse!.name}");
+      if (userProfileResponse.email != null) {
+        userProfile = userProfileResponse;
+      }
+    } finally {
+      isLoading.value = false;
     }
   }
 

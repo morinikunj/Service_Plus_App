@@ -5,7 +5,7 @@ const providerRouter = express.Router();
 
 providerRouter.get("/service_provider/user_profile/:email", spProfileDetails);
 
-providerRouter.put("/service_provider/update_profile", updateProfileSp);
+providerRouter.put("/service_provider/update_profile/:email", updateProfileSp);
 
 //get all service providers 
 providerRouter.get("/service_providers", getAllServiceProviderDetails);

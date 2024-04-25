@@ -1,16 +1,7 @@
-import 'dart:math';
 import 'package:confetti/confetti.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
-import 'package:service_plus_app/components/common_padding.dart';
-import 'package:service_plus_app/pages/customer/bottom_navbar/bottom_navbar_controller.dart';
-import 'package:service_plus_app/routes/app_routes.dart';
 import 'package:service_plus_app/utils/constants/app_colors.dart';
-import 'package:service_plus_app/utils/constants/general_sizes.dart';
 import 'package:service_plus_app/utils/constants/image_strings.dart';
 import 'package:service_plus_app/utils/constants/text_strings.dart';
 import 'package:service_plus_app/utils/responsive_util/responsive_util.dart';

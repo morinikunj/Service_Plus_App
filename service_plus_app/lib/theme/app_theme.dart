@@ -18,7 +18,7 @@ class AppTheme {
           surfaceTintColor: AppColors.whiteColor,
           elevation: 1,
           shadowColor: Colors.black12,
-          shape: RoundedRectangleBorder(
+          shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20))),
           color: AppColors.whiteColor));
 

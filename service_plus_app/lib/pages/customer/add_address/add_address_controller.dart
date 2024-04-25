@@ -9,12 +9,13 @@ class AddAdressController extends GetxController {
   TextEditingController titleTC = TextEditingController();
   TextEditingController addressTC = TextEditingController();
   final key = GlobalKey<FormState>();
-  List<Addresses> addresses = [];
+  var addresses = <Addresses>[];
+  var isLoading = true.obs;
 
   @override
   void onInit() {
+    fetchAddressData();
     super.onInit();
-    fetchData();
   }
 
   String validateAddress(value) {
@@ -42,8 +43,20 @@ class AddAdressController extends GetxController {
     }
   }
 
-  void fetchData() async {
-    final data = await UserService().getUserProfile();
-    addresses.addAll(data!.addresses!);
+  void fetchAddressData() async {
+    try {
+      isLoading.value = true;
+      UserProfileResponse? data =
+          await UserService().getUserProfile().then((value) {
+        isLoading.value = false;
+      });
+      if (data!.addresses!.isEmpty) {
+        addresses = data.addresses as List<Addresses>;
+      }
+      print("data");
+    } catch (e) {
+    } finally {
+      isLoading.value = false;
+    }
   }
 }

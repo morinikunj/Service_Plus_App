@@ -74,8 +74,7 @@ class AppRoutes {
 
   // App Routes
   static List<GetPage> routes = [
-    GetPage(
-        name: home, page: () => const HomePage(), binding: GeneralBinding()),
+    GetPage(name: home, page: () => HomePage(), binding: GeneralBinding()),
     GetPage(
         name: admin, page: () => const AdminPage(), binding: GeneralBinding()),
     GetPage(
@@ -101,9 +100,7 @@ class AppRoutes {
         page: () => const NotificationPage(),
         binding: GeneralBinding()),
     GetPage(
-        name: profile,
-        page: () => const ProfilePage(),
-        binding: GeneralBinding()),
+        name: profile, page: () => ProfilePage(), binding: GeneralBinding()),
     GetPage(
         name: editProfile,
         page: () => const EditProfilePage(),
@@ -127,13 +124,10 @@ class AppRoutes {
         name: chatDetails,
         page: () => const ChatDetailsPage(),
         binding: GeneralBinding()),
-    GetPage(
-        name: wallet,
-        page: () => const WalletPage(),
-        binding: GeneralBinding()),
+    GetPage(name: wallet, page: () => WalletPage(), binding: GeneralBinding()),
     GetPage(
         name: addAddress,
-        page: () => const AddAddressPage(),
+        page: () => AddAddressPage(),
         binding: GeneralBinding()),
     GetPage(
         name: registerSuccess,

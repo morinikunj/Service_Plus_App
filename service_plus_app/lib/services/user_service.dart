@@ -1,8 +1,10 @@
+import 'package:service_plus_app/models/response/category_response.dart';
 import 'package:service_plus_app/models/response/user_profile_response.dart';
+import 'package:service_plus_app/offline_repository/db_helper.dart';
 import 'package:service_plus_app/services/api_endpoints_constants.dart';
 import 'package:service_plus_app/services/dio_services/dio_client.dart';
-import 'package:service_plus_app/utils/constants/app_constants.dart';
 import 'package:service_plus_app/utils/dialog_util/custom_dialog.dart';
+import 'package:service_plus_app/utils/local_storage/session_manager.dart';
 
 class UserService {
   late final DioClient dio;
@@ -14,7 +16,7 @@ class UserService {
   //fetch user profile
   Future<UserProfileResponse?> getUserProfile() async {
     try {
-      final email = AppConstant.userEmail;
+      final email = await SessionManager().getEmail();
       var url = ApiEndPoints.userProfile;
       final response = await dio.get("$url/$email");
       if (response.statusCode == 200) {
@@ -26,6 +28,21 @@ class UserService {
       }
     } catch (e) {
       Customdialog.showError(e.toString());
+      return null;
+    }
+  }
+
+  //get categories
+  Future<CategoryResponse?> getCategories() async {
+    try {
+      var url = ApiEndPoints.categories;
+      final response = await dio.get(url);
+      if (response.statusCode == 200) {
+        return CategoryResponse.fromJson(response.data);
+      } else {
+        return null;
+      }
+    } on Exception catch (_) {
       return null;
     }
   }
