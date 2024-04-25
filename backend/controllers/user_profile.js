@@ -4,11 +4,10 @@ const Wallet = require("../models/wallet");
 
 const userProfileDetails =  async (req, res) => {
     try {
-      const { email } = req.body;
+      const { email,} = req.params;
   
       // Fetch user profile from the database by email
       const userProfile = await UserProfile.findOne({email});
-  
       // Check if user profile exists
       if (!userProfile) {
         return res.status(404).json({ error: 'User profile not found' });
@@ -37,10 +36,6 @@ const userProfileDetails =  async (req, res) => {
       });
 
       const user = User.findOne({email});
-      const wallet = Wallet.findOne({email});
-      wallet.email = email;
-      await wallet.save();
-
       user.name = name;
       user.email = email;
       await user.save();

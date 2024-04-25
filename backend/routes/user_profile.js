@@ -3,7 +3,7 @@ const {userProfileDetails, updateProfile, addAddressDetails, updateAddress, dele
 
 const profileRouter = express.Router();
 
-profileRouter.get("/user_profile", userProfileDetails);
+profileRouter.get("/user_profile/:email", userProfileDetails);
 
 profileRouter.put("/update_profile", updateProfile);
 

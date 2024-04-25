@@ -3,24 +3,32 @@ const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const UserProfile = require("../models/user_profile");
 const Wallet = require("../models/wallet");
+const ServiceProvider = require("../models/service_provider");
 
 //sign up
 const signUp = async (req, res) => {
     try {
-     const {name, email, password} = req.body;
+     const {name, email, password, type} = req.body;
     const existingUser = await User.findOne({email});
     if (existingUser) {
         return res.status(400).json({
             error: "User is already exists!"
         });
     }
-    const hashedPassword = await bcryptjs.hash(password, 8);
 
-    let user = new User({name, email, password : hashedPassword});
+    const hashedPassword = await bcryptjs.hash(password, 8);
+    let user = new User({name, email, password : hashedPassword, type});
     user = await user.save();
-    let userProfile = new UserProfile({name, email});
-     await userProfile.save();
-    let wallet = new Wallet({email});
+
+    if(type == "service_provider"){
+        let sp = new ServiceProvider({name, email});
+        await sp.save();
+    } else {
+        let userProfile = new UserProfile({name, email});
+         await userProfile.save();
+    }
+    let userId = user._id;
+    let wallet = new Wallet({userId});
     await wallet.save();
     
     return res.json({
