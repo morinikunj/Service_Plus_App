@@ -2,10 +2,10 @@ const ServiceProvider = require("../models/service_provider");
 
 const rating = async (req, res) => {
     try {
-      const email = req.params.email;
+      const {email} = req.params;
       const { rating, comment , userName,  userImage} = req.body;
   
-      const serviceProvider = await ServiceProvider.findById(email);
+      const serviceProvider = await ServiceProvider.findOne({email});
       if (!serviceProvider) {
         return res.status(404).json({ error: 'Service provider not found' });
       }

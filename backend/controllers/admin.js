@@ -20,11 +20,10 @@ const addCategory = async (req, res) => {
       }
 }
 
-const getCategory = async (req, res) => {
+const getAllCategory = async (req, res) => {
   try {
-   
-
-    res.json({msg: " category added successfully."});
+   let categories = await Category.find();
+    res.json({categories});
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Internal Server Error' });
@@ -34,5 +33,6 @@ const getCategory = async (req, res) => {
 
 
 module.exports = {
-    addCategory
+    addCategory,
+    getAllCategory
 };
