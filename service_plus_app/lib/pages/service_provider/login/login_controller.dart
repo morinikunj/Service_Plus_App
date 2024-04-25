@@ -11,7 +11,7 @@ import 'package:service_plus_app/utils/dialog_util/custom_dialog.dart';
 import 'package:service_plus_app/utils/dialog_util/custom_loader.dart';
 import 'package:service_plus_app/utils/local_storage/session_manager.dart';
 
-class LoginController extends GetxController {
+class ProviderLoginController extends GetxController {
   TextEditingController emailTC = TextEditingController();
   TextEditingController passwordTC = TextEditingController();
   final key = GlobalKey<FormState>();
@@ -65,11 +65,11 @@ class LoginController extends GetxController {
   }
 
   void registerButtonClick() {
-    Get.offAndToNamed(AppRoutes.register);
+    Get.offAndToNamed(AppRoutes.providerRegister);
   }
 
   void passwordVisible() {
     isVisible = !isVisible;
-    update(["login"]);
+    update(["provider_login"]);
   }
 }

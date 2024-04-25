@@ -13,7 +13,7 @@ const Wallet = require("../models/wallet");
         return res.status(404).json({ error: 'Wallet not found' });
       }
   
-      res.json({ balance: wallet.balance }); // Return wallet balance as JSON response
+      res.json({id: wallet.id, balance: wallet.balance , transactions: wallet.transactions}); // Return wallet balance as JSON response
     } catch (error) {
       res.status(500).json({ error: error.message }); // Return error message if something goes wrong
     }
@@ -99,7 +99,7 @@ const Wallet = require("../models/wallet");
         wallet.balance -= amount;
       }
       const newTransaction = {
-        source,
+        type,
         description,
         amount,
         recipient
@@ -110,7 +110,7 @@ const Wallet = require("../models/wallet");
       // Save wallet with updated balance
       await wallet.save();
   
-      res.json({msg: "Transaction successful.", balance: wallet.balance }); // Return updated wallet balance as JSON response
+      res.json({msg: "Transaction successful.", balance: wallet.balance , transactions: newTransaction}); // Return updated wallet balance as JSON response
     } catch (error) {
       res.status(500).json({ error: error.message }); // Return error message if something goes wrong
     }

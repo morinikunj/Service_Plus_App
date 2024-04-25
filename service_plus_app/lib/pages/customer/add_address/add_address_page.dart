@@ -1,12 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:service_plus_app/components/back_button.dart';
 import 'package:service_plus_app/components/common_padding.dart';
 import 'package:service_plus_app/components/common_textformfield.dart';
 import 'package:service_plus_app/components/custom_container.dart';
 import 'package:service_plus_app/pages/customer/add_address/add_address_controller.dart';
+import 'package:service_plus_app/services/user_service.dart';
 import 'package:service_plus_app/utils/constants/app_colors.dart';
 import 'package:service_plus_app/utils/constants/general_sizes.dart';
 import 'package:service_plus_app/utils/constants/image_strings.dart';
@@ -66,10 +65,12 @@ class AddAddressPage extends StatelessWidget {
                     borderRadius: 20,
                     // color: AppColors.whiteColor,
                     child: ListView.builder(
-                      itemCount: 10,
+                      itemCount: controller.addresses!.length,
                       itemBuilder: (context, index) {
-                        return itemCard(context, "Home",
-                            "hbee deded hedebd  edheydhe hedbebd dhebde");
+                        return itemCard(
+                            context,
+                            controller.addresses![index].title!,
+                            controller.addresses![index].addressLine!);
                       },
                     )),
               ),

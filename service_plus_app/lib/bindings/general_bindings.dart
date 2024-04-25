@@ -12,6 +12,13 @@ import 'package:service_plus_app/pages/customer/login/login_controller.dart';
 import 'package:service_plus_app/pages/customer/profile/profile_controller.dart';
 import 'package:service_plus_app/pages/customer/register/register_controller.dart';
 import 'package:service_plus_app/pages/customer/wallet/wallet_controller.dart';
+import 'package:service_plus_app/pages/service_provider/bookings/booking_details_controller.dart';
+import 'package:service_plus_app/pages/service_provider/bottom_navbar/bottom_navbar_controller.dart';
+import 'package:service_plus_app/pages/service_provider/chat/chat_controller.dart';
+import 'package:service_plus_app/pages/service_provider/login/login_controller.dart';
+import 'package:service_plus_app/pages/service_provider/profile/profile_controller.dart';
+import 'package:service_plus_app/pages/service_provider/register/register_controller.dart';
+import 'package:service_plus_app/pages/service_provider/wallet/wallet_controller.dart';
 
 class GeneralBinding extends Bindings {
   @override
@@ -32,5 +39,14 @@ class GeneralBinding extends Bindings {
     Get.lazyPut(() => BookingController());
     Get.lazyPut(() => WalletController());
     Get.lazyPut(() => AddAdressController());
+
+    //service provider
+    Get.lazyPut(() => ProviderRegisterController());
+    Get.lazyPut(() => ProviderLoginController());
+    Get.lazyPut(() => ProviderChatController());
+    Get.lazyPut(() => ProviderBookingController());
+    Get.lazyPut(() => ProviderWalletController());
+    Get.lazyPut(() => ProviderBottomNavbarController());
+    Get.lazyPut(() => ProviderProfileController());
   }
 }

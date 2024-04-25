@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:get/get.dart';
-import 'package:service_plus_app/components/back_button.dart';
 import 'package:service_plus_app/components/common_padding.dart';
 import 'package:service_plus_app/components/common_textformfield.dart';
 import 'package:service_plus_app/components/custom_container.dart';
-import 'package:service_plus_app/pages/customer/chat/chat_controller.dart';
+import 'package:service_plus_app/pages/service_provider/chat/chat_controller.dart';
 import 'package:service_plus_app/utils/constants/app_colors.dart';
 import 'package:service_plus_app/utils/constants/app_icons.dart';
 import 'package:service_plus_app/utils/constants/general_sizes.dart';
 import 'package:service_plus_app/utils/constants/text_strings.dart';
 import 'package:service_plus_app/utils/responsive_util/responsive_util.dart';
 
-class ChatDetailsPage extends StatelessWidget {
-  const ChatDetailsPage({super.key});
+class ProviderChatDetailsPage extends StatelessWidget {
+  const ProviderChatDetailsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder(
         id: "chat_msg",
-        init: ChatController(),
+        init: ProviderChatController(),
         builder: (controller) {
           return Scaffold(
               extendBody: true,
@@ -84,7 +83,7 @@ class ChatDetailsPage extends StatelessWidget {
         });
   }
 
-  Widget header(BuildContext context, ChatController controller) {
+  Widget header(BuildContext context, ProviderChatController controller) {
     return customContainer(
         isGradient: true,
         padding: commonSysmPadding(context, horizontal: 16, vertical: 10),

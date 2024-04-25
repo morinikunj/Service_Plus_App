@@ -2,17 +2,14 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:service_plus_app/models/response/login_response.dart';
-import 'package:service_plus_app/pages/admin/user/users_page.dart';
+import 'package:service_plus_app/models/request/auth/register.dart';
 import 'package:service_plus_app/routes/app_routes.dart';
 import 'package:service_plus_app/services/auth_services.dart';
-import 'package:service_plus_app/utils/constants/app_constants.dart';
-import 'package:service_plus_app/utils/dialog_util/custom_dialog.dart';
 import 'package:service_plus_app/utils/dialog_util/custom_loader.dart';
-import 'package:service_plus_app/utils/local_storage/session_manager.dart';
 
-class LoginController extends GetxController {
+class ProviderRegisterController extends GetxController {
   TextEditingController emailTC = TextEditingController();
+  TextEditingController nameTC = TextEditingController();
   TextEditingController passwordTC = TextEditingController();
   final key = GlobalKey<FormState>();
   bool isVisible = true;
@@ -39,37 +36,40 @@ class LoginController extends GetxController {
     return null;
   }
 
-  void forgetPassword() {}
+  String? nameValidate(value) {
+    if (value == null || value == "") {
+      return "Please enter your name!";
+    }
+    return null;
+  }
 
-  void login() async {
+  void register() async {
     if (key.currentState!.validate()) {
       key.currentState?.save();
       CustomLoader.showLoader();
-      Map<String, dynamic> data = {
+      Map<String, String> data = {
+        "name": nameTC.text,
         "email": emailTC.text,
         "password": passwordTC.text
       };
-
       try {
-        UserResponse? userData = await AuthServices().login(jsonEncode(data));
-        await SessionManager().setToken(userData!.token.toString());
-        AppConstant.userEmail = userData.email!;
+        await AuthServices().register(jsonEncode(data));
         CustomLoader.hideLoader();
-        Get.offAndToNamed(AppRoutes.bottomNavbar);
-        Customdialog.showSuccess("Login Successful");
+        Get.offAndToNamed(AppRoutes.providerRegisterSuccess);
       } catch (e) {
         CustomLoader.hideLoader();
-        Customdialog.showError(e.toString());
+        Get.snackbar("Regitration failed", "$e");
       }
     }
   }
 
-  void registerButtonClick() {
-    Get.offAndToNamed(AppRoutes.register);
+  void loginButtonClick() {
+    Get.offAndToNamed(AppRoutes.providerLogin);
   }
 
   void passwordVisible() {
     isVisible = !isVisible;
-    update(["login"]);
+    print("dnf");
+    update(["provider_reg"]);
   }
 }

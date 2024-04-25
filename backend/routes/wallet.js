@@ -5,7 +5,7 @@ const walletRouter = express.Router();
 
 walletRouter.get('/wallet/:email', walletBalance);
 
-walletRouter.post("/wallet/:email/transaction", transaction);
+walletRouter.post("/wallet/transaction/:email", transaction);
 
 
 module.exports = walletRouter;
