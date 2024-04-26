@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:service_plus_app/components/custom_popmenu.dart';
 
 import '../../../utils/constants/app_colors.dart';
-import '../../../utils/constants/text_strings.dart';
 
 Widget headerWidget(String title, BuildContext context) {
   return Row(
@@ -19,7 +18,6 @@ Widget headerWidget(String title, BuildContext context) {
         items: [
           const PopupMenuItem(child: Text("change Password")),
           const PopupMenuItem(child: Text("Logout"))
-
         ],
         child: const CircleAvatar(
           radius: 20,

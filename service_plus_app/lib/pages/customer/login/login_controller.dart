@@ -3,9 +3,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:service_plus_app/models/response/login_response.dart';
+import 'package:service_plus_app/offline_repository/db_helper.dart';
 import 'package:service_plus_app/pages/admin/user/users_page.dart';
 import 'package:service_plus_app/routes/app_routes.dart';
 import 'package:service_plus_app/services/auth_services.dart';
+import 'package:service_plus_app/utils/constants/app_constants.dart';
 import 'package:service_plus_app/utils/dialog_util/custom_dialog.dart';
 import 'package:service_plus_app/utils/dialog_util/custom_loader.dart';
 import 'package:service_plus_app/utils/local_storage/session_manager.dart';
@@ -52,6 +54,9 @@ class LoginController extends GetxController {
       try {
         UserResponse? userData = await AuthServices().login(jsonEncode(data));
         await SessionManager().setToken(userData!.token.toString());
+        await SessionManager().setEmail(userData.email.toString());
+        await SessionManager().setUserId(userData.sId.toString());
+        AppConstant.userEmail = userData.email!;
         CustomLoader.hideLoader();
         Get.offAndToNamed(AppRoutes.bottomNavbar);
         Customdialog.showSuccess("Login Successful");

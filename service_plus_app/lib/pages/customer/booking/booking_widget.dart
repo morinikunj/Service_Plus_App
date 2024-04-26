@@ -2,8 +2,6 @@ import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:service_plus_app/components/common_padding.dart';
-import 'package:service_plus_app/components/common_textformfield.dart';
-import 'package:service_plus_app/components/custom_button.dart';
 import 'package:service_plus_app/components/custom_container.dart';
 import 'package:service_plus_app/pages/customer/booking/booking_controller.dart';
 import 'package:service_plus_app/utils/constants/app_colors.dart';
@@ -121,23 +119,23 @@ class Booking extends StatelessWidget {
                       width: ResponsiveUtil.width(10, context),
                     ),
                     DropdownButton(
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        borderRadius: const BorderRadius.all(Radius.circular(20)),
                         value: 1,
                         items: [
                           DropdownMenuItem(
+                            value: 1,
                             child: Text(
                               "Select Address",
                               style: Theme.of(context).textTheme.bodySmall,
                             ),
-                            value: 1,
                           ),
-                          DropdownMenuItem(
-                            child: Text("data"),
+                          const DropdownMenuItem(
                             value: 2,
-                          ),
-                          DropdownMenuItem(
                             child: Text("data"),
+                          ),
+                          const DropdownMenuItem(
                             value: 3,
+                            child: Text("data"),
                           )
                         ],
                         onChanged: (val) {})

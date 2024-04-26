@@ -1,45 +1,49 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:service_plus_app/components/common_padding.dart';
 import 'package:service_plus_app/components/custom_container.dart';
 import 'package:service_plus_app/pages/customer/home/home_controller.dart';
-import 'package:service_plus_app/routes/app_routes.dart';
 import 'package:service_plus_app/utils/constants/app_colors.dart';
 import 'package:service_plus_app/utils/constants/app_icons.dart';
 import 'package:service_plus_app/utils/constants/general_sizes.dart';
 import 'package:service_plus_app/utils/constants/text_strings.dart';
 import 'package:service_plus_app/utils/responsive_util/responsive_util.dart';
 
+// ignore: must_be_immutable
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  HomePage({super.key});
+  HomeController controller = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder(
-      id: "home",
-      init: HomeController(),
-      builder: (controller) => Scaffold(
-        body: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                // header
-                header(context),
-                //search button
-                Transform.translate(
-                  offset: Offset(0, ResponsiveUtil.height(-25, context)),
-                  child: searchButton(context),
-                ),
-                //services
-                services(context, controller),
-                SizedBox(
-                  height: ResponsiveUtil.height(24, context),
-                )
-              ],
-            ),
+    return Scaffold(
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              // header
+              header(context),
+              //search button
+              // Transform.translate(
+              //   offset: Offset(0, ResponsiveUtil.height(-25, context)),
+              //   child: searchButton(context),
+              // ),
+              //services
+              Obx(() {
+                if (controller.isLoading.value) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                return services(
+                  context,
+                );
+              }),
+              SizedBox(
+                height: ResponsiveUtil.height(70, context),
+              )
+            ],
           ),
         ),
       ),
@@ -132,11 +136,11 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget services(BuildContext context, HomeController controller) {
+  Widget services(BuildContext context) {
     return Padding(
       padding: commonSysmPadding(context, vertical: 0, horizontal: 24),
       child: GridView.builder(
-          itemCount: 8,
+          itemCount: controller.categoryResponse.value.categories!.length,
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -146,7 +150,9 @@ class HomePage extends StatelessWidget {
               mainAxisSpacing: ResponsiveUtil.width(18, context)),
           itemBuilder: (context, index) {
             return InkWell(
-              onTap: controller.selectCategory,
+              onTap: () {
+                controller.selectCategory(index);
+              },
               child: Card(
                   child: Column(
                 children: [
@@ -156,19 +162,28 @@ class HomePage extends StatelessWidget {
                       decoration: const BoxDecoration(
                           color: Colors.amber,
                           borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(10),
-                              topRight: Radius.circular(10))),
-                      // child: Image.asset(
-                      //   AppImage.demoImg,
-                      //   fit: BoxFit.contain,
-                      // ),
+                              topLeft: Radius.circular(15),
+                              topRight: Radius.circular(15))),
+                      child: ClipRRect(
+                        borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(15),
+                            topRight: Radius.circular(15)),
+                        child: Image.network(
+                          controller
+                              .categoryResponse.value.categories![index].image
+                              .toString(),
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                     ),
                   ),
                   Padding(
                     padding:
                         commonSysmPadding(context, vertical: 3, horizontal: 0),
                     child: Text(
-                      "Cooking",
+                      controller.categoryResponse.value.categories![index].name
+                          .toString(),
                       style: Theme.of(context).textTheme.labelSmall!.copyWith(
                             color: AppColors.secondaryColor,
                           ),

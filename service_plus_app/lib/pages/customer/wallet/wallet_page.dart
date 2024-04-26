@@ -1,9 +1,11 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:service_plus_app/components/back_button.dart';
 import 'package:service_plus_app/components/common_padding.dart';
 import 'package:service_plus_app/components/custom_container.dart';
+import 'package:service_plus_app/components/no_data_found_widget.dart';
 import 'package:service_plus_app/pages/customer/wallet/wallet_controller.dart';
 import 'package:service_plus_app/utils/constants/app_colors.dart';
 import 'package:service_plus_app/utils/constants/app_icons.dart';
@@ -12,32 +14,40 @@ import 'package:service_plus_app/utils/constants/image_strings.dart';
 import 'package:service_plus_app/utils/constants/text_strings.dart';
 import 'package:service_plus_app/utils/responsive_util/responsive_util.dart';
 
-class WalletPage extends StatelessWidget {
-  const WalletPage({super.key});
+class WalletPage extends StatefulWidget {
+  WalletPage({super.key});
+
+  @override
+  State<WalletPage> createState() => _WalletPageState();
+}
+
+class _WalletPageState extends State<WalletPage> {
+  WalletController controller = Get.put(WalletController());
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder(
-        id: "wallet",
-        init: WalletController(),
-        builder: (controller) {
-          return Scaffold(
-            body: SafeArea(
-              child: Column(
-                children: [
-                  header(context),
-                  Expanded(
-                      child: Transform.translate(
-                          offset: Offset(0, ResponsiveUtil.height(-5, context)),
-                          child: body(context)))
-                ],
-              ),
-            ),
+    return Scaffold(
+      body: SafeArea(child: Obx(() {
+        if (controller.isLoading.value) {
+          return const Center(
+            child: CircularProgressIndicator(),
           );
-        });
+        }
+        return Column(
+          children: [
+            header(context, controller),
+            Expanded(
+                child: Transform.translate(
+                    offset: Offset(0, ResponsiveUtil.height(-5, context)),
+                    child: body(context, controller)))
+          ],
+        );
+      })),
+    );
   }
 
-  Widget header(BuildContext context) {
+  Widget header(BuildContext context, WalletController controller) {
+    print("data : ${controller.wallet!.wallet!.balance}");
     return customContainer(
         isGradient: true,
         padding: commonSysmPadding(context, horizontal: 24, vertical: 18),
@@ -56,7 +66,7 @@ class WalletPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Rs 500",
+                        "Rs ${controller.wallet!.wallet!.balance}",
                         style: Theme.of(context)
                             .textTheme
                             .headlineSmall!
@@ -86,7 +96,7 @@ class WalletPage extends StatelessWidget {
         ));
   }
 
-  Widget body(BuildContext context) {
+  Widget body(BuildContext context, WalletController controller) {
     return Column(
       children: [
         customContainer(
@@ -139,31 +149,42 @@ class WalletPage extends StatelessWidget {
             )),
         Expanded(
           child: Transform.translate(
-            offset: Offset(0, ResponsiveUtil.height(-25, context)),
-            child: customContainer(
-              borderRadius: 20,
-              color: AppColors.whiteColor,
-              padding: commonSysmPadding(context, horizontal: 24, vertical: 18),
-              child: ListView.separated(
-                  itemBuilder: (context, index) {
-                    return itemCard(
-                      context,
-                      "Robin Hood",
-                      "cleanig",
-                      "200",
-                      "20/05/2024",
-                    );
-                  },
-                  separatorBuilder: (context, index) {
-                    return Divider(
-                      height: ResponsiveUtil.height(15, context),
-                      thickness: 1,
-                      color: AppColors.chatBubbleColor,
-                    );
-                  },
-                  itemCount: 10),
-            ),
-          ),
+              offset: Offset(0, ResponsiveUtil.height(-25, context)),
+              child: customContainer(
+                borderRadius: 20,
+                color: AppColors.whiteColor,
+                padding:
+                    commonSysmPadding(context, horizontal: 24, vertical: 18),
+                child: controller.wallet!.wallet!.transactions!.isEmpty
+                    ? noDataFound(context)
+                    : ListView.separated(
+                        itemBuilder: (context, index) {
+                          return itemCard(
+                              context,
+                              "",
+                              controller.wallet!.wallet!.transactions![index]
+                                  .description
+                                  .toString(),
+                              controller
+                                  .wallet!.wallet!.transactions![index].amount
+                                  .toString(),
+                              controller
+                                  .wallet!.wallet!.transactions![index].date!
+                                  .toString(),
+                              type: controller
+                                  .wallet!.wallet!.transactions![index].type!);
+                        },
+                        separatorBuilder: (context, index) {
+                          return Divider(
+                            height: ResponsiveUtil.height(15, context),
+                            thickness: 1,
+                            color: AppColors.chatBubbleColor,
+                          );
+                        },
+                        itemCount:
+                            controller.wallet!.wallet!.transactions!.length ??
+                                0),
+              )),
         )
       ],
     );
@@ -171,7 +192,7 @@ class WalletPage extends StatelessWidget {
 
   Widget itemCard(
       context, String title, String subtitle, String amount, String time,
-      {bool recevied = false}) {
+      {bool recevied = false, String type = "add"}) {
     return Column(
       children: [
         Row(
@@ -185,7 +206,9 @@ class WalletPage extends StatelessWidget {
             Text(
               "Rs $amount",
               style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                  color: recevied ? AppColors.greenColor : AppColors.redColor),
+                  color: type == "add"
+                      ? AppColors.greenColor
+                      : AppColors.redColor),
               textScaler: textScale(context),
             )
           ],

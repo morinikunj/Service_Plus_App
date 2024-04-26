@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:service_plus_app/components/back_button.dart';
 import 'package:service_plus_app/components/common_padding.dart';
 import 'package:service_plus_app/components/custom_container.dart';
+import 'package:service_plus_app/components/no_data_found_widget.dart';
 import 'package:service_plus_app/pages/customer/category_deatails/category_details_controller.dart';
 import 'package:service_plus_app/routes/app_routes.dart';
 import 'package:service_plus_app/utils/constants/app_colors.dart';
@@ -11,68 +12,82 @@ import 'package:service_plus_app/utils/constants/text_strings.dart';
 import 'package:service_plus_app/utils/responsive_util/responsive_util.dart';
 
 class CategoryDetailsPage extends StatelessWidget {
-  const CategoryDetailsPage({super.key});
+  CategoryDetailsPage({super.key});
+  CategoryDetailsController controller = Get.put(CategoryDetailsController());
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder(
-      id: "category_details",
-      init: CategoryDetailsController(),
-      builder: (controller) => Scaffold(
-        body: SafeArea(
-            key: key,
-            child: SingleChildScrollView(
+    return Scaffold(
+      body: SafeArea(
+          key: key,
+          child: Obx(() {
+            if (controller.isLoading.value) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            return SingleChildScrollView(
               child: Column(
                 children: [
                   //header
                   header(context),
                   //item list
-                  itemList(context)
+                  controller.categoryResponse.isNotEmpty
+                      ? itemList(context)
+                      : noDataFound(context)
                 ],
               ),
-            )),
-      ),
+            );
+          })),
     );
   }
 
   Widget header(BuildContext context) {
+    final index = controller.homeController.currentSelectedIndex;
     return customContainer(
         width: double.infinity,
         padding: commonSysmPadding(context, horizontal: 24, vertical: 18),
         isGradient: true,
-        child: Column(
-          children: [
-            Align(
-              alignment: Alignment.topLeft,
-              child: backButton(context),
-            ),
-            CircleAvatar(
-              radius: 40 * ResponsiveUtil.instance.textScaleFactor(context),
-              backgroundColor: AppColors.whiteColor,
-              child: FittedBox(
-                  child: CircleAvatar(
-                radius: 38 * ResponsiveUtil.instance.textScaleFactor(context),
-                backgroundColor: Colors.amber,
-              )),
-            ),
-            Text(
-              "Gardening",
-              style: Theme.of(context)
-                  .textTheme
-                  .headlineSmall!
-                  .copyWith(color: AppColors.secondaryColor),
-              textScaler: textScale(context),
-            ),
-            SizedBox(
-              height: ResponsiveUtil.height(5, context),
-            ),
-            Text(
-              "15 Experts",
-              style: Theme.of(context).textTheme.displaySmall,
-              textScaler: textScale(context),
-            )
-          ],
-        ));
+        child: controller.categoryResponse.isEmpty
+            ? noDataFound(context)
+            : Column(
+                children: [
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: backButton(context),
+                  ),
+                  CircleAvatar(
+                    radius:
+                        40 * ResponsiveUtil.instance.textScaleFactor(context),
+                    backgroundColor: AppColors.whiteColor,
+                    child: FittedBox(
+                        child: CircleAvatar(
+                      radius:
+                          38 * ResponsiveUtil.instance.textScaleFactor(context),
+                      backgroundColor: Colors.amber,
+                      backgroundImage: NetworkImage(
+                        controller.categoryResponse[index].image.toString(),
+                      ),
+                    )),
+                  ),
+                  Text(
+                    controller.categoryResponse[index].name!,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineSmall!
+                        .copyWith(color: AppColors.secondaryColor),
+                    textScaler: textScale(context),
+                  ),
+                  SizedBox(
+                    height: ResponsiveUtil.height(5, context),
+                  ),
+                  Text(
+                    "${controller.categoryResponse.length} Experts",
+                    style: Theme.of(context).textTheme.displaySmall,
+                    textScaler: textScale(context),
+                  )
+                ],
+              ));
   }
 
   Widget itemList(BuildContext context) {
@@ -80,18 +95,19 @@ class CategoryDetailsPage extends StatelessWidget {
       padding: commonSysmPadding(context, horizontal: 24, vertical: 18),
       child: Expanded(
         child: ListView.builder(
-          itemCount: 5,
+          itemCount: controller.serviceProviders.length,
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           itemBuilder: (context, index) {
-            return itemCard(context);
+            return itemCard(context, index);
           },
         ),
       ),
     );
   }
 
-  Widget itemCard(BuildContext context) {
+  Widget itemCard(BuildContext context, int index) {
+    final data = controller.serviceProviders[index];
     return Padding(
       padding: EdgeInsets.only(bottom: ResponsiveUtil.height(10, context)),
       child: Card(
@@ -106,7 +122,7 @@ class CategoryDetailsPage extends StatelessWidget {
                   backgroundColor: Colors.amber,
                 ),
                 title: Text(
-                  "Robin Hood",
+                  data.name.toString(),
                   style: Theme.of(context)
                       .textTheme
                       .titleMedium!
@@ -114,7 +130,7 @@ class CategoryDetailsPage extends StatelessWidget {
                   textScaler: textScale(context),
                 ),
                 subtitle: Text(
-                  "Garderning",
+                  data.service.toString(),
                   style: Theme.of(context)
                       .textTheme
                       .displaySmall!
@@ -142,7 +158,7 @@ class CategoryDetailsPage extends StatelessWidget {
                                     .textScaleFactor(context),
                           ),
                           Text(
-                            "5.0",
+                            data.averageRating.toString(),
                             style: Theme.of(context)
                                 .textTheme
                                 .labelSmall!
@@ -161,7 +177,7 @@ class CategoryDetailsPage extends StatelessWidget {
                         textScaler: textScale(context),
                       ),
                       Text(
-                        "Rs 200/day",
+                        "Rs ${data.charge!.amount}/${data.charge!.per}",
                         style: Theme.of(context)
                             .textTheme
                             .labelSmall!
@@ -178,7 +194,7 @@ class CategoryDetailsPage extends StatelessWidget {
                               backgroundColor: MaterialStatePropertyAll(
                                   AppColors.yellowColor)),
                       onPressed: () {
-                        Get.toNamed(AppRoutes.expertDetails);
+                        controller.bookButtonClicked(index);
                       },
                       child: Text(
                         book,

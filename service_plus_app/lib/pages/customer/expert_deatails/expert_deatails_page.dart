@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:service_plus_app/components/back_button.dart';
 import 'package:service_plus_app/components/common_padding.dart';
 import 'package:service_plus_app/components/custom_container.dart';
+import 'package:service_plus_app/components/no_data_found_widget.dart';
+import 'package:service_plus_app/models/response/service_provider_profile.dart';
 import 'package:service_plus_app/pages/customer/booking/booking_widget.dart';
 import 'package:service_plus_app/pages/customer/expert_deatails/expert_details_controller.dart';
 import 'package:service_plus_app/utils/constants/app_colors.dart';
@@ -12,102 +14,132 @@ import 'package:service_plus_app/utils/constants/text_strings.dart';
 import 'package:service_plus_app/utils/responsive_util/responsive_util.dart';
 
 class ExpertDetailsPage extends StatelessWidget {
-  const ExpertDetailsPage({super.key});
+  ExpertDetailsPage({super.key});
+  ExpertDetailsController controller = Get.put(ExpertDetailsController());
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder(
-      id: "experts",
-      init: ExpertDetailsController(),
-      builder: (controller) => Scaffold(
-        body: SafeArea(
-          child: SingleChildScrollView(
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              header(context),
-              // reviewCard(context),
-              Padding(
-                padding:
-                    commonSysmPadding(context, horizontal: 24, vertical: 10),
-                child: Text(
-                  servicesText,
-                  style: Theme.of(context).textTheme.titleSmall!,
-                  textScaler: textScale(context),
-                ),
+    return Scaffold(
+      body: SafeArea(child: Obx(() {
+        if (controller.isLoading.value) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+        if (controller.serviceProvider!.name == null) {
+          return noDataFound(context);
+        }
+        return SingleChildScrollView(
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            header(context),
+            // reviewCard(context),
+            Padding(
+              padding: commonSysmPadding(context, horizontal: 24, vertical: 10),
+              child: Text(
+                servicesText,
+                style: Theme.of(context).textTheme.titleSmall!,
+                textScaler: textScale(context),
               ),
-              customContainer(
-                padding:
-                    commonSysmPadding(context, horizontal: 24, vertical: 0),
+            ),
+            customContainer(
+              padding: commonSysmPadding(context, horizontal: 24, vertical: 0),
+              width: double.infinity,
+              height: ResponsiveUtil.height(100, context),
+              child: ListView.builder(
+                itemCount: controller
+                    .homeController.categoryResponse.value.categories!.length,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  final data = controller
+                      .homeController.categoryResponse.value.categories!;
+                  return Card(
+                    child: customContainer(
+                        padding: EdgeInsets.zero,
+                        borderRadius: 20,
+                        width: 100,
+                        height: 120,
+                        child: Column(
+                          children: [
+                            ClipRRect(
+                              borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(20),
+                                  topRight: Radius.circular(20)),
+                              child: Image.network(
+                                width: 100,
+                                height: 65,
+                                data[index].image.toString(),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            Text(
+                              data[index].name.toString(),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displaySmall!
+                                  .copyWith(fontSize: 10),
+                              textScaler: textScale(context),
+                            )
+                          ],
+                        ),
+                        color: Colors.yellow),
+                  );
+                },
+              ),
+            ),
+            Padding(
+              padding: commonSysmPadding(context, horizontal: 24, vertical: 10),
+              child: Text(
+                topreviwes,
+                style: Theme.of(context).textTheme.titleSmall!,
+                textScaler: textScale(context),
+              ),
+            ),
+            customContainer(
+                height: ResponsiveUtil.height(180, context),
                 width: double.infinity,
-                height: ResponsiveUtil.height(100, context),
-                child: ListView.builder(
-                  itemCount: 5,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    return Card(
-                      child: customContainer(
-                          borderRadius: 20,
-                          width: 100,
-                          height: 100,
-                          color: Colors.yellow),
-                    );
-                  },
-                ),
-              ),
-              Padding(
                 padding:
                     commonSysmPadding(context, horizontal: 24, vertical: 10),
-                child: Text(
-                  topreviwes,
-                  style: Theme.of(context).textTheme.titleSmall!,
-                  textScaler: textScale(context),
-                ),
+                child: controller.serviceProvider!.ratings!.isEmpty
+                    ? noDataFound(context)
+                    : ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: controller.serviceProvider!.ratings!.length,
+                        itemBuilder: (context, index) {
+                          final data = controller.serviceProvider!.ratings!;
+                          return SizedBox(
+                              width: MediaQuery.of(context).size.width -
+                                  ResponsiveUtil.width(50, context),
+                              child: reviewCard(context, data[index]));
+                        },
+                      )),
+            Padding(
+              padding: commonSysmPadding(context, horizontal: 24, vertical: 10),
+              child: Text(
+                workPortfolio,
+                style: Theme.of(context).textTheme.titleSmall!,
+                textScaler: textScale(context),
               ),
-              customContainer(
-                  height: ResponsiveUtil.height(180, context),
-                  width: double.infinity,
-                  padding:
-                      commonSysmPadding(context, horizontal: 24, vertical: 10),
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 3,
-                    itemBuilder: (context, index) {
-                      return SizedBox(
-                          width: MediaQuery.of(context).size.width -
-                              ResponsiveUtil.width(50, context),
-                          child: reviewCard(context));
-                    },
-                  )),
-              Padding(
-                padding:
-                    commonSysmPadding(context, horizontal: 24, vertical: 10),
-                child: Text(
-                  workPortfolio,
-                  style: Theme.of(context).textTheme.titleSmall!,
-                  textScaler: textScale(context),
+            ),
+            Padding(
+              padding: commonSysmPadding(context, horizontal: 20, vertical: 0),
+              child: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
                 ),
+                itemCount: 4,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  return Card(
+                    color: AppColors.greenColor,
+                  );
+                },
               ),
-              Padding(
-                padding:
-                    commonSysmPadding(context, horizontal: 20, vertical: 0),
-                child: GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                  ),
-                  itemCount: 4,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    return Card(
-                      color: AppColors.greenColor,
-                    );
-                  },
-                ),
-              )
-            ]),
-          ),
-        ),
-      ),
+            )
+          ]),
+        );
+      })),
     );
   }
 
@@ -148,7 +180,7 @@ class ExpertDetailsPage extends StatelessWidget {
               height: ResponsiveUtil.height(10, context),
             ),
             Text(
-              "Robin Hood",
+              controller.serviceProvider!.name!,
               style: Theme.of(context)
                   .textTheme
                   .titleLarge!
@@ -165,7 +197,7 @@ class ExpertDetailsPage extends StatelessWidget {
                       ResponsiveUtil.instance.textScaleFactor(context),
                 ),
                 Text(
-                  "5.0",
+                  controller.serviceProvider!.averageRating!.toString(),
                   style: Theme.of(context)
                       .textTheme
                       .displaySmall!
@@ -176,7 +208,7 @@ class ExpertDetailsPage extends StatelessWidget {
                   width: ResponsiveUtil.width(10, context),
                 ),
                 Text(
-                  "Rs. 200/day",
+                  "Rs. ${controller.serviceProvider!.charge!.amount}/${controller.serviceProvider!.charge!.per}",
                   style: Theme.of(context)
                       .textTheme
                       .displaySmall!
@@ -206,7 +238,7 @@ class ExpertDetailsPage extends StatelessWidget {
                 ),
                 const Spacer(),
                 Text(
-                  "Ahmedabad, Gujarat",
+                  controller.serviceProvider!.serviceLocation.toString(),
                   style: Theme.of(context)
                       .textTheme
                       .displaySmall!
@@ -215,19 +247,19 @@ class ExpertDetailsPage extends StatelessWidget {
                 )
               ],
             ),
-            SizedBox(
-              height: ResponsiveUtil.height(3, context),
-            ),
+            // SizedBox(
+            //   height: ResponsiveUtil.height(3, context),
+            // ),
             // Row(
             //   children: [
             //     Icon(
-            //       AppIcons.timeIcon,
-            //       color: AppColors.blackColor,
+            //       AppIcons.experienceIcon,
+            //       color: AppColors.primaryColor,
             //       size: GeneralSize.iconSize *
             //           ResponsiveUtil.instance.textScaleFactor(context),
             //     ),
             //     Text(
-            //       ,
+            //       experience,
             //       style: Theme.of(context)
             //           .textTheme
             //           .displaySmall!
@@ -236,7 +268,7 @@ class ExpertDetailsPage extends StatelessWidget {
             //     ),
             //     const Spacer(),
             //     Text(
-            //       "09:00 AM to 06:00 PM",
+            //       "5 Years",
             //       style: Theme.of(context)
             //           .textTheme
             //           .displaySmall!
@@ -245,36 +277,6 @@ class ExpertDetailsPage extends StatelessWidget {
             //     )
             //   ],
             // ),
-            // SizedBox(
-            //   height: ResponsiveUtil.height(3, context),
-            // ),
-            Row(
-              children: [
-                Icon(
-                  AppIcons.experienceIcon,
-                  color: AppColors.primaryColor,
-                  size: GeneralSize.iconSize *
-                      ResponsiveUtil.instance.textScaleFactor(context),
-                ),
-                Text(
-                  experience,
-                  style: Theme.of(context)
-                      .textTheme
-                      .displaySmall!
-                      .copyWith(color: AppColors.greyColor),
-                  textScaler: textScale(context),
-                ),
-                const Spacer(),
-                Text(
-                  "5 Years",
-                  style: Theme.of(context)
-                      .textTheme
-                      .displaySmall!
-                      .copyWith(color: AppColors.secondaryColor),
-                  textScaler: textScale(context),
-                )
-              ],
-            ),
             SizedBox(
               height: ResponsiveUtil.height(10, context),
             ),
@@ -283,7 +285,7 @@ class ExpertDetailsPage extends StatelessWidget {
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () {
-                      Get.bottomSheet(Booking(),
+                      Get.bottomSheet(const Booking(),
                           backgroundColor: AppColors.whiteColor);
                     },
                     child: Text(
@@ -323,11 +325,12 @@ class ExpertDetailsPage extends StatelessWidget {
         ));
   }
 
-  Widget reviewCard(BuildContext context) {
+  Widget reviewCard(BuildContext context, Ratings data) {
     return Card(
       child: Padding(
         padding: commonSysmPadding(context, horizontal: 24, vertical: 15),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ListTile(
               contentPadding: EdgeInsets.zero,
@@ -340,34 +343,40 @@ class ExpertDetailsPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Robin hood",
+                    data.userName.toString(),
                     style: Theme.of(context).textTheme.labelSmall,
                     textScaler: textScale(context),
                     maxLines: 2,
                   ),
-                  Icon(
-                    AppIcons.ratingIcon,
-                    color: AppColors.yellowColor,
-                    size: GeneralSize.iconSmall *
-                        ResponsiveUtil.instance.textScaleFactor(context),
-                  ),
-                  Text(
-                    "5.0",
-                    style: Theme.of(context)
-                        .textTheme
-                        .displaySmall!
-                        .copyWith(color: AppColors.greyColor),
-                    textScaler: textScale(context),
+                  Row(
+                    children: [
+                      Icon(
+                        AppIcons.ratingIcon,
+                        color: AppColors.yellowColor,
+                        size: GeneralSize.iconSmall *
+                            ResponsiveUtil.instance.textScaleFactor(context),
+                      ),
+                      Text(
+                        data.rating.toString(),
+                        style: Theme.of(context)
+                            .textTheme
+                            .displaySmall!
+                            .copyWith(color: AppColors.greyColor),
+                        textScaler: textScale(context),
+                      )
+                    ],
                   )
                 ],
               ),
             ),
             Text(
-              desc,
+              data.comment.toString(),
               style: Theme.of(context).textTheme.displaySmall,
               textScaler: textScale(context),
               overflow: TextOverflow.ellipsis,
               maxLines: 3,
+              textAlign: TextAlign.left,
+              softWrap: true,
             )
           ],
         ),

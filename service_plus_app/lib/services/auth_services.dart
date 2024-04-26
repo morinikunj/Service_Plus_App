@@ -1,4 +1,3 @@
-import 'package:service_plus_app/models/request/auth/register.dart';
 import 'package:service_plus_app/models/response/login_response.dart';
 import 'package:service_plus_app/services/api_endpoints_constants.dart';
 import 'package:service_plus_app/services/dio_services/dio_client.dart';

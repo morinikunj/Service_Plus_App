@@ -25,11 +25,6 @@ class LoginPage extends StatelessWidget {
     return GetBuilder(
       id: "login",
       init: LoginController(),
-      initState: (state) async {
-        Map data = {"email": "krish123@gmail.com", "password": "Krish@123"};
-        await AuthServices().login(jsonEncode(data));
-        // print("response : ${user!.token}");
-      },
       builder: (controller) => Scaffold(
         backgroundColor: AppColors.secondaryColor,
         body: SafeArea(

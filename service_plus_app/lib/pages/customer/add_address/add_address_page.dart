@@ -1,11 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:service_plus_app/components/back_button.dart';
 import 'package:service_plus_app/components/common_padding.dart';
 import 'package:service_plus_app/components/common_textformfield.dart';
 import 'package:service_plus_app/components/custom_container.dart';
+import 'package:service_plus_app/components/no_data_found_widget.dart';
 import 'package:service_plus_app/pages/customer/add_address/add_address_controller.dart';
 import 'package:service_plus_app/utils/constants/app_colors.dart';
 import 'package:service_plus_app/utils/constants/general_sizes.dart';
@@ -16,66 +15,76 @@ import 'package:service_plus_app/utils/responsive_util/responsive_util.dart';
 import '../../../utils/constants/app_icons.dart';
 
 class AddAddressPage extends StatelessWidget {
-  const AddAddressPage({super.key});
+  AddAddressPage({super.key});
+  AddAdressController controller = AddAdressController();
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder(
-      id: "add_address",
-      init: AddAdressController(),
-      builder: (controller) => Scaffold(
-        body: SafeArea(
-          child: Column(
-            children: [
-              header(context),
-              Transform.translate(
-                offset: Offset(0, ResponsiveUtil.height(-5, context)),
-                child: GestureDetector(
-                  onTap: () {
-                    controller.addNewAddress(addAddress(context));
-                  },
-                  child: customContainer(
-                      borderRadius: 20,
-                      color: AppColors.primaryColor,
-                      padding: commonSysmPadding(context,
-                          horizontal: 24, vertical: 18),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Icon(
-                            AppIcons.addIcon,
-                            size: GeneralSize.iconMedium *
-                                ResponsiveUtil.instance
-                                    .textScaleFactor(context),
-                            color: AppColors.accentColor,
-                          ),
-                          Text(
-                            addNewAddress,
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleSmall!
-                                .copyWith(color: AppColors.accentColor),
-                            textScaler: textScale(context),
-                          ),
-                        ],
-                      )),
-                ),
-              ),
-              Expanded(
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          children: [
+            header(context),
+            Transform.translate(
+              offset: Offset(0, ResponsiveUtil.height(-5, context)),
+              child: GestureDetector(
+                onTap: () {
+                  controller.addNewAddress(addAddress(context));
+                },
                 child: customContainer(
                     borderRadius: 20,
-                    // color: AppColors.whiteColor,
-                    child: ListView.builder(
-                      itemCount: 10,
-                      itemBuilder: (context, index) {
-                        return itemCard(context, "Home",
-                            "hbee deded hedebd  edheydhe hedbebd dhebde");
-                      },
+                    color: AppColors.primaryColor,
+                    padding: commonSysmPadding(context,
+                        horizontal: 24, vertical: 18),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Icon(
+                          AppIcons.addIcon,
+                          size: GeneralSize.iconMedium *
+                              ResponsiveUtil.instance.textScaleFactor(context),
+                          color: AppColors.accentColor,
+                        ),
+                        Text(
+                          addNewAddress,
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(color: AppColors.accentColor),
+                          textScaler: textScale(context),
+                        ),
+                      ],
                     )),
               ),
-              //)
-            ],
-          ),
+            ),
+            Expanded(
+              child: customContainer(
+                  borderRadius: 20,
+                  // color: AppColors.whiteColor,
+                  child: Obx(() {
+                    if (controller.isLoading.value) {
+                      print("data : ${controller.addresses}");
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    print("data : ${controller.addresses}");
+                    if (controller.addresses.isEmpty) {
+                      return noDataFound(context);
+                    }
+                    print("data : ${controller.addresses}");
+                    return ListView.builder(
+                      itemCount: controller.addresses.length,
+                      itemBuilder: (context, index) {
+                        return itemCard(
+                            context,
+                            controller.addresses[index].title!,
+                            controller.addresses[index].addressLine!);
+                      },
+                    );
+                  })),
+            ),
+          ],
         ),
       ),
     );
