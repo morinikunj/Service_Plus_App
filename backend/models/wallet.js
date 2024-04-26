@@ -5,7 +5,7 @@ const transactionSchema = new mongoose.Schema({
   type: { type: String, enum: ['add', 'payment'], required: true }, // "add" or "payment"
   description: { type: String, required: true },
   amount: { type: Number, required: true },
-  recipient: { type: String }, // Name of the person receiving the payment
+  recipient: { type: String , default: ""}, // Name of the person receiving the payment
   date: { type: Date, default: Date.now }
 });
 

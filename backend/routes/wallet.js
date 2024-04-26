@@ -3,9 +3,9 @@ const { walletBalance, addFunds, deductFund, transaction } = require('../control
 
 const walletRouter = express.Router();
 
-walletRouter.get('/wallet/:email', walletBalance);
+walletRouter.get('/wallet/:userId', walletBalance);
 
-walletRouter.post("/wallet/transaction/:email", transaction);
+walletRouter.post("/wallet/:userId/transaction", transaction);
 
 
 module.exports = walletRouter;

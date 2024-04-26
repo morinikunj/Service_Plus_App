@@ -14,7 +14,7 @@ const serviceProviderSchema = new mongoose.Schema({
     name: { type: String,},
     email: { type: String,},
     phoneNumber: { type: String, default: ""},
-    service: { type: String, default: ""},
+    service: { type: String,},
     serviceLocation: { type: String, default:""},
     charge: {
       amount: { type: Number, default: 0},
