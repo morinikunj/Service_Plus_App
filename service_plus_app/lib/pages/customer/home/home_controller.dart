@@ -6,6 +6,7 @@ import 'package:service_plus_app/services/user_service.dart';
 class HomeController extends GetxController {
   var categoryResponse = CategoryResponse().obs;
   var isLoading = false.obs;
+  int currentSelectedIndex = 0;
 
   @override
   void onInit() {
@@ -26,6 +27,7 @@ class HomeController extends GetxController {
   }
 
   void selectCategory(index) {
+    currentSelectedIndex = index;
     Get.toNamed(AppRoutes.categoryDetails, arguments: {"index": index});
   }
 }

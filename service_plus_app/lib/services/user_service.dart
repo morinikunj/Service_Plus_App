@@ -1,4 +1,5 @@
 import 'package:service_plus_app/models/response/category_response.dart';
+import 'package:service_plus_app/models/response/service_provider_profile.dart';
 import 'package:service_plus_app/models/response/user_profile_response.dart';
 import 'package:service_plus_app/offline_repository/db_helper.dart';
 import 'package:service_plus_app/services/api_endpoints_constants.dart';
@@ -43,6 +44,24 @@ class UserService {
         return null;
       }
     } on Exception catch (_) {
+      return null;
+    }
+  }
+
+  Future<List<ServiceProviderProfileDetails>?> getServiceProviderList(
+      String service) async {
+    try {
+      var url = ApiEndPoints.getAllServiceProvider;
+      final response = await dio.get("$url/$service");
+      if (response.statusCode == 200) {
+        List data = response.data;
+        return data
+            .map((e) => ServiceProviderProfileDetails.fromJson(e))
+            .toList();
+      } else {
+        return null;
+      }
+    } on Exception catch (e) {
       return null;
     }
   }

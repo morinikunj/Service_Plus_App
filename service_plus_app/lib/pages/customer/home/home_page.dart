@@ -25,10 +25,10 @@ class HomePage extends StatelessWidget {
               // header
               header(context),
               //search button
-              Transform.translate(
-                offset: Offset(0, ResponsiveUtil.height(-25, context)),
-                child: searchButton(context),
-              ),
+              // Transform.translate(
+              //   offset: Offset(0, ResponsiveUtil.height(-25, context)),
+              //   child: searchButton(context),
+              // ),
               //services
               Obx(() {
                 if (controller.isLoading.value) {

@@ -9,8 +9,8 @@ class AddAdressController extends GetxController {
   TextEditingController titleTC = TextEditingController();
   TextEditingController addressTC = TextEditingController();
   final key = GlobalKey<FormState>();
-  var addresses = <Addresses>[];
-  var isLoading = true.obs;
+  List<Addresses> addresses = <Addresses>[];
+  var isLoading = false.obs;
 
   @override
   void onInit() {
@@ -50,10 +50,11 @@ class AddAdressController extends GetxController {
           await UserService().getUserProfile().then((value) {
         isLoading.value = false;
       });
-      if (data!.addresses!.isEmpty) {
+      if (data!.addresses![0].title != null) {
         addresses = data.addresses as List<Addresses>;
       }
-      print("data");
+      print("data : ${data.addresses![0].title}");
+      isLoading.value = false;
     } catch (e) {
     } finally {
       isLoading.value = false;

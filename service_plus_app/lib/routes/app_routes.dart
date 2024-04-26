@@ -79,11 +79,11 @@ class AppRoutes {
         name: admin, page: () => const AdminPage(), binding: GeneralBinding()),
     GetPage(
         name: categoryDetails,
-        page: () => const CategoryDetailsPage(),
+        page: () => CategoryDetailsPage(),
         binding: GeneralBinding()),
     GetPage(
         name: expertDetails,
-        page: () => const ExpertDetailsPage(),
+        page: () => ExpertDetailsPage(),
         binding: GeneralBinding()),
     GetPage(
         name: booking,
