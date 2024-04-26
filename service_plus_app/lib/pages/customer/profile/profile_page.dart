@@ -1,8 +1,10 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:service_plus_app/components/common_padding.dart';
 import 'package:service_plus_app/components/custom_container.dart';
+import 'package:service_plus_app/components/no_data_found_widget.dart';
 import 'package:service_plus_app/pages/customer/profile/profile_controller.dart';
 import 'package:service_plus_app/utils/constants/app_colors.dart';
 import 'package:service_plus_app/utils/constants/app_icons.dart';
@@ -10,40 +12,38 @@ import 'package:service_plus_app/utils/constants/general_sizes.dart';
 import 'package:service_plus_app/utils/constants/text_strings.dart';
 import 'package:service_plus_app/utils/responsive_util/responsive_util.dart';
 
+// ignore: must_be_immutable
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
+  ProfilePage({super.key});
+  ProfileController controller = Get.put(ProfileController());
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder(
-      id: "profile",
-      init: ProfileController(),
-      builder: (controller) => Scaffold(
-        body: SafeArea(
-          child: Column(
-            children: [
-              header(context),
-              SizedBox(height: ResponsiveUtil.height(10, context)),
-              SingleChildScrollView(
-                child: Column(
-                  children: List.generate(controller.data.length, (index) {
-                    return itemCard(
-                      context,
-                      title: controller.data[index]["title"],
-                      icon: controller.data[index]["icon"],
-                      onPressed: () {
-                        controller.onPress(index);
-                      },
-                    );
-                  }),
-                ),
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          children: [
+            header(context),
+            SizedBox(height: ResponsiveUtil.height(10, context)),
+            SingleChildScrollView(
+              child: Column(
+                children: List.generate(controller.data.length, (index) {
+                  return itemCard(
+                    context,
+                    title: controller.data[index]["title"],
+                    icon: controller.data[index]["icon"],
+                    onPressed: () {
+                      controller.onPress(index);
+                    },
+                  );
+                }),
               ),
-              SizedBox(
-                height: ResponsiveUtil.height(10, context),
-              ),
-              logoutButton(context)
-            ],
-          ),
+            ),
+            SizedBox(
+              height: ResponsiveUtil.height(10, context),
+            ),
+            logoutButton(context)
+          ],
         ),
       ),
     );
@@ -67,31 +67,42 @@ class ProfilePage extends StatelessWidget {
             SizedBox(
               height: ResponsiveUtil.height(20, context),
             ),
-            ListTile(
-              leading: CircleAvatar(
-                radius: 40 * ResponsiveUtil.instance.textScaleFactor(context),
-                backgroundColor: AppColors.yellowColor,
-              ),
-              title: Text(
-                "Robin Hood",
-                style: Theme.of(context).textTheme.titleMedium,
-                textScaler: textScale(context),
-              ),
-              subtitle: Row(
-                children: [
-                  Icon(
-                    AppIcons.emailIcon,
-                    size: 18 * ResponsiveUtil.instance.textScaleFactor(context),
-                    color: AppColors.secondaryColor,
-                  ),
-                  Text(
-                    "abc123@gmail.com",
-                    style: Theme.of(context).textTheme.bodySmall,
-                    textScaler: textScale(context),
-                  )
-                ],
-              ),
-            ),
+            Obx(() {
+              if (controller.isLoading.value) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              if (controller.userProfile!.email == null) {
+                return noDataFound(context);
+              }
+              return ListTile(
+                leading: CircleAvatar(
+                  radius: 40 * ResponsiveUtil.instance.textScaleFactor(context),
+                  backgroundColor: AppColors.yellowColor,
+                ),
+                title: Text(
+                  controller.userProfile!.name!,
+                  style: Theme.of(context).textTheme.titleMedium,
+                  textScaler: textScale(context),
+                ),
+                subtitle: Row(
+                  children: [
+                    Icon(
+                      AppIcons.emailIcon,
+                      size:
+                          18 * ResponsiveUtil.instance.textScaleFactor(context),
+                      color: AppColors.secondaryColor,
+                    ),
+                    Text(
+                      controller.userProfile!.email!,
+                      style: Theme.of(context).textTheme.bodySmall,
+                      textScaler: textScale(context),
+                    )
+                  ],
+                ),
+              );
+            })
           ],
         ));
   }
@@ -144,6 +155,8 @@ class ProfilePage extends StatelessWidget {
       width: double.infinity,
       child: ElevatedButton(
           onPressed: () {},
+          style: Theme.of(context).elevatedButtonTheme.style!.copyWith(
+              backgroundColor: MaterialStatePropertyAll(AppColors.redColor)),
           child: Text(
             logout.toUpperCase(),
             style: Theme.of(context)
@@ -151,9 +164,7 @@ class ProfilePage extends StatelessWidget {
                 .titleSmall!
                 .copyWith(color: AppColors.whiteColor),
             textScaler: textScale(context),
-          ),
-          style: Theme.of(context).elevatedButtonTheme.style!.copyWith(
-              backgroundColor: MaterialStatePropertyAll(AppColors.redColor))),
+          )),
     );
   }
 }

@@ -22,8 +22,9 @@ const spProfileDetails =  async (req, res) => {
 
 const updateProfileSp =  async (req, res) => {
   try {
+    const {email} = req.params;
     const updatedDetails = req.body;
-    const {name, email} = req.body;
+    const {name} = req.body;
 
     // Check if email parameter is provided
     if (!email) {

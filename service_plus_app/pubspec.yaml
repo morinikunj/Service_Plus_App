@@ -43,6 +43,7 @@ dependencies:
   confetti: ^0.7.0
   flutter_chat_bubble: ^2.0.2
   shared_preferences: ^2.2.3
+  sqflite: ^2.3.3
 
 dev_dependencies:
   flutter_test:

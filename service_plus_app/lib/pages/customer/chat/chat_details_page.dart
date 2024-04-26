@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:get/get.dart';
-import 'package:service_plus_app/components/back_button.dart';
 import 'package:service_plus_app/components/common_padding.dart';
 import 'package:service_plus_app/components/common_textformfield.dart';
 import 'package:service_plus_app/components/custom_container.dart';
@@ -22,56 +21,65 @@ class ChatDetailsPage extends StatelessWidget {
         init: ChatController(),
         builder: (controller) {
           return Scaffold(
-            extendBody: true,
-            body: SafeArea(
-              child: Column(
-                children: [
-                  header(context, controller),
-                  Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.only(
-                          bottom: ResponsiveUtil.height(20, context),
-                          left: ResponsiveUtil.width(10, context),
-                          right: ResponsiveUtil.width(10, context)),
-                      child: ListView.builder(
-                        itemCount: 10,
-                        itemBuilder: (context, index) {
-                          return chatMessage(context, isSend: true);
-                        },
+              extendBody: true,
+              body: SafeArea(
+                child: Column(
+                  children: [
+                    header(context, controller),
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                            bottom: ResponsiveUtil.height(20, context),
+                            left: ResponsiveUtil.width(10, context),
+                            right: ResponsiveUtil.width(10, context)),
+                        child: ListView.builder(
+                          itemCount: 10,
+                          itemBuilder: (context, index) {
+                            return chatMessage(context, isSend: true);
+                          },
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: ResponsiveUtil.height(50, context),
-                  )
-                ],
+                    SizedBox(
+                      height: ResponsiveUtil.height(50, context),
+                    )
+                  ],
+                ),
               ),
-            ),
-            bottomSheet: customContainer(
-              color: AppColors.whiteColor,
-              padding: commonSysmPadding(context, horizontal: 15, vertical: 0),
-              child: commonTextField(
-                  controller: controller.msgTC,
-                  fill: false,
-                  hintText: "Enter something...",
-                  hintTextColor: AppColors.secondaryColor.withOpacity(0.8),
-                  border: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: AppColors.secondaryColor, width: 1),
-                      borderRadius: GeneralSize.borderRadius2),
-                  suffixIcon: Visibility(
-                    visible: controller.isActiveBtn,
-                    child: IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          AppIcons.sendIcon,
-                          size: GeneralSize.iconBig *
-                              ResponsiveUtil.instance.textScaleFactor(context),
-                          color: AppColors.primaryColor,
-                        )),
-                  )),
-            ),
-          );
+              bottomSheet: customContainer(
+                color: AppColors.whiteColor,
+                padding:
+                    commonSysmPadding(context, horizontal: 15, vertical: 0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: commonTextField(
+                        controller: controller.msgTC,
+                        fill: false,
+                        hintText: "Enter something...",
+                        hintTextColor:
+                            AppColors.secondaryColor.withOpacity(0.8),
+                        border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: AppColors.secondaryColor, width: 1),
+                            borderRadius: GeneralSize.borderRadius2),
+                      ),
+                    ),
+                    Visibility(
+                      visible: controller.isActiveBtn,
+                      child: IconButton(
+                          onPressed: () {},
+                          icon: Icon(
+                            AppIcons.sendIcon,
+                            size: 30 *
+                                ResponsiveUtil.instance
+                                    .textScaleFactor(context),
+                            color: AppColors.primaryColor,
+                          )),
+                    )
+                  ],
+                ),
+              ));
         });
   }
 

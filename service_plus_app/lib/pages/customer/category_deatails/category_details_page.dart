@@ -15,9 +15,13 @@ class CategoryDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    CategoryDetailsController controller = Get.put(CategoryDetailsController());
     return GetBuilder(
       id: "category_details",
       init: CategoryDetailsController(),
+      initState: (state) {
+        controller.fetchData();
+      },
       builder: (controller) => Scaffold(
         body: SafeArea(
             key: key,
@@ -25,7 +29,7 @@ class CategoryDetailsPage extends StatelessWidget {
               child: Column(
                 children: [
                   //header
-                  header(context),
+                  header(context, controller),
                   //item list
                   itemList(context)
                 ],
@@ -35,7 +39,8 @@ class CategoryDetailsPage extends StatelessWidget {
     );
   }
 
-  Widget header(BuildContext context) {
+  Widget header(BuildContext context, CategoryDetailsController controller) {
+    final index = Get.arguments["index"];
     return customContainer(
         width: double.infinity,
         padding: commonSysmPadding(context, horizontal: 24, vertical: 18),
@@ -53,6 +58,9 @@ class CategoryDetailsPage extends StatelessWidget {
                   child: CircleAvatar(
                 radius: 38 * ResponsiveUtil.instance.textScaleFactor(context),
                 backgroundColor: Colors.amber,
+                backgroundImage: NetworkImage(
+                  controller.categoryResponse!.categories![0].image.toString(),
+                ),
               )),
             ),
             Text(

@@ -31,7 +31,9 @@ const signUp = async (req, res) => {
     let wallet = new Wallet({userId});
     await wallet.save();
     
-    return res.json(user);
+    return res.json({
+        msg: "Your account created successfully."
+    });
     } catch (e) {
         return res.status(500).json({error: e.message});
     }

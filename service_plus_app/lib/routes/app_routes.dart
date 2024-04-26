@@ -18,6 +18,17 @@ import 'package:service_plus_app/pages/customer/profile/profile_page.dart';
 import 'package:service_plus_app/pages/customer/register/register_page.dart';
 import 'package:service_plus_app/pages/customer/register/register_success_page.dart';
 import 'package:service_plus_app/pages/customer/wallet/wallet_page.dart';
+import 'package:service_plus_app/pages/service_provider/bookings/booking_details.dart';
+import 'package:service_plus_app/pages/service_provider/bottom_navbar/bottom_navbar_page.dart';
+import 'package:service_plus_app/pages/service_provider/chat/chat_details_page.dart';
+import 'package:service_plus_app/pages/service_provider/edit_profile/edit_profile_page.dart';
+import 'package:service_plus_app/pages/service_provider/login/login_page.dart';
+import 'package:service_plus_app/pages/service_provider/notification/notification_page.dart';
+import 'package:service_plus_app/pages/service_provider/profile/profile_page.dart';
+import 'package:service_plus_app/pages/service_provider/register/register_page.dart';
+import 'package:service_plus_app/pages/service_provider/register/register_success_page.dart';
+import 'package:service_plus_app/pages/service_provider/wallet/wallet_controller.dart';
+import 'package:service_plus_app/pages/service_provider/wallet/wallet_page.dart';
 
 import '../bindings/general_bindings.dart';
 
@@ -48,10 +59,22 @@ class AppRoutes {
   static String admin = "/admin_page";
   static String p = "/p";
 
+  //service provider
+  static String providerRegister = "/provider_register";
+  static String providerRegisterSuccess = "/provider_register_success";
+  static String providerLogin = "/provider_login";
+  static String providerChat = "/provider_chat";
+  static String providerchatDetails = "/provider_chat/details";
+  static String providerNotification = "/provider_notifications";
+  static String providerBookings = "/provider_bookings";
+  static String providerWallet = "/provider_wallet";
+  static String providerBottomNavbar = "/provider_bottom_navbar";
+  static String providerProfile = "/provider_profile";
+  static String providerEditProfile = "/provider_edit_profile";
+
   // App Routes
   static List<GetPage> routes = [
-    GetPage(
-        name: home, page: () => const HomePage(), binding: GeneralBinding()),
+    GetPage(name: home, page: () => HomePage(), binding: GeneralBinding()),
     GetPage(
         name: admin, page: () => const AdminPage(), binding: GeneralBinding()),
     GetPage(
@@ -77,9 +100,7 @@ class AppRoutes {
         page: () => const NotificationPage(),
         binding: GeneralBinding()),
     GetPage(
-        name: profile,
-        page: () => const ProfilePage(),
-        binding: GeneralBinding()),
+        name: profile, page: () => ProfilePage(), binding: GeneralBinding()),
     GetPage(
         name: editProfile,
         page: () => const EditProfilePage(),
@@ -103,17 +124,57 @@ class AppRoutes {
         name: chatDetails,
         page: () => const ChatDetailsPage(),
         binding: GeneralBinding()),
-    GetPage(
-        name: wallet,
-        page: () => const WalletPage(),
-        binding: GeneralBinding()),
+    GetPage(name: wallet, page: () => WalletPage(), binding: GeneralBinding()),
     GetPage(
         name: addAddress,
-        page: () => const AddAddressPage(),
+        page: () => AddAddressPage(),
         binding: GeneralBinding()),
     GetPage(
         name: registerSuccess,
         page: () => const RegistrationSuccessPage(),
+        binding: GeneralBinding()),
+    GetPage(
+        name: providerRegister,
+        page: () => const ProviderRegisterPage(),
+        binding: GeneralBinding()),
+    GetPage(
+        name: providerRegisterSuccess,
+        page: () => const ProviderRegistrationSuccessPage(),
+        binding: GeneralBinding()),
+    GetPage(
+        name: providerLogin,
+        page: () => const ProviderLoginPage(),
+        binding: GeneralBinding()),
+    GetPage(
+        name: providerChat,
+        page: () => const ProviderChatDetailsPage(),
+        binding: GeneralBinding()),
+    GetPage(
+        name: providerchatDetails,
+        page: () => const ProviderChatDetailsPage(),
+        binding: GeneralBinding()),
+    GetPage(
+        name: providerNotification,
+        page: () => const ProviderNotificationPage(),
+        binding: GeneralBinding()),
+    GetPage(
+        name: providerBookings,
+        page: () => const ProviderBookingsPage(),
+        binding: GeneralBinding()),
+    GetPage(
+        name: providerWallet,
+        page: () => const ProviderWalletPage(),
+        binding: GeneralBinding()),
+    GetPage(
+        name: providerBottomNavbar,
+        page: () => const ProviderBottomNavbarPage()),
+    GetPage(
+        name: providerProfile,
+        page: () => const ProviderProfilePage(),
+        binding: GeneralBinding()),
+    GetPage(
+        name: providerEditProfile,
+        page: () => const ProviderEditProfilePage(),
         binding: GeneralBinding())
   ];
 }
