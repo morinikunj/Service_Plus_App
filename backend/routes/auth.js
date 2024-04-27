@@ -11,7 +11,7 @@ authRouter.post("/signup", signUp);
 authRouter.post("/signin", signIn);
 
 //token valid
-authRouter.post("/tokenIsValid", tokenIsValid);
+authRouter.get("/tokenIsValid", tokenIsValid);
 
   //change password
  authRouter.post("/ChangePassword", auth, changePassword);

@@ -20,10 +20,12 @@ const serviceProviderSchema = new mongoose.Schema({
       amount: { type: Number, default: 0},
       per: { type: String, enum: ['hour', 'day', 'one-time'], default: "hour" }
     },
-    image: { type: String, default: ""},// Assuming image is stored as a URL
+    image: { type: String, default: "https://th.bing.com/th/id/OIP.7tJu_Vr2oivSc-Q1UNN6OgAAAA?w=474&h=502&rs=1&pid=ImgDetMain"},// Assuming image is stored as a URL
     ratings: [ratingSchema], // Embed ratings within the service provider schema
     averageRating: { type: Number, default: 0 }
   });
+
+  
   
   // Mongoose model
   const ServiceProvider = mongoose.model('ServiceProvider', serviceProviderSchema);
