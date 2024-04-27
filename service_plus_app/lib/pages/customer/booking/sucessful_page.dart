@@ -10,6 +10,7 @@ class BookingSuccessPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SuccessfulWidget(
+      btnTitle: gotoBooking,
       desc: bookingSucessDesc,
       onPress: () {},
     );

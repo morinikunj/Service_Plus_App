@@ -3,6 +3,9 @@ class AppImage {
   static String demoImg = "assets/images/demo.jpg";
   static String walletImg = "assets/images/wallet.png";
   static String addtrssImg = "assets/images/address.png";
+  static String loginImg = "assets/images/loginpage_img.png";
+  static String registerImg = "assets/images/registerpage_img.png";
+  static String splashImg = "assets/images/splashscreen.jpg";
 
   //animations
   static String successTick = "assets/animations/success_tick.json";

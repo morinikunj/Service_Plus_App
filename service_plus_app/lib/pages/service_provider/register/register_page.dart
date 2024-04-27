@@ -7,6 +7,7 @@ import 'package:service_plus_app/pages/service_provider/register/register_contro
 import 'package:service_plus_app/utils/constants/app_colors.dart';
 import 'package:service_plus_app/utils/constants/app_icons.dart';
 import 'package:service_plus_app/utils/constants/general_sizes.dart';
+import 'package:service_plus_app/utils/constants/image_strings.dart';
 import 'package:service_plus_app/utils/constants/text_strings.dart';
 import 'package:service_plus_app/utils/responsive_util/responsive_util.dart';
 
@@ -27,17 +28,18 @@ class ProviderRegisterPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  createAccount,
-                  style: Theme.of(context)
-                      .textTheme
-                      .headlineMedium!
-                      .copyWith(color: AppColors.whiteColor),
-                  textScaler: textScale(context),
-                  textAlign: TextAlign.left,
+                Image.asset(
+                  AppImage.registerImg,
+                  fit: BoxFit.contain,
+                  filterQuality: FilterQuality.high,
+                  width: double.infinity,
+                  height: ResponsiveUtil.height(
+                    200,
+                    context,
+                  ),
                 ),
                 SizedBox(
-                  height: ResponsiveUtil.height(20, context),
+                  height: ResponsiveUtil.height(40, context),
                 ),
                 form(context, controller),
                 SizedBox(
@@ -69,7 +71,7 @@ class ProviderRegisterPage extends StatelessWidget {
                       ),
                     )
                   ],
-                )
+                ),
               ],
             ),
           ),
@@ -82,12 +84,30 @@ class ProviderRegisterPage extends StatelessWidget {
     return customContainer(
         color: AppColors.whiteColor.withOpacity(0.2),
         borderRadius: 20,
-        padding: commonSysmPadding(context, horizontal: 10, vertical: 10),
+        padding: commonSysmPadding(context, horizontal: 10, vertical: 20),
         width: double.infinity,
         child: Form(
           key: controller.key,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              Text(
+                createAccount.toUpperCase(),
+                style: Theme.of(context)
+                    .textTheme
+                    .titleLarge!
+                    .copyWith(color: AppColors.whiteColor),
+                textScaler: textScale(context),
+                textAlign: TextAlign.left,
+              ),
+              SizedBox(
+                height: ResponsiveUtil.height(10, context),
+              ),
+              Divider(
+                height: ResponsiveUtil.height(10, context),
+                thickness: 1,
+                color: AppColors.accentColor.withOpacity(0.5),
+              ),
               commonTextField(
                   hintTextColor: AppColors.accentColor,
                   prefixIcon: Icon(
@@ -142,7 +162,7 @@ class ProviderRegisterPage extends StatelessWidget {
                   ),
                   fill: false),
               Transform.translate(
-                offset: const Offset(0, 30),
+                offset: Offset(0, ResponsiveUtil.height(35, context)),
                 child: SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(

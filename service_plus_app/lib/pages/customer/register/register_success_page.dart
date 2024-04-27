@@ -10,6 +10,7 @@ class RegistrationSuccessPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SuccessfulWidget(
+      btnTitle: "Go to Login",
       desc: "Your account is created successfully.",
       onPress: () {
         Get.offAndToNamed(AppRoutes.login);

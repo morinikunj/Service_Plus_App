@@ -4,8 +4,14 @@ import 'package:get/get.dart';
 import 'package:service_plus_app/components/back_button.dart';
 import 'package:service_plus_app/components/common_padding.dart';
 import 'package:service_plus_app/components/custom_container.dart';
+import 'package:service_plus_app/components/empty_data_widget.dart';
+import 'package:service_plus_app/components/error_widget.dart';
+import 'package:service_plus_app/components/loading_widget.dart';
+import 'package:service_plus_app/components/no_data_found_widget.dart';
+import 'package:service_plus_app/models/response/wallet_response.dart';
 import 'package:service_plus_app/pages/customer/wallet/wallet_controller.dart';
 import 'package:service_plus_app/pages/service_provider/wallet/wallet_controller.dart';
+import 'package:service_plus_app/services/payment_services.dart';
 import 'package:service_plus_app/utils/constants/app_colors.dart';
 import 'package:service_plus_app/utils/constants/app_icons.dart';
 import 'package:service_plus_app/utils/constants/general_sizes.dart';
@@ -14,31 +20,40 @@ import 'package:service_plus_app/utils/constants/text_strings.dart';
 import 'package:service_plus_app/utils/responsive_util/responsive_util.dart';
 
 class ProviderWalletPage extends StatelessWidget {
-  const ProviderWalletPage({super.key});
+  ProviderWalletPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder(
-        id: "wallet",
-        init: ProviderWalletController(),
-        builder: (controller) {
-          return Scaffold(
-            body: SafeArea(
-              child: Column(
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+          body: SafeArea(
+        child: FutureBuilder(
+          future: PaymentServices().getWalletResponse(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData && snapshot.data != null) {
+              return Column(
                 children: [
-                  header(context),
+                  header(context, snapshot.data),
                   Expanded(
                       child: Transform.translate(
                           offset: Offset(0, ResponsiveUtil.height(-5, context)),
-                          child: body(context)))
+                          child: body(context, snapshot.data)))
                 ],
-              ),
-            ),
-          );
-        });
+              );
+            } else if (snapshot.connectionState == ConnectionState.waiting) {
+              return loadingWidget();
+            } else if (snapshot.hasError) {
+              return errorWidget(context, snapshot.error);
+            }
+            return noDataFound(context);
+          },
+        ),
+      )),
+    );
   }
 
-  Widget header(BuildContext context) {
+  Widget header(BuildContext context, WalletResponse? wallet) {
     return customContainer(
         isGradient: true,
         padding: commonSysmPadding(context, horizontal: 24, vertical: 18),
@@ -57,7 +72,7 @@ class ProviderWalletPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Rs 500",
+                        wallet!.wallet!.balance.toString(),
                         style: Theme.of(context)
                             .textTheme
                             .headlineSmall!
@@ -87,7 +102,7 @@ class ProviderWalletPage extends StatelessWidget {
         ));
   }
 
-  Widget body(BuildContext context) {
+  Widget body(BuildContext context, WalletResponse? walletResponse) {
     return Column(
       children: [
         customContainer(
@@ -145,24 +160,26 @@ class ProviderWalletPage extends StatelessWidget {
               borderRadius: 20,
               color: AppColors.whiteColor,
               padding: commonSysmPadding(context, horizontal: 24, vertical: 18),
-              child: ListView.separated(
-                  itemBuilder: (context, index) {
-                    return itemCard(
-                      context,
-                      "Robin Hood",
-                      "cleanig",
-                      "200",
-                      "20/05/2024",
-                    );
-                  },
-                  separatorBuilder: (context, index) {
-                    return Divider(
-                      height: ResponsiveUtil.height(15, context),
-                      thickness: 1,
-                      color: AppColors.chatBubbleColor,
-                    );
-                  },
-                  itemCount: 10),
+              child: walletResponse!.wallet!.transactions!.isEmpty
+                  ? emptyDataWidget(context, "No Transactions Avilable")
+                  : ListView.separated(
+                      itemBuilder: (context, index) {
+                        return itemCard(
+                          context,
+                          "Robin Hood",
+                          "cleanig",
+                          "200",
+                          "20/05/2024",
+                        );
+                      },
+                      separatorBuilder: (context, index) {
+                        return Divider(
+                          height: ResponsiveUtil.height(15, context),
+                          thickness: 1,
+                          color: AppColors.chatBubbleColor,
+                        );
+                      },
+                      itemCount: 10),
             ),
           ),
         )
