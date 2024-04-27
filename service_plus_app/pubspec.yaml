@@ -46,6 +46,8 @@ dependencies:
   sqflite: ^2.3.3
   image_picker: ^1.1.0
   awesome_notifications: ^0.9.3+1
+  firebase_core: ^2.30.1
+  firebase_messaging: ^14.9.1
 
 dev_dependencies:
   flutter_test:

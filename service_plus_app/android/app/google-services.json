@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "386439325454",
+    "project_id": "service-plus-dfa00",
+    "storage_bucket": "service-plus-dfa00.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:386439325454:android:e23afb4af2e4eb6745995f",
+        "android_client_info": {
+          "package_name": "com.example.service_plus_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnQNuGHHz4eDtO7Lj4kTyM70pCxWk_L5M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
