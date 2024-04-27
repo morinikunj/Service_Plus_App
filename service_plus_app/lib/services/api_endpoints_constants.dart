@@ -1,6 +1,7 @@
 class ApiEndPoints {
   // base url
   static const String baseUrl = "http://192.168.43.99:3000/";
+  static const String tokenValid = "tokenIsValid";
 
   //users
   static const String signup = "signup";
@@ -22,7 +23,6 @@ class ApiEndPoints {
       "service_provider/update_profile";
   static const String getAllServiceProvider = "service_providers";
   static const String getMyRatings = "get_ratings";
-
 
   //admin
   static const String addCategory = "add_category";

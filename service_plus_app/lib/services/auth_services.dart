@@ -42,4 +42,19 @@ class AuthServices {
     }
     return null;
   }
+
+  //token is valid
+  Future<bool> isTokenValid() async {
+    try {
+      var url = ApiEndPoints.tokenValid;
+      final response = await dio.get(url);
+      if (response.statusCode == 200) {
+        return response.data;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      return false;
+    }
+  }
 }

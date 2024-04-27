@@ -7,9 +7,14 @@ import 'package:service_plus_app/utils/constants/text_strings.dart';
 import 'package:service_plus_app/utils/responsive_util/responsive_util.dart';
 
 class SuccessfulWidget extends StatelessWidget {
-  SuccessfulWidget({super.key, required this.desc, required this.onPress});
+  SuccessfulWidget(
+      {super.key,
+      required this.desc,
+      required this.onPress,
+      required this.btnTitle});
 
   String desc;
+  String btnTitle;
   VoidCallback onPress;
   ConfettiController confettiController =
       ConfettiController(duration: const Duration(seconds: 5));
@@ -51,7 +56,7 @@ class SuccessfulWidget extends StatelessWidget {
                     child: ElevatedButton(
                         onPressed: onPress,
                         child: Text(
-                          gotoBooking.toUpperCase(),
+                          btnTitle.toUpperCase(),
                           style: Theme.of(context)
                               .textTheme
                               .titleSmall!

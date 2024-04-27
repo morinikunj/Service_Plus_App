@@ -27,6 +27,7 @@ import 'package:service_plus_app/pages/service_provider/notification/notificatio
 import 'package:service_plus_app/pages/service_provider/profile/profile_page.dart';
 import 'package:service_plus_app/pages/service_provider/register/register_page.dart';
 import 'package:service_plus_app/pages/service_provider/register/register_success_page.dart';
+import 'package:service_plus_app/pages/service_provider/splash_screen/splash_screen.dart';
 import 'package:service_plus_app/pages/service_provider/wallet/wallet_controller.dart';
 import 'package:service_plus_app/pages/service_provider/wallet/wallet_page.dart';
 
@@ -71,6 +72,7 @@ class AppRoutes {
   static String providerBottomNavbar = "/provider_bottom_navbar";
   static String providerProfile = "/provider_profile";
   static String providerEditProfile = "/provider_edit_profile";
+  static String providerSplashScreen = "/provider_splash_screen";
 
   // App Routes
   static List<GetPage> routes = [
@@ -163,18 +165,22 @@ class AppRoutes {
         binding: GeneralBinding()),
     GetPage(
         name: providerWallet,
-        page: () => const ProviderWalletPage(),
+        page: () => ProviderWalletPage(),
         binding: GeneralBinding()),
     GetPage(
         name: providerBottomNavbar,
         page: () => const ProviderBottomNavbarPage()),
     GetPage(
         name: providerProfile,
-        page: () => const ProviderProfilePage(),
+        page: () => ProviderProfilePage(),
         binding: GeneralBinding()),
     GetPage(
         name: providerEditProfile,
         page: () => const ProviderEditProfilePage(),
+        binding: GeneralBinding()),
+    GetPage(
+        name: providerSplashScreen,
+        page: () => ProviderSplashScreen(),
         binding: GeneralBinding())
   ];
 }

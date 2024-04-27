@@ -2,54 +2,68 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:service_plus_app/components/common_padding.dart';
 import 'package:service_plus_app/components/custom_container.dart';
+import 'package:service_plus_app/components/error_widget.dart';
+import 'package:service_plus_app/components/loading_widget.dart';
+import 'package:service_plus_app/components/no_data_found_widget.dart';
+import 'package:service_plus_app/models/response/service_provider_profile.dart';
 import 'package:service_plus_app/pages/customer/profile/profile_controller.dart';
 import 'package:service_plus_app/pages/service_provider/profile/profile_controller.dart';
+import 'package:service_plus_app/services/service_provider_services.dart';
 import 'package:service_plus_app/utils/constants/app_colors.dart';
 import 'package:service_plus_app/utils/constants/app_icons.dart';
 import 'package:service_plus_app/utils/constants/general_sizes.dart';
 import 'package:service_plus_app/utils/constants/text_strings.dart';
+import 'package:service_plus_app/utils/local_storage/session_manager.dart';
 import 'package:service_plus_app/utils/responsive_util/responsive_util.dart';
 
 class ProviderProfilePage extends StatelessWidget {
-  const ProviderProfilePage({super.key});
+  ProviderProfilePage({super.key});
+  ProviderProfileController controller = Get.put(ProviderProfileController());
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder(
-      id: "profile",
-      init: ProviderProfileController(),
-      builder: (controller) => Scaffold(
-        body: SafeArea(
-          child: Column(
-            children: [
-              header(context, controller),
-              SizedBox(height: ResponsiveUtil.height(10, context)),
-              SingleChildScrollView(
-                child: Column(
-                  children: List.generate(controller.data.length, (index) {
-                    return itemCard(
-                      context,
-                      title: controller.data[index]["title"],
-                      icon: controller.data[index]["icon"],
-                      onPressed: () {
-                        controller.onPress(index);
-                      },
-                    );
-                  }),
+    return Scaffold(
+      body: SafeArea(
+          child: FutureBuilder(
+        future: ServiceProviderService().getServiceProviderProfileDetails(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return Column(
+              children: [
+                header(context, snapshot.data!),
+                SizedBox(height: ResponsiveUtil.height(10, context)),
+                SingleChildScrollView(
+                  child: Column(
+                    children: List.generate(controller.data.length, (index) {
+                      return itemCard(
+                        context,
+                        title: controller.data[index]["title"],
+                        icon: controller.data[index]["icon"],
+                        onPressed: () {
+                          controller.onPress(index);
+                        },
+                      );
+                    }),
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: ResponsiveUtil.height(10, context),
-              ),
-              logoutButton(context)
-            ],
-          ),
-        ),
-      ),
+                SizedBox(
+                  height: ResponsiveUtil.height(10, context),
+                ),
+                logoutButton(context)
+              ],
+            );
+          } else if (snapshot.connectionState == ConnectionState.waiting) {
+            return loadingWidget();
+          } else if (snapshot.hasError) {
+            return errorWidget(context, snapshot.error);
+          }
+          return Container();
+        },
+      )),
     );
   }
 
-  Widget header(BuildContext context, ProviderProfileController controller) {
+  Widget header(BuildContext context, ServiceProviderProfileDetails? data) {
     return customContainer(
         padding: commonSysmPadding(context, horizontal: 24, vertical: 24),
         isGradient: true,
@@ -68,14 +82,21 @@ class ProviderProfilePage extends StatelessWidget {
               height: ResponsiveUtil.height(20, context),
             ),
             ListTile(
+              contentPadding: EdgeInsets.zero,
               leading: CircleAvatar(
                 radius: 40 * ResponsiveUtil.instance.textScaleFactor(context),
                 backgroundColor: AppColors.yellowColor,
+                backgroundImage: NetworkImage(
+                  data!.image!,
+                ),
               ),
-              title: Text(
-                controller.userProfileResponse!.name!,
-                style: Theme.of(context).textTheme.titleMedium,
-                textScaler: textScale(context),
+              title: FittedBox(
+                child: Text(
+                  data!.name!,
+                  style: Theme.of(context).textTheme.titleMedium,
+                  textScaler: textScale(context),
+                  softWrap: true,
+                ),
               ),
               subtitle: Row(
                 children: [
@@ -85,7 +106,7 @@ class ProviderProfilePage extends StatelessWidget {
                     color: AppColors.secondaryColor,
                   ),
                   Text(
-                    controller.userProfileResponse!.email!,
+                    data.email!,
                     style: Theme.of(context).textTheme.bodySmall,
                     textScaler: textScale(context),
                   )

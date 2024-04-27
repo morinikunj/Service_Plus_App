@@ -18,6 +18,7 @@ import 'package:service_plus_app/pages/service_provider/chat/chat_controller.dar
 import 'package:service_plus_app/pages/service_provider/login/login_controller.dart';
 import 'package:service_plus_app/pages/service_provider/profile/profile_controller.dart';
 import 'package:service_plus_app/pages/service_provider/register/register_controller.dart';
+import 'package:service_plus_app/pages/service_provider/splash_screen/splash_screen_controller.dart';
 import 'package:service_plus_app/pages/service_provider/wallet/wallet_controller.dart';
 
 class GeneralBinding extends Bindings {
@@ -48,5 +49,6 @@ class GeneralBinding extends Bindings {
     Get.lazyPut(() => ProviderWalletController());
     Get.lazyPut(() => ProviderBottomNavbarController());
     Get.lazyPut(() => ProviderProfileController());
+    Get.lazyPut(() => ProviderSplashScreenController());
   }
 }

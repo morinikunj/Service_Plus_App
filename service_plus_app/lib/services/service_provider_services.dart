@@ -1,5 +1,7 @@
 import 'package:service_plus_app/models/response/service_provider_profile.dart';
 import 'package:service_plus_app/services/api_endpoints_constants.dart';
+import 'package:service_plus_app/utils/constants/app_constants.dart';
+import 'package:service_plus_app/utils/local_storage/session_manager.dart';
 
 import 'dio_services/dio_client.dart';
 
@@ -11,9 +13,10 @@ class ServiceProviderService {
   }
 
   //get profile
-  Future<ServiceProviderProfileDetails?> getServiceProviderProfileDetails(
-      email) async {
+  Future<ServiceProviderProfileDetails?>
+      getServiceProviderProfileDetails() async {
     try {
+      final email = await SessionManager().getEmail();
       var url = ApiEndPoints.serviceProviderProfile;
       final response = await dio.get("$url/$email");
       if (response.statusCode == 200) {
@@ -21,8 +24,8 @@ class ServiceProviderService {
       } else {
         return null;
       }
-    } on Exception catch (_) {
-      return null;
+    } on Exception catch (e) {
+      throw Exception(e.toString());
     }
   }
 }
