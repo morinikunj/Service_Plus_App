@@ -17,7 +17,7 @@ const userProfileSchema = new mongoose.Schema({
   },
   profileImg: {
     type: String,
-    default: ""
+    default: "https://th.bing.com/th/id/OIP.7tJu_Vr2oivSc-Q1UNN6OgAAAA?w=474&h=502&rs=1&pid=ImgDetMain"
   },
   mobileNo: {
     type: String,

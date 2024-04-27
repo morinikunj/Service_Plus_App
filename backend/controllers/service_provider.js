@@ -84,10 +84,27 @@ const getAllServiceProviderDetailsByCategory =  async (req, res) => {
   }
 };
 
+const changeStatus = async (req, res) => {
+  const { id } = req.params;
+  const { status } = req.body;
+
+  try {
+    const booking = await Booking.findByIdAndUpdate(id, { status }, { new: true });
+    if (!booking) {
+      return res.status(404).json({ error: 'Booking not found' });
+    }
+    res.json(booking);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
 
 module.exports = {
   spProfileDetails,
   updateProfileSp,
   getAllServiceProviderDetails,
+  changeStatus,
   getAllServiceProviderDetailsByCategory
 }
