@@ -9,6 +9,7 @@ import 'package:service_plus_app/utils/constants/app_icons.dart';
 import 'package:service_plus_app/utils/constants/general_sizes.dart';
 import 'package:service_plus_app/utils/constants/text_strings.dart';
 import 'package:service_plus_app/utils/responsive_util/responsive_util.dart';
+import 'package:zego_zimkit/zego_zimkit.dart';
 
 class ProviderChatPage extends StatefulWidget {
   const ProviderChatPage({super.key});
@@ -20,26 +21,39 @@ class ProviderChatPage extends StatefulWidget {
 class _ProviderChatPageState extends State<ProviderChatPage> {
   @override
   Widget build(BuildContext context) {
-    return GetBuilder(
-      id: "chat",
-      init: ChatController(),
-      builder: (controller) => Scaffold(
+    return PopScope(
+      onPopInvoked: (didPop) => false,
+      child: Scaffold(
         body: SafeArea(
           child: Column(
             children: [
               header(context),
               Expanded(
-                child: Padding(
-                  padding:
-                      commonSysmPadding(context, horizontal: 15, vertical: 10),
-                  child: ListView.builder(
-                    itemCount: 12,
-                    itemBuilder: (context, index) {
-                      return personCard(context);
-                    },
-                  ),
+                child: ZIMKitConversationListView(
+                  onPressed: (context, conversation, defaultAction) {
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context) {
+                        return ZIMKitMessageListPage(
+                          conversationID: conversation.id,
+                          conversationType: conversation.type,
+                        );
+                      },
+                    ));
+                  },
                 ),
               )
+              // Expanded(
+              //   child: Padding(
+              //     padding:
+              //         commonSysmPadding(context, horizontal: 15, vertical: 10),
+              //     child: ListView.builder(
+              //       itemCount: 12,
+              //       itemBuilder: (context, index) {
+              //         return personCard(context);
+              //       },
+              //     ),
+              //   ),
+              // )
             ],
           ),
         ),

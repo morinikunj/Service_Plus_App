@@ -53,7 +53,6 @@ class ProviderLoginController extends GetxController {
       try {
         UserResponse? userData = await AuthServices().login(jsonEncode(data));
         await SessionManager().setToken(userData!.token.toString());
-        AppConstant.userEmail = userData.email!;
         CustomLoader.hideLoader();
         Get.offAndToNamed(AppRoutes.bottomNavbar);
         Customdialog.showSuccess("Login Successful");

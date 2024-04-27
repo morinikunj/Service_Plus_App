@@ -27,4 +27,8 @@ class ExpertDetailsController extends GetxController {
       isLoading.value = false;
     }
   }
+
+  chatButtonSubmit() {
+    //  await ZIMKit.instance.connectUser(id: serviceProvider, name: "Nikunj");
+  }
 }

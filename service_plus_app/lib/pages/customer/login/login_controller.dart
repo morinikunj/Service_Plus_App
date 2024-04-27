@@ -56,7 +56,6 @@ class LoginController extends GetxController {
         await SessionManager().setToken(userData!.token.toString());
         await SessionManager().setEmail(userData.email.toString());
         await SessionManager().setUserId(userData.sId.toString());
-        AppConstant.userEmail = userData.email!;
         CustomLoader.hideLoader();
         Get.offAndToNamed(AppRoutes.bottomNavbar);
         Customdialog.showSuccess("Login Successful");

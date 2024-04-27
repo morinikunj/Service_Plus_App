@@ -50,7 +50,8 @@ class ProviderRegisterController extends GetxController {
       Map<String, String> data = {
         "name": nameTC.text,
         "email": emailTC.text,
-        "password": passwordTC.text
+        "password": passwordTC.text,
+        "type": "service_provider"
       };
       try {
         await AuthServices().register(jsonEncode(data));

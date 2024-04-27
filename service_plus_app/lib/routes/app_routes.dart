@@ -29,6 +29,7 @@ import 'package:service_plus_app/pages/service_provider/register/register_page.d
 import 'package:service_plus_app/pages/service_provider/register/register_success_page.dart';
 import 'package:service_plus_app/pages/service_provider/wallet/wallet_controller.dart';
 import 'package:service_plus_app/pages/service_provider/wallet/wallet_page.dart';
+import 'package:service_plus_app/practice_screen.dart';
 
 import '../bindings/general_bindings.dart';
 
@@ -71,6 +72,8 @@ class AppRoutes {
   static String providerBottomNavbar = "/provider_bottom_navbar";
   static String providerProfile = "/provider_profile";
   static String providerEditProfile = "/provider_edit_profile";
+
+  static String practice = "/Practice";
 
   // App Routes
   static List<GetPage> routes = [
@@ -175,6 +178,7 @@ class AppRoutes {
     GetPage(
         name: providerEditProfile,
         page: () => const ProviderEditProfilePage(),
-        binding: GeneralBinding())
+        binding: GeneralBinding()),
+    GetPage(name: practice, page: () => const ChatApp())
   ];
 }
