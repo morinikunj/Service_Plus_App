@@ -11,10 +11,10 @@ const ratingSchema = new mongoose.Schema({
 
 
 const serviceProviderSchema = new mongoose.Schema({
-    name: { type: String,},
-    email: { type: String,},
+    name: { type: String, required: tue},
+    email: { type: String, required: tue},
     phoneNumber: { type: String, default: ""},
-    service: { type: String,},
+    service: { type: String, },
     serviceLocation: { type: String, default:""},
     charge: {
       amount: { type: Number, default: 0},

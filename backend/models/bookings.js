@@ -22,4 +22,4 @@ const chargeSchema = new mongoose.Schema({
   // Mongoose model for booking
   const Booking = mongoose.model('Booking', bookingSchema);
   
-  module.exports = bookingSchema;
+  module.exports = Booking;
