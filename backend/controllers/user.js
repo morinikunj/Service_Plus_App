@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const UserProfile = require("../models/user_profile");
 const Wallet = require("../models/wallet");
 const ServiceProvider = require("../models/service_provider");
+const Notification = require("../models/notification");
 
 //sign up
 const signUp = async (req, res) => {
@@ -43,7 +44,7 @@ const signUp = async (req, res) => {
 // sign in
 const signIn = async (req, res) => {
     try {
-        const {email, password} = req.body;
+        const {email, password, fcm} = req.body;
     
         
         const user = await User.findOne({email});
@@ -55,7 +56,11 @@ const signIn = async (req, res) => {
         if (!isMatch) {
             return res.status(400).json({ error: "Incorrect password!"});
         }
+        const id = user._id;
         const token = jwt.sign({id: user._id}, "passwordKey");
+
+        // let notify = new Notification({id, fcm});
+        // await notify.save();
 
         return res.json({token, ...user._doc});
 

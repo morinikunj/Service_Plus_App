@@ -1,10 +1,13 @@
+const Booking = require("../models/bookings");
+const Notification = require("../models/notification");
+
 // Create a new booking
 const bookService = async (req, res) => {
     try {
-      const { serviceProviderId, userId, serviceProviderName, userName, bookingDate, bookingTime, status, charge } = req.body;
+      const {address, serviceProviderId, userId, serviceProviderName, userName, bookingDate, bookingTime, status, charge } = req.body;
   
       // Perform any additional checks or validations here...
-  
+       console.log(userName);
       // Create a new booking
       const booking = await Booking.create({
         serviceProviderId,
@@ -14,8 +17,31 @@ const bookService = async (req, res) => {
         bookingDate,
         bookingTime,
         status,
-        charge
+        charge,
+        address
       });
+
+    //   const token = await Notification.findOne({userId});
+    //   const title = "Booking Request";
+    //   const body = "Request is sended by "+userName;
+
+    //    if (token != null) {
+    //     Notification.notificationMessages.push({title, body});
+
+    //     const message = {
+    //       notification : {
+    //           "title": title,
+    //           "body": body
+    //       },
+    //       token: token.token
+    //    };
+  
+    //    getMessaging().send(message).then((response) => {
+    //     res.json({msg: "Notification send successfully."});
+    // }).catch((e) => {
+    //     res.status(500).json({ error: e });
+    // })
+    //    }
   
       res.json(booking);
     } catch (err) {

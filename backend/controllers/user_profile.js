@@ -69,7 +69,7 @@ const userProfileDetails =  async (req, res) => {
       }
   
       // Find user profile by email
-      const userProfile = await UserProfile.findOne({ email });
+      const userProfile = await UserProfile.findOne({email});
   
       // Check if user profile exists
       if (!userProfile) {
