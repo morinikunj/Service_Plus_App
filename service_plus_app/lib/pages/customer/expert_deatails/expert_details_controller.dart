@@ -22,7 +22,6 @@ class ExpertDetailsController extends GetxController {
       if (data != null) {
         serviceProvider = data;
       }
-    } catch (e) {
     } finally {
       isLoading.value = false;
     }

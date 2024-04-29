@@ -14,7 +14,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  NotificationService().init();
+   NotificationService().init();
   runApp(const MyApp());
 }
 
@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.lightTheme,
       initialBinding: GeneralBinding(),
       getPages: AppRoutes.routes,
-      initialRoute: AppRoutes.providerSplashScreen,
+      initialRoute: AppRoutes.splashScreen,
       debugShowCheckedModeBanner: false,
     );
   }

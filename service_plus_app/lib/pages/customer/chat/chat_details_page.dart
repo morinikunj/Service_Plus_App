@@ -156,7 +156,7 @@ class ChatDetailsPage extends StatelessWidget {
           constraints: BoxConstraints(
             maxWidth: MediaQuery.of(context).size.width * 0.7,
           ),
-          child: Text(
+          child: const Text(
             "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
             style: TextStyle(color: Colors.black),
           ),

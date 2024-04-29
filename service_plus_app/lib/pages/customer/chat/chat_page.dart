@@ -62,14 +62,14 @@ class _ChatPageState extends State<ChatPage> {
                   .copyWith(color: AppColors.secondaryColor),
               textScaler: textScale(context),
             ),
-            IconButton(
-              onPressed: () {},
-              icon: Icon(
-                AppIcons.searchIcon,
-                size: GeneralSize.iconBig *
-                    ResponsiveUtil.instance.textScaleFactor(context),
-              ),
-            )
+            // IconButton(
+            //   onPressed: () {},
+            //   icon: Icon(
+            //     AppIcons.searchIcon,
+            //     size: GeneralSize.iconBig *
+            //         ResponsiveUtil.instance.textScaleFactor(context),
+            //   ),
+            // )
           ],
         ));
   }

@@ -1,7 +1,9 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:service_plus_app/routes/app_routes.dart';
+import 'package:service_plus_app/utils/local_storage/session_manager.dart';
 
 class NotificationService {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
@@ -13,7 +15,7 @@ class NotificationService {
   void init() async {
     checkPermission();
     String? token = await messaging.getToken();
-    print("token : $token");
+    await SessionManager().setFcm(token.toString());
     AwesomeNotifications().initialize(
       '',
       [

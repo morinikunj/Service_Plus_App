@@ -20,7 +20,6 @@ class WalletController extends GetxController {
       if (walletResponse.wallet != null) {
         wallet = walletResponse;
       }
-    } on Exception catch (e) {
     } finally {
       isLoading.value = false;
     }

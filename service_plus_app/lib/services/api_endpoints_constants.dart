@@ -16,6 +16,9 @@ class ApiEndPoints {
   static const String transaction = "wallet/transaction";
   static const String rating = "rating";
   static const String categories = "get_categories";
+  static const String bookService = "book_service";
+
+  
 
   //service provider
   static const String serviceProviderProfile = "service_provider/user_profile";

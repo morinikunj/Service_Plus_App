@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -80,6 +79,7 @@ class ProfilePage extends StatelessWidget {
                 leading: CircleAvatar(
                   radius: 40 * ResponsiveUtil.instance.textScaleFactor(context),
                   backgroundColor: AppColors.yellowColor,
+                  backgroundImage: NetworkImage(controller.userProfile!.profileImg!.toString()),
                 ),
                 title: Text(
                   controller.userProfile!.name!,
@@ -154,7 +154,9 @@ class ProfilePage extends StatelessWidget {
       padding: commonSysmPadding(context, horizontal: 30, vertical: 0),
       width: double.infinity,
       child: ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            controller.logout();
+          },
           style: Theme.of(context).elevatedButtonTheme.style!.copyWith(
               backgroundColor: MaterialStatePropertyAll(AppColors.redColor)),
           child: Text(

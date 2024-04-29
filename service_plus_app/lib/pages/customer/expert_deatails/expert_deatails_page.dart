@@ -82,7 +82,8 @@ class ExpertDetailsPage extends StatelessWidget {
                             )
                           ],
                         ),
-                        color: Colors.yellow),
+                        //color: Colors.yellow
+                        ),
                   );
                 },
               ),
@@ -113,30 +114,30 @@ class ExpertDetailsPage extends StatelessWidget {
                               child: reviewCard(context, data[index]));
                         },
                       )),
-            Padding(
-              padding: commonSysmPadding(context, horizontal: 24, vertical: 10),
-              child: Text(
-                workPortfolio,
-                style: Theme.of(context).textTheme.titleSmall!,
-                textScaler: textScale(context),
-              ),
-            ),
-            Padding(
-              padding: commonSysmPadding(context, horizontal: 20, vertical: 0),
-              child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                ),
-                itemCount: 4,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return Card(
-                    color: AppColors.greenColor,
-                  );
-                },
-              ),
-            )
+            // Padding(
+            //   padding: commonSysmPadding(context, horizontal: 24, vertical: 10),
+            //   child: Text(
+            //     workPortfolio,
+            //     style: Theme.of(context).textTheme.titleSmall!,
+            //     textScaler: textScale(context),
+            //   ),
+            // ),
+            // Padding(
+            //   padding: commonSysmPadding(context, horizontal: 20, vertical: 0),
+            //   child: GridView.builder(
+            //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            //       crossAxisCount: 2,
+            //     ),
+            //     itemCount: 4,
+            //     shrinkWrap: true,
+            //     physics: const NeverScrollableScrollPhysics(),
+            //     itemBuilder: (context, index) {
+            //       return Card(
+            //         color: AppColors.greenColor,
+            //       );
+            //     },
+            //   ),
+            // )
           ]),
         );
       })),
@@ -151,29 +152,30 @@ class ExpertDetailsPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Row(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 backButton(context),
-                const Spacer(),
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    AppIcons.chatIcon,
-                    color: AppColors.whiteColor,
-                  ),
-                  style: IconButton.styleFrom(
-                      backgroundColor: AppColors.primaryColor),
-                  iconSize: GeneralSize.iconSize *
-                      ResponsiveUtil.instance.textScaleFactor(context),
-                )
+                // const Spacer(),
+                // IconButton(
+                //   onPressed: () {},
+                //   icon: Icon(
+                //     AppIcons.chatIcon,
+                //     color: AppColors.whiteColor,
+                //   ),
+                //   style: IconButton.styleFrom(
+                //       backgroundColor: AppColors.primaryColor),
+                //   iconSize: GeneralSize.iconSize *
+                //       ResponsiveUtil.instance.textScaleFactor(context),
+                // )
               ],
             ),
-            customContainer(
-              padding: EdgeInsets.zero,
-              borderRadius: 100,
-              border: Border.all(color: AppColors.whiteColor, width: 3),
+            CircleAvatar(
+              backgroundColor: AppColors.whiteColor,
+              radius: 62 * ResponsiveUtil.instance.textScaleFactor(context),
               child: CircleAvatar(
                 backgroundColor: AppColors.yellowColor,
                 radius: 60 * ResponsiveUtil.instance.textScaleFactor(context),
+                backgroundImage: NetworkImage(controller.serviceProvider!.image.toString()),
               ),
             ),
             SizedBox(
@@ -304,21 +306,21 @@ class ExpertDetailsPage extends StatelessWidget {
                                 AppColors.yellowColor)),
                   ),
                 ),
-                SizedBox(
-                  width: ResponsiveUtil.width(20, context),
-                ),
-                Expanded(
-                  child: ElevatedButton(
-                      onPressed: () {},
-                      child: Text(
-                        call,
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleSmall!
-                            .copyWith(color: AppColors.whiteColor),
-                        textScaler: textScale(context),
-                      )),
-                )
+                // SizedBox(
+                //   width: ResponsiveUtil.width(20, context),
+                // ),
+                // Expanded(
+                //   child: ElevatedButton(
+                //       onPressed: () {},
+                //       child: Text(
+                //         call,
+                //         style: Theme.of(context)
+                //             .textTheme
+                //             .titleSmall!
+                //             .copyWith(color: AppColors.whiteColor),
+                //         textScaler: textScale(context),
+                //       )),
+                // )
               ],
             )
           ],
@@ -335,7 +337,8 @@ class ExpertDetailsPage extends StatelessWidget {
             ListTile(
               contentPadding: EdgeInsets.zero,
               leading: CircleAvatar(
-                backgroundColor: AppColors.yellowColor,
+               // backgroundColor: AppColors.yellowColor,
+                backgroundImage: NetworkImage(data.userImage.toString()),
                 radius: GeneralSize.iconSize *
                     ResponsiveUtil.instance.textScaleFactor(context),
               ),
@@ -409,7 +412,7 @@ class ExpertDetailsPage extends StatelessWidget {
                   Expanded(
                     child: Container(
                       decoration: const BoxDecoration(
-                          color: Colors.amber,
+                          // color: Colors.amber,
                           borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(10),
                               topRight: Radius.circular(10))),

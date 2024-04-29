@@ -4,8 +4,11 @@ import 'package:service_plus_app/components/back_button.dart';
 import 'package:service_plus_app/components/common_padding.dart';
 import 'package:service_plus_app/components/common_textformfield.dart';
 import 'package:service_plus_app/components/custom_container.dart';
+import 'package:service_plus_app/components/error_widget.dart';
+import 'package:service_plus_app/components/loading_widget.dart';
 import 'package:service_plus_app/components/no_data_found_widget.dart';
 import 'package:service_plus_app/pages/customer/add_address/add_address_controller.dart';
+import 'package:service_plus_app/services/user_service.dart';
 import 'package:service_plus_app/utils/constants/app_colors.dart';
 import 'package:service_plus_app/utils/constants/general_sizes.dart';
 import 'package:service_plus_app/utils/constants/image_strings.dart';
@@ -61,28 +64,29 @@ class AddAddressPage extends StatelessWidget {
               child: customContainer(
                   borderRadius: 20,
                   // color: AppColors.whiteColor,
-                  child: Obx(() {
-                    if (controller.isLoading.value) {
-                      print("data : ${controller.addresses}");
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-                    print("data : ${controller.addresses}");
-                    if (controller.addresses.isEmpty) {
-                      return noDataFound(context);
-                    }
-                    print("data : ${controller.addresses}");
-                    return ListView.builder(
-                      itemCount: controller.addresses.length,
-                      itemBuilder: (context, index) {
+                  child: FutureBuilder(future: UserService().getUserProfile(), 
+                  builder: (context, snapshot) { print("data : ${snapshot.data!.addresses![0].title}");
+                    if (snapshot.hasData && snapshot.data != null) {
+                      final data = snapshot.data;
+                      return ListView.builder(
+                      itemCount: data!.addresses!.length,
+                      itemBuilder: (context, index) { 
                         return itemCard(
                             context,
-                            controller.addresses[index].title!,
-                            controller.addresses[index].addressLine!);
+                            data!.addresses![index].title!,
+                            data!.addresses![index].addressLine!);
                       },
                     );
-                  })),
+                    } else if (snapshot.connectionState == ConnectionState.waiting) {
+            return loadingWidget();
+          } else if (snapshot.hasError) {
+            return errorWidget(context, snapshot.error);
+          }
+          return noDataFound(context);
+                  },
+                  )
+
+              )
             ),
           ],
         ),

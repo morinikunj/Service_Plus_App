@@ -160,21 +160,21 @@ class ProviderLoginPage extends StatelessWidget {
               SizedBox(
                 height: ResponsiveUtil.height(20, context),
               ),
-              Align(
-                alignment: Alignment.topRight,
-                child: GestureDetector(
-                  onTap: controller.forgetPassword,
-                  child: Text(
-                    forgetPassword,
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleSmall!
-                        .copyWith(color: AppColors.yellowColor),
-                    textScaler: textScale(context),
-                    textAlign: TextAlign.right,
-                  ),
-                ),
-              ),
+              // Align(
+              //   alignment: Alignment.topRight,
+              //   child: GestureDetector(
+              //     onTap: controller.forgetPassword,
+              //     child: Text(
+              //       forgetPassword,
+              //       style: Theme.of(context)
+              //           .textTheme
+              //           .titleSmall!
+              //           .copyWith(color: AppColors.yellowColor),
+              //       textScaler: textScale(context),
+              //       textAlign: TextAlign.right,
+              //     ),
+              //   ),
+              // ),
               Transform.translate(
                   offset: Offset(0, ResponsiveUtil.height(35, context)),
                   child: SizedBox(
