@@ -1,8 +1,15 @@
 const mongoose = require('mongoose');
 
 const addressSchema = new mongoose.Schema({
-  title: String,
-  addressLine: String
+  title: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  addressLine: {
+     type: String,
+     required: true
+  }
 });
 
 const userProfileSchema = new mongoose.Schema({

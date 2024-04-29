@@ -12,14 +12,18 @@ const chargeSchema = new mongoose.Schema({
     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     serviceProviderName: { type: String, required: true },
     userName: { type: String, required: true },
-    bookingDate: { type: Date, required: true },
+    bookingDate: { type: String, required: true },
     bookingTime: { type: String, required: true },
     status: { type: String, enum: ['requested', 'received', 'confirmed', 'started', 'completed', 'cancelled'], default: 'requested' },
     charge: { type: chargeSchema, required: true },
+    address :  {
+      type: String,
+      required:true
+    },
     createdAt: { type: Date, default: Date.now },
   });
   
   // Mongoose model for booking
   const Booking = mongoose.model('Booking', bookingSchema);
   
-  module.exports = bookingSchema;
+  module.exports = Booking;
