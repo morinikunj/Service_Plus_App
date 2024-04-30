@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:service_plus_app/components/back_button.dart';
 import 'package:service_plus_app/components/common_padding.dart';
 import 'package:service_plus_app/components/custom_container.dart';
@@ -10,18 +8,22 @@ import 'package:service_plus_app/utils/constants/general_sizes.dart';
 import 'package:service_plus_app/utils/constants/text_strings.dart';
 import 'package:service_plus_app/utils/responsive_util/responsive_util.dart';
 
-class BookingDetailsPage extends StatelessWidget {
-  const BookingDetailsPage({super.key});
+class UserBookingDetailsPage extends StatelessWidget {
+  const UserBookingDetailsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
+      body:  SafeArea(
         child: Column(
-          children: [],
+          children: [
+            header(context),
+            body(context),
+
+          ],
         ),
       ),
-      bottomSheet: bottomsheet(context)
+     // bottomNavigationBar: bottomsheet(context)
     );
   }
 
@@ -30,11 +32,14 @@ class BookingDetailsPage extends StatelessWidget {
         width: double.infinity,
         isGradient: true,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Align(alignment: Alignment.topLeft, child: backButton(context)),
+            SizedBox(
+              width: ResponsiveUtil.width(30, context),
+            ),
             Text(
-              "$bookingId b282833",
+              "Bookings Details",
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     color: AppColors.secondaryColor,
                   ),
@@ -49,12 +54,14 @@ class BookingDetailsPage extends StatelessWidget {
       child: Padding(
         padding: commonSysmPadding(context, horizontal: 24, vertical: 18),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Card(
               child: Column(
                 children: [
                   ListTile(
-                    contentPadding: EdgeInsets.zero,
+                
+                    contentPadding: EdgeInsets.symmetric(horizontal: ResponsiveUtil.width(20, context)),
                     title: Text(
                       "Samarth Smit",
                       style: Theme.of(context).textTheme.titleSmall,
@@ -74,62 +81,62 @@ class BookingDetailsPage extends StatelessWidget {
                           ResponsiveUtil.instance.textScaleFactor(context),
                     ),
                   ),
-                  Row(
-                    children: [
-                      Flexible(
-                        flex: 1,
-                        child: TextButton(
-                            onPressed: () {},
-                            child: Row(
-                              children: [
-                                Icon(
-                                  AppIcons.callIcon,
-                                  size: GeneralSize.iconSize *
-                                      ResponsiveUtil.instance
-                                          .textScaleFactor(context),
-                                  color: AppColors.primaryColor,
-                                ),
-                                Text(
-                                  callNow,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodySmall!
-                                      .copyWith(
-                                          color: AppColors.secondaryColor),
-                                  textScaler: textScale(context),
-                                )
-                              ],
-                            )),
-                      ),
-                      Flexible(
-                        flex: 1,
-                        child: TextButton(
-                            onPressed: () {},
-                            child: Row(
-                              children: [
-                                Icon(
-                                  AppIcons.chatIcon,
-                                  size: GeneralSize.iconSize *
-                                      ResponsiveUtil.instance
-                                          .textScaleFactor(context),
-                                  color: AppColors.greenColor,
-                                ),
-                                Text(
-                                  message,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodySmall!
-                                      .copyWith(color: AppColors.greenColor),
-                                  textScaler: textScale(context),
-                                )
-                              ],
-                            )),
-                      ),
-                      const Spacer(
-                        flex: 1,
-                      )
-                    ],
-                  )
+                  // Row(
+                  //   children: [
+                  //     Flexible(
+                  //       flex: 1,
+                  //       child: TextButton(
+                  //           onPressed: () {},
+                  //           child: Row(
+                  //             children: [
+                  //               Icon(
+                  //                 AppIcons.callIcon,
+                  //                 size: GeneralSize.iconSize *
+                  //                     ResponsiveUtil.instance
+                  //                         .textScaleFactor(context),
+                  //                 color: AppColors.primaryColor,
+                  //               ),
+                  //               Text(
+                  //                 callNow,
+                  //                 style: Theme.of(context)
+                  //                     .textTheme
+                  //                     .bodySmall!
+                  //                     .copyWith(
+                  //                         color: AppColors.secondaryColor),
+                  //                 textScaler: textScale(context),
+                  //               )
+                  //             ],
+                  //           )),
+                  //     ),
+                  //     Flexible(
+                  //       flex: 1,
+                  //       child: TextButton(
+                  //           onPressed: () {},
+                  //           child: Row(
+                  //             children: [
+                  //               Icon(
+                  //                 AppIcons.chatIcon,
+                  //                 size: GeneralSize.iconSize *
+                  //                     ResponsiveUtil.instance
+                  //                         .textScaleFactor(context),
+                  //                 color: AppColors.greenColor,
+                  //               ),
+                  //               Text(
+                  //                 message,
+                  //                 style: Theme.of(context)
+                  //                     .textTheme
+                  //                     .bodySmall!
+                  //                     .copyWith(color: AppColors.greenColor),
+                  //                 textScaler: textScale(context),
+                  //               )
+                  //             ],
+                  //           )),
+                  //     ),
+                  //     const Spacer(
+                  //       flex: 1,
+                  //     )
+                  //   ],
+                  // )
                 ],
               ),
             ),
@@ -144,6 +151,7 @@ class BookingDetailsPage extends StatelessWidget {
                   .copyWith(color: AppColors.greyColor),
               textScaler: textScale(context),
             ),
+            bookingStatusWidget(context)
           ],
         ),
       ),

@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:service_plus_app/pages/admin/admin_page.dart';
+import 'package:service_plus_app/pages/change_password/change_password.dart';
 import 'package:service_plus_app/pages/customer/add_address/add_address_page.dart';
 import 'package:service_plus_app/pages/customer/booking/booking_page.dart';
 import 'package:service_plus_app/pages/customer/booking/sucessful_page.dart';
@@ -17,14 +18,18 @@ import 'package:service_plus_app/pages/customer/notification/notification_page.d
 import 'package:service_plus_app/pages/customer/profile/profile_page.dart';
 import 'package:service_plus_app/pages/customer/register/register_page.dart';
 import 'package:service_plus_app/pages/customer/register/register_success_page.dart';
+import 'package:service_plus_app/pages/customer/splash_screen/splash_screen.dart';
 import 'package:service_plus_app/pages/customer/wallet/wallet_page.dart';
+import 'package:service_plus_app/pages/service_provider/booking_details/bookings_details_page.dart';
 import 'package:service_plus_app/pages/service_provider/bookings/booking_details.dart';
 import 'package:service_plus_app/pages/service_provider/bottom_navbar/bottom_navbar_page.dart';
 import 'package:service_plus_app/pages/service_provider/chat/chat_details_page.dart';
+import 'package:service_plus_app/pages/service_provider/dashboard/dashboard_page.dart';
 import 'package:service_plus_app/pages/service_provider/edit_profile/edit_profile_page.dart';
 import 'package:service_plus_app/pages/service_provider/login/login_page.dart';
 import 'package:service_plus_app/pages/service_provider/notification/notification_page.dart';
 import 'package:service_plus_app/pages/service_provider/profile/profile_page.dart';
+import 'package:service_plus_app/pages/service_provider/ratings.dart';
 import 'package:service_plus_app/pages/service_provider/register/register_page.dart';
 import 'package:service_plus_app/pages/service_provider/register/register_success_page.dart';
 import 'package:service_plus_app/pages/service_provider/splash_screen/splash_screen.dart';
@@ -55,6 +60,7 @@ class AppRoutes {
   static String wallet = "/wallet";
   static String addAddress = "/add_address";
   static String registerSuccess = "/register_success";
+  static String splashScreen = "/splash_screen";
 
   //admin
   static String admin = "/admin_page";
@@ -74,8 +80,20 @@ class AppRoutes {
   static String providerEditProfile = "/provider_edit_profile";
   static String providerSplashScreen = "/provider_splash_screen";
 
+
+  static String changePassowrd = "/change_password";
+  static String rating = "/rating";
+
+  static String myBookingDetails = "/booking_details";
+
+  static String dashboard = "/dashboard";
+
   // App Routes
   static List<GetPage> routes = [
+    GetPage(name: dashboard, page: () => DashBoardapage(), binding: GeneralBinding()),
+    GetPage(name: myBookingDetails, page: () => UserBookingDetailsPage(), binding: GeneralBinding()),
+    GetPage(name: rating, page: () => RatingsPage(), binding: GeneralBinding()),
+    GetPage(name: changePassowrd, page: () => ChangePassword(), binding: GeneralBinding() ),
     GetPage(name: home, page: () => HomePage(), binding: GeneralBinding()),
     GetPage(
         name: admin, page: () => const AdminPage(), binding: GeneralBinding()),
@@ -181,6 +199,10 @@ class AppRoutes {
     GetPage(
         name: providerSplashScreen,
         page: () => ProviderSplashScreen(),
+        binding: GeneralBinding()),
+    GetPage(
+        name: splashScreen,
+        page: () => SplashScreen(),
         binding: GeneralBinding())
   ];
 }

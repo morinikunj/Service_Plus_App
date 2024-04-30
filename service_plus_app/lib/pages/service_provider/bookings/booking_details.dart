@@ -4,8 +4,10 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:service_plus_app/components/common_padding.dart';
 import 'package:service_plus_app/components/custom_container.dart';
+import 'package:service_plus_app/pages/customer/booking_deatails/booking_details.dart';
 import 'package:service_plus_app/pages/customer/booking_deatails/booking_details_controller.dart';
 import 'package:service_plus_app/pages/service_provider/bookings/booking_details_controller.dart';
+import 'package:service_plus_app/routes/app_routes.dart';
 import 'package:service_plus_app/utils/constants/app_colors.dart';
 import 'package:service_plus_app/utils/constants/app_icons.dart';
 import 'package:service_plus_app/utils/constants/general_sizes.dart';
@@ -31,13 +33,27 @@ class ProviderBookingsPage extends StatelessWidget {
                   child: TabBarView(
                     children: [
                       Container(
-                        color: AppColors.redColor,
+                        padding: EdgeInsets.symmetric(horizontal: 24, vertical: 24),
+                        child: Column(
+                          children: [
+                            bookingCard(context)
+                          ],
+                        ),
                       ),
                       Container(
-                        color: AppColors.greenColor,
+                        child: Column(
+                          children: [
+                           InkWell(
+                            onTap: (){
+                              Get.toNamed(AppRoutes.myBookingDetails);
+                            },
+                            child:  bookingCard(context),
+                           )
+                          ],
+                        ),
                       ),
                       Container(
-                        color: AppColors.secondaryColor,
+                        
                       )
                     ],
                   ),

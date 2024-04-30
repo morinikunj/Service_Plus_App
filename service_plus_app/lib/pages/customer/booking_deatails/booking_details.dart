@@ -30,14 +30,32 @@ class BookingDetailsPage extends StatelessWidget {
                   child: TabBarView(
                     children: [
                       Container(
-                        color: AppColors.redColor,
+                        padding: EdgeInsets.only(top: ResponsiveUtil.height(20, context), bottom: ResponsiveUtil.height(80, context),right: ResponsiveUtil.width(24, context) ,left: ResponsiveUtil.width(24, context)),
+                       child: ListView.builder(
+                        itemCount: 1,
+                        itemBuilder: (context, index) {
+                          return bookingCard(context);
+                        },
+                       )
                       ),
                       Container(
-                        color: AppColors.greenColor,
+                        padding: EdgeInsets.only(top: ResponsiveUtil.height(20, context), bottom: ResponsiveUtil.height(80, context),right: ResponsiveUtil.width(24, context) ,left: ResponsiveUtil.width(24, context)),
+                       child: ListView.builder(
+                        itemCount: 5,
+                        itemBuilder: (context, index) {
+                          return bookingCard(context);
+                        },
+                       )
                       ),
                       Container(
-                        color: AppColors.secondaryColor,
-                      )
+                        padding: EdgeInsets.only(top: ResponsiveUtil.height(20, context), bottom: ResponsiveUtil.height(80, context),right: ResponsiveUtil.width(24, context) ,left: ResponsiveUtil.width(24, context)),
+                       child: ListView.builder(
+                        itemCount: 5,
+                        itemBuilder: (context, index) {
+                          return bookingCard(context);
+                        },
+                       )
+                      ),
                     ],
                   ),
                 )
@@ -100,12 +118,13 @@ class BookingDetailsPage extends StatelessWidget {
             ListTile(
               contentPadding: EdgeInsets.zero,
               leading: CircleAvatar(
-                backgroundColor: AppColors.yellowColor,
+                backgroundColor: AppColors.whiteColor,
                 radius: GeneralSize.iconSize *
                     ResponsiveUtil.instance.textScaleFactor(context),
+                    backgroundImage: NetworkImage("https://avatars2.githubusercontent.com/u/38502132?v=4?s=100"),
               ),
               title: Text(
-                "Robin Hood",
+                "Manish bhai",
                 style: Theme.of(context).textTheme.titleMedium,
                 textScaler: textScale(context),
               ),
@@ -123,7 +142,7 @@ class BookingDetailsPage extends StatelessWidget {
                   padding:
                       commonSysmPadding(context, horizontal: 8, vertical: 5),
                   child: Text(
-                    "Running",
+                    "Confirmed",
                     style: Theme.of(context)
                         .textTheme
                         .labelSmall!
@@ -138,7 +157,7 @@ class BookingDetailsPage extends StatelessWidget {
                   color: AppColors.greyColor,
                 ),
                 Text(
-                  "09/05/2024",
+                  "01/05/2024",
                   style: Theme.of(context)
                       .textTheme
                       .displaySmall!

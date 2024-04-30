@@ -14,6 +14,7 @@ import 'package:service_plus_app/services/auth_services.dart';
 import 'package:service_plus_app/utils/constants/app_colors.dart';
 import 'package:service_plus_app/utils/constants/app_icons.dart';
 import 'package:service_plus_app/utils/constants/general_sizes.dart';
+import 'package:service_plus_app/utils/constants/image_strings.dart';
 import 'package:service_plus_app/utils/constants/text_strings.dart';
 import 'package:service_plus_app/utils/responsive_util/responsive_util.dart';
 
@@ -34,15 +35,18 @@ class LoginPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  login,
-                  style: Theme.of(context)
-                      .textTheme
-                      .headlineLarge!
-                      .copyWith(color: AppColors.whiteColor),
-                  textScaler: textScale(context),
-                  textAlign: TextAlign.left,
+              children: [ SizedBox(
+                  height: ResponsiveUtil.height(20, context),
+                ),
+                Image.asset(
+                  AppImage.loginImg,
+                  fit: BoxFit.contain,
+                  filterQuality: FilterQuality.high,
+                  width: double.infinity,
+                  height: ResponsiveUtil.height(
+                    200,
+                    context,
+                  ),
                 ),
                 SizedBox(
                   height: ResponsiveUtil.height(20, context),
@@ -90,12 +94,29 @@ class LoginPage extends StatelessWidget {
     return customContainer(
         color: AppColors.whiteColor.withOpacity(0.2),
         borderRadius: 20,
-        padding: commonSysmPadding(context, horizontal: 10, vertical: 10),
+        padding: commonSysmPadding(context, horizontal: 10, vertical: 20),
         width: double.infinity,
         child: Form(
           key: controller.key,
           child: Column(
             children: [
+                Text(
+                login.toUpperCase(),
+                style: Theme.of(context)
+                    .textTheme
+                    .titleLarge!
+                    .copyWith(color: AppColors.whiteColor),
+                textScaler: textScale(context),
+                textAlign: TextAlign.left,
+              ),
+              SizedBox(
+                height: ResponsiveUtil.height(10, context),
+              ),
+              Divider(
+                height: ResponsiveUtil.height(10, context),
+                thickness: 1,
+                color: AppColors.accentColor.withOpacity(0.5),
+              ),
               commonTextField(
                   hintTextColor: AppColors.accentColor,
                   prefixIcon: Icon(
@@ -137,21 +158,21 @@ class LoginPage extends StatelessWidget {
               SizedBox(
                 height: ResponsiveUtil.height(20, context),
               ),
-              Align(
-                alignment: Alignment.topRight,
-                child: GestureDetector(
-                  onTap: controller.forgetPassword,
-                  child: Text(
-                    forgetPassword,
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleSmall!
-                        .copyWith(color: AppColors.yellowColor),
-                    textScaler: textScale(context),
-                    textAlign: TextAlign.right,
-                  ),
-                ),
-              ),
+              // Align(
+              //   alignment: Alignment.topRight,
+              //   child: GestureDetector(
+              //     onTap: controller.forgetPassword,
+              //     child: Text(
+              //       forgetPassword,
+              //       style: Theme.of(context)
+              //           .textTheme
+              //           .titleSmall!
+              //           .copyWith(color: AppColors.yellowColor),
+              //       textScaler: textScale(context),
+              //       textAlign: TextAlign.right,
+              //     ),
+              //   ),
+              // ),
               Transform.translate(
                   offset: Offset(0, ResponsiveUtil.height(30, context)),
                   child: SizedBox(

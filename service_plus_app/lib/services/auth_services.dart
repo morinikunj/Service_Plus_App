@@ -57,4 +57,23 @@ class AuthServices {
       return false;
     }
   }
+
+
+  Future<void> changePassword(data) async {
+    try {
+      var url = ApiEndPoints.changePassword;
+      final response = await dio.post(url, data);
+      if (response.statusCode == 200) {
+        final msg = response.data["msg"];
+        Customdialog.showSuccess(msg);
+      } else {
+        final error = response.data["error"];
+        Customdialog.showError(error);
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+
 }

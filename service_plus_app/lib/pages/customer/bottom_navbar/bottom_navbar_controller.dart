@@ -12,17 +12,17 @@ class BottomNavbarController extends GetxController {
 
   final pages = [
     HomePage(),
-    const ChatPage(),
+    //const ChatPage(),
     const BookingDetailsPage(),
-    const NotificationPage(),
+   // const NotificationPage(),
     ProfilePage()
   ];
 
   List<IconData> data = [
     AppIcons.homeIcon,
-    AppIcons.chatIcon,
+   // AppIcons.chatIcon,
     AppIcons.bookingIcon,
-    AppIcons.notifyIcon,
+   // AppIcons.notifyIcon,
     AppIcons.userIcon
   ];
 

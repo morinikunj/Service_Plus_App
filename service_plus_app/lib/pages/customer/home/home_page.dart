@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:service_plus_app/components/common_padding.dart';
 import 'package:service_plus_app/components/custom_container.dart';
+import 'package:service_plus_app/components/error_widget.dart';
+import 'package:service_plus_app/components/loading_widget.dart';
+import 'package:service_plus_app/components/no_data_found_widget.dart';
+import 'package:service_plus_app/models/response/category_response.dart';
 import 'package:service_plus_app/pages/customer/home/home_controller.dart';
+import 'package:service_plus_app/services/user_service.dart';
 import 'package:service_plus_app/utils/constants/app_colors.dart';
 import 'package:service_plus_app/utils/constants/app_icons.dart';
 import 'package:service_plus_app/utils/constants/general_sizes.dart';
@@ -29,17 +34,23 @@ class HomePage extends StatelessWidget {
               //   offset: Offset(0, ResponsiveUtil.height(-25, context)),
               //   child: searchButton(context),
               // ),
-              //services
-              Obx(() {
-                if (controller.isLoading.value) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-                return services(
-                  context,
-                );
-              }),
+              SizedBox(
+                height: ResponsiveUtil.height(20, context),
+              ),
+              FutureBuilder(
+                future: UserService().getCategories(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData && snapshot.data != null) {
+                    CategoryResponse? data = snapshot.data;
+                    return services(context, data);
+                  }  else if (snapshot.connectionState == ConnectionState.waiting) {
+            return loadingWidget();
+          } else if (snapshot.hasError) {
+            return errorWidget(context, snapshot.error);
+          }
+          return noDataFound(context);
+                },
+              ),
               SizedBox(
                 height: ResponsiveUtil.height(70, context),
               )
@@ -60,29 +71,35 @@ class HomePage extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Icon(
-                  AppIcons.locationIcon,
-                  size: GeneralSize.iconSize *
-                      ResponsiveUtil.instance.textScaleFactor(context),
-                  // size: ResponsiveUtil.height(GeneralSize.iconSize, context),
-                  color: AppColors.redColor,
-                ),
-                Text(
-                  "Ahmedabad",
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodySmall!
-                      .copyWith(color: AppColors.secondaryColor),
-                  textScaler: textScale(context),
-                ),
-                const Spacer(),
-                CircleAvatar(
+                FutureBuilder(
+                  future: UserService().getUserProfile(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData && snapshot.data != null) {
+                      return CircleAvatar(
+                     backgroundImage: NetworkImage(snapshot.data!.profileImg.toString()),
+                    backgroundColor: AppColors.primaryColor,
+                    radius: GeneralSize.iconSize *
+                        ResponsiveUtil.instance.textScaleFactor(context)
+                    // ResponsiveUtil.height(GeneralSize.iconSize, context)
+                    );
+                    } 
+                    return CircleAvatar(
                     //  backgroundImage: AssetImage(AppImage.demoImg),
                     backgroundColor: AppColors.primaryColor,
                     radius: GeneralSize.iconSize *
                         ResponsiveUtil.instance.textScaleFactor(context)
                     // ResponsiveUtil.height(GeneralSize.iconSize, context)
-                    )
+                    );
+                  },
+                ),
+                const Spacer(),
+                Icon(
+                    AppIcons.locationIcon,
+                    size: GeneralSize.iconMedium *
+                        ResponsiveUtil.instance.textScaleFactor(context),
+                    // size: ResponsiveUtil.height(GeneralSize.iconSize, context),
+                    color: AppColors.redColor,
+                                   ),
               ],
             ),
             SizedBox(
@@ -136,11 +153,11 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget services(BuildContext context) {
+  Widget services(BuildContext context, CategoryResponse? categoryResponse) {
     return Padding(
       padding: commonSysmPadding(context, vertical: 0, horizontal: 24),
       child: GridView.builder(
-          itemCount: controller.categoryResponse.value.categories!.length,
+          itemCount: categoryResponse!.categories!.length,
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -151,7 +168,7 @@ class HomePage extends StatelessWidget {
           itemBuilder: (context, index) {
             return InkWell(
               onTap: () {
-                controller.selectCategory(index);
+                controller.selectCategory(index,);
               },
               child: Card(
                   child: Column(
@@ -168,10 +185,7 @@ class HomePage extends StatelessWidget {
                         borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(15),
                             topRight: Radius.circular(15)),
-                        child: Image.network(
-                          controller
-                              .categoryResponse.value.categories![index].image
-                              .toString(),
+                        child: Image.network(categoryResponse.categories![index].image.toString(),
                           width: double.infinity,
                           fit: BoxFit.cover,
                         ),
@@ -182,8 +196,7 @@ class HomePage extends StatelessWidget {
                     padding:
                         commonSysmPadding(context, vertical: 3, horizontal: 0),
                     child: Text(
-                      controller.categoryResponse.value.categories![index].name
-                          .toString(),
+                           categoryResponse.categories![index].name.toString(),
                       style: Theme.of(context).textTheme.labelSmall!.copyWith(
                             color: AppColors.secondaryColor,
                           ),

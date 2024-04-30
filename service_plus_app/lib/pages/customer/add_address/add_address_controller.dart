@@ -14,7 +14,6 @@ class AddAdressController extends GetxController {
 
   @override
   void onInit() {
-    fetchAddressData();
     super.onInit();
   }
 
@@ -43,21 +42,21 @@ class AddAdressController extends GetxController {
     }
   }
 
-  void fetchAddressData() async {
-    try {
-      isLoading.value = true;
-      UserProfileResponse? data =
-          await UserService().getUserProfile().then((value) {
-        isLoading.value = false;
-      });
-      if (data!.addresses![0].title != null) {
-        addresses = data.addresses as List<Addresses>;
-      }
-      print("data : ${data.addresses![0].title}");
-      isLoading.value = false;
-    } catch (e) {
-    } finally {
-      isLoading.value = false;
-    }
-  }
+  // void fetchAddressData() async {
+  //   try {
+  //     isLoading.value = true;
+  //     UserProfileResponse? data =
+  //         await UserService().getUserProfile().then((value) {
+  //       isLoading.value = false;
+  //     });
+  //     if (data!.addresses![0].title != null) {
+  //       addresses = data.addresses as List<Addresses>;
+  //     }
+  //     print("data : ${data.addresses![0].title}");
+  //     isLoading.value = false;
+  //   } catch (e) {
+  //   } finally {
+  //     isLoading.value = false;
+  //   }
+  // }
 }

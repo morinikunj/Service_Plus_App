@@ -6,6 +6,7 @@ import 'package:service_plus_app/services/service_provider_services.dart';
 import 'package:service_plus_app/services/user_service.dart';
 import 'package:service_plus_app/utils/constants/app_icons.dart';
 import 'package:service_plus_app/utils/local_storage/session_manager.dart';
+import 'package:service_plus_app/utils/local_storage/share_pref_manager.dart';
 
 class ProviderProfileController extends GetxController {
   List data = [
@@ -25,10 +26,10 @@ class ProviderProfileController extends GetxController {
       "icon": AppIcons.passwordIcon,
       "title": "Change Passowrd",
     },
-    {
-      "icon": AppIcons.helpIcon,
-      "title": "Help",
-    },
+    // {
+    //   "icon": AppIcons.helpIcon,
+    //   "title": "Help",
+    // },
   ];
 
   onPress(index) {
@@ -40,8 +41,16 @@ class ProviderProfileController extends GetxController {
         Get.toNamed(AppRoutes.providerWallet);
         break;
       case 2:
-        Get.toNamed(AppRoutes.addAddress);
+        Get.toNamed(AppRoutes.rating);
+        case 3:
+        Get.toNamed(AppRoutes.changePassowrd); 
       default:
     }
+  }
+
+
+  void logout() async {
+    SharedPrefManager.clear();
+    Get.offAndToNamed(AppRoutes.providerLogin);
   }
 }

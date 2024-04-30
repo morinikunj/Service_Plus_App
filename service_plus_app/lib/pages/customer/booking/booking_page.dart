@@ -47,20 +47,9 @@ class _BookingPageState extends State<BookingPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Row(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 backButton(context),
-                const Spacer(),
-                IconButton(
-                  onPressed: () {},
-                  style: IconButton.styleFrom(
-                      backgroundColor: AppColors.primaryColor),
-                  icon: Icon(
-                    AppIcons.chatIcon,
-                    color: AppColors.whiteColor,
-                  ),
-                  iconSize: GeneralSize.iconSize *
-                      ResponsiveUtil.instance.textScaleFactor(context),
-                )
               ],
             ),
             customContainer(

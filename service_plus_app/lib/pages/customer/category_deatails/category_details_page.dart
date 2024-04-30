@@ -81,11 +81,11 @@ class CategoryDetailsPage extends StatelessWidget {
                   SizedBox(
                     height: ResponsiveUtil.height(5, context),
                   ),
-                  Text(
-                    "${controller.categoryResponse.length} Experts",
-                    style: Theme.of(context).textTheme.displaySmall,
-                    textScaler: textScale(context),
-                  )
+                  // Text(
+                  //   "${controller.categoryResponse.length} Experts",
+                  //   style: Theme.of(context).textTheme.displaySmall,
+                  //   textScaler: textScale(context),
+                  // )
                 ],
               ));
   }
@@ -120,6 +120,7 @@ class CategoryDetailsPage extends StatelessWidget {
                 leading: CircleAvatar(
                   radius: 30 * ResponsiveUtil.instance.textScaleFactor(context),
                   backgroundColor: Colors.amber,
+                  backgroundImage: NetworkImage(data.image.toString()),
                 ),
                 title: Text(
                   data.name.toString(),

@@ -8,6 +8,7 @@ class SessionManager {
   final String tokenKey = "TOKEN";
   final String emailKey = "user_email";
   final String userIdKey = "user_id";
+  final String fcm = "fcm";
 
   Future<void> setToken(String value) async {
     await SharedPrefManager.setString(tokenKey, value);
@@ -31,5 +32,13 @@ class SessionManager {
 
   Future<String?> getUserId() async {
     return await SharedPrefManager.getString(userIdKey);
+  }
+
+  Future<void> setFcm(String value) async {
+    await SharedPrefManager.setString(fcm, value);
+  }
+
+  Future<String?> getFcm() async {
+    return await SharedPrefManager.getString(fcm);
   }
 }

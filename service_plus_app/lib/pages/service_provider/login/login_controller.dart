@@ -45,9 +45,11 @@ class ProviderLoginController extends GetxController {
     if (key.currentState!.validate()) {
       key.currentState?.save();
       CustomLoader.showLoader();
+      final fcm = await SessionManager().fcm;
       Map<String, dynamic> data = {
         "email": emailTC.text,
-        "password": passwordTC.text
+        "password": passwordTC.text,
+        "fcm": fcm
       };
 
       try {
