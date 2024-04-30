@@ -5,7 +5,7 @@ const profileRouter = express.Router();
 
 profileRouter.get("/user_profile/:email", userProfileDetails);
 
-profileRouter.put("/update_profile", updateProfile);
+profileRouter.put("/update_profile/:email", updateProfile);
 
 profileRouter.post("/add_address/:email", addAddressDetails);
 

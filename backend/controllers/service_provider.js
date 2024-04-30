@@ -5,17 +5,18 @@ const Wallet = require("../models/wallet");
 const spProfileDetails =  async (req, res) => {
   try {
     const { email,} = req.params;
-
+   
     // Fetch user profile from the database by email
     const userProfile = await ServiceProvider.findOne({email});
     // Check if user profile exists
     if (!userProfile) {
       return res.status(404).json({ error: 'User profile not found' });
     }
-
+  console.log(email);
     res.json(userProfile); // Return fetched user profile as JSON response
   } catch (error) {
-    res.status(500).json({ error: error.message }); // Return error message if something goes wrong
+    console.log(error);
+    res.status(500).json({ error: error.message }); 
   }
 };
 

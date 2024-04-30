@@ -44,7 +44,7 @@ const signUp = async (req, res) => {
 // sign in
 const signIn = async (req, res) => {
     try {
-        const {email, password, fcm} = req.body;
+        const {email, password, } = req.body;
     
         
         const user = await User.findOne({email});
@@ -58,6 +58,7 @@ const signIn = async (req, res) => {
         }
         const id = user._id;
         const token = jwt.sign({id: user._id}, "passwordKey");
+        console.log(token);
 
         // let notify = new Notification({id, fcm});
         // await notify.save();
@@ -65,6 +66,7 @@ const signIn = async (req, res) => {
         return res.json({token, ...user._doc});
 
     } catch (e) {
+        console.log("error : "+ e);
          res.status(500).json({error: e.message});
     }
 };
