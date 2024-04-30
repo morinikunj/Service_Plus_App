@@ -20,8 +20,9 @@ class UserService {
 
   Future<void> updateProfile(data) async {
     try {
+      var email =await SessionManager().getEmail();
       var url = ApiEndPoints.updateProfile;
-      final response = await dio.put(url, data);
+      final response = await dio.put("$url/$email", data);
       if (response.statusCode == 200) {
         final msg = response.data["msg"];
         Customdialog.showSuccess(msg);
@@ -45,11 +46,11 @@ class UserService {
       } else {
         final msg = response.data["error"];
         Customdialog.showError(msg);
-        return null;
+        return msg;
       }
     } catch (e) {
       Customdialog.showError(e.toString());
-      return null;
+      return UserProfileResponse();
     }
   }
 

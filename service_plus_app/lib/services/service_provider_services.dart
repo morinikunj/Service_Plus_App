@@ -25,7 +25,7 @@ class ServiceProviderService {
         return null;
       }
     } on Exception catch (e) {
-      throw Exception(e.toString());
+       return null;
     }
   }
 }

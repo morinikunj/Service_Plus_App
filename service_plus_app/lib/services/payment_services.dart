@@ -33,11 +33,11 @@ class PaymentServices {
   }
 
   //transaction
-  Future<void> transaction(Transactions data) async {
+  Future<void> transaction( data) async {
     try {
       final email = await SessionManager().getEmail();
       var url = ApiEndPoints.transaction;
-      final response = await dio.post("$url/$email", data.toJson());
+      final response = await dio.post("$url/$email", data);
       if (response.statusCode == 200) {
         final msg = response.data["msg"];
         Customdialog.showSuccess(msg.toString());

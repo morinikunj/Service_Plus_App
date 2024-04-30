@@ -1,11 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:service_plus_app/components/back_button.dart';
 import 'package:service_plus_app/components/common_padding.dart';
 import 'package:service_plus_app/components/common_textformfield.dart';
-import 'package:service_plus_app/components/custom_button.dart';
 import 'package:service_plus_app/components/custom_container.dart';
+import 'package:service_plus_app/components/loading_widget.dart';
+import 'package:service_plus_app/pages/customer/edit_profile/edit_profile_controller.dart';
+import 'package:service_plus_app/pages/service_provider/edit_profile/edit_profile_controller.dart';
 import 'package:service_plus_app/utils/constants/app_colors.dart';
 import 'package:service_plus_app/utils/constants/app_icons.dart';
 import 'package:service_plus_app/utils/constants/general_sizes.dart';
@@ -16,14 +18,19 @@ class ProviderEditProfilePage extends StatefulWidget {
   const ProviderEditProfilePage({super.key});
 
   @override
-  State<ProviderEditProfilePage> createState() =>
-      _ProviderEditProfilePageState();
+  State<ProviderEditProfilePage> createState() => _ProviderEditProfilePageState();
 }
 
 class _ProviderEditProfilePageState extends State<ProviderEditProfilePage> {
+  EditProfileController controller = Get.put(EditProfileController());
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return GetBuilder(
+      id: "edit_profile",
+      init: ProviderEditProfileController(),
+      builder: (controller) {
+        return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -39,6 +46,8 @@ class _ProviderEditProfilePageState extends State<ProviderEditProfilePage> {
           ),
         ),
       ),
+    );
+      },
     );
   }
 
@@ -66,7 +75,7 @@ class _ProviderEditProfilePageState extends State<ProviderEditProfilePage> {
         ));
   }
 
-  Widget editImage(BuildContext context) {
+  Widget editImage(BuildContext context,) {
     return Column(
       children: [
         customContainer(
@@ -75,15 +84,23 @@ class _ProviderEditProfilePageState extends State<ProviderEditProfilePage> {
             border: Border.all(
                 color: AppColors.whiteColor,
                 width: 3 * ResponsiveUtil.instance.textScaleFactor(context)),
-            child: CircleAvatar(
+            child:  controller.file != null ?  CircleAvatar(
               radius: 80 * ResponsiveUtil.instance.textScaleFactor(context),
               backgroundColor: AppColors.greenColor,
-            )),
+             backgroundImage: FileImage(controller.file!)
+            ) :  CircleAvatar(
+              radius: 80 * ResponsiveUtil.instance.textScaleFactor(context),
+              backgroundColor: AppColors.greenColor,
+             backgroundImage: NetworkImage(controller.profileImg, scale: 1.0)
+            )
+            ),
         Transform.translate(
           offset: Offset(ResponsiveUtil.width(55, context),
               ResponsiveUtil.height(-60, context)),
           child: IconButton(
-            onPressed: () {},
+            onPressed: () {
+              controller.onPickImage(context);
+            },
             style: IconButton.styleFrom(
                 backgroundColor: AppColors.yellowColor,
                 side: BorderSide(color: AppColors.whiteColor, width: 3)),
@@ -101,28 +118,34 @@ class _ProviderEditProfilePageState extends State<ProviderEditProfilePage> {
   Widget form(BuildContext context) {
     return Padding(
       padding: commonSysmPadding(context, horizontal: 24, vertical: 0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          detailsInput(
-            context,
-            title: name,
-          ),
-          SizedBox(
-            height: ResponsiveUtil.height(20, context),
-          ),
-          detailsInput(
-            context,
-            title: email,
-          ),
-          SizedBox(
-            height: ResponsiveUtil.height(20, context),
-          ),
-          detailsInput(
-            context,
-            title: no,
-          ),
-        ],
+      child: Form(
+        key: controller.key,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            detailsInput(
+              controller: controller.nameTC,
+              context,
+              title: name,
+            ),
+            SizedBox(
+              height: ResponsiveUtil.height(20, context),
+            ),
+            detailsInput(
+              controller: controller.emailTC,
+              context,
+              title: email,
+            ),
+            SizedBox(
+              height: ResponsiveUtil.height(20, context),
+            ),
+            detailsInput(
+              controller: controller.phoneNoTC,
+              context,
+              title: no,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -157,7 +180,9 @@ class _ProviderEditProfilePageState extends State<ProviderEditProfilePage> {
       child: SizedBox(
         width: double.infinity,
         child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              controller.sumit();
+            },
             child: Text(
               updateProfile.toUpperCase(),
               style: Theme.of(context)
@@ -165,7 +190,7 @@ class _ProviderEditProfilePageState extends State<ProviderEditProfilePage> {
                   .titleMedium!
                   .copyWith(color: AppColors.whiteColor),
               textScaler: textScale(context),
-            )),
+            ))
       ),
     );
   }

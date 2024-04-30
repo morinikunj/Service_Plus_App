@@ -27,7 +27,7 @@ class ProviderProfilePage extends StatelessWidget {
           child: FutureBuilder(
         future: ServiceProviderService().getServiceProviderProfileDetails(),
         builder: (context, snapshot) {
-          if (snapshot.hasData) {
+          if (snapshot.hasData && snapshot.data != null) {
             return Column(
               children: [
                 header(context, snapshot.data!),
@@ -93,7 +93,7 @@ class ProviderProfilePage extends StatelessWidget {
               title: FittedBox(
                 child: Text(
                   data!.name!,
-                  style: Theme.of(context).textTheme.titleMedium,
+                  style: Theme.of(context).textTheme.titleSmall,
                   textScaler: textScale(context),
                   softWrap: true,
                 ),

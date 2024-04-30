@@ -10,4 +10,5 @@ class AppImage {
   //animations
   static String successTick = "assets/animations/success_tick.json";
   static String confetti = "assets/animations/confetti_ani.json";
+  static String startImg = 'assets/images/stat.jpeg';
 }

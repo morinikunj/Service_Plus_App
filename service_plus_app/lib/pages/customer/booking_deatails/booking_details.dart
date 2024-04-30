@@ -1,10 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:service_plus_app/components/common_padding.dart';
 import 'package:service_plus_app/components/custom_container.dart';
+import 'package:service_plus_app/components/error_widget.dart';
+import 'package:service_plus_app/components/loading_widget.dart';
+import 'package:service_plus_app/components/no_data_found_widget.dart';
+import 'package:service_plus_app/models/response/booking_details_response.dart';
 import 'package:service_plus_app/pages/customer/booking_deatails/booking_details_controller.dart';
+import 'package:service_plus_app/services/booking_service.dart';
 import 'package:service_plus_app/utils/constants/app_colors.dart';
 import 'package:service_plus_app/utils/constants/app_icons.dart';
 import 'package:service_plus_app/utils/constants/general_sizes.dart';
@@ -27,37 +30,54 @@ class BookingDetailsPage extends StatelessWidget {
               children: [
                 header(context),
                 Expanded(
-                  child: TabBarView(
+                  child: FutureBuilder(
+                    future: BookingService().getBookingsDetails(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) { print("fhurgh");
+                        final data = snapshot.data;
+                        print("${data!.length}");
+                        final upcoming = data?.where((i) => i.status == "requested" || i.status == "confirmed"|| i.status == "started").toList(); print("${upcoming!.length}");
+                        final completed = data?.where((i) => i.status == "completed").toList();
+                        final cancelled = data?.where((element) => element.status == "Cancelled").toList();
+                        return TabBarView(
                     children: [
                       Container(
                         padding: EdgeInsets.only(top: ResponsiveUtil.height(20, context), bottom: ResponsiveUtil.height(80, context),right: ResponsiveUtil.width(24, context) ,left: ResponsiveUtil.width(24, context)),
                        child: ListView.builder(
-                        itemCount: 1,
+                        itemCount: upcoming!.length,
                         itemBuilder: (context, index) {
-                          return bookingCard(context);
+                          return bookingCard(context, upcoming[index]);
                         },
                        )
                       ),
                       Container(
                         padding: EdgeInsets.only(top: ResponsiveUtil.height(20, context), bottom: ResponsiveUtil.height(80, context),right: ResponsiveUtil.width(24, context) ,left: ResponsiveUtil.width(24, context)),
                        child: ListView.builder(
-                        itemCount: 5,
+                        itemCount: completed!.length,
                         itemBuilder: (context, index) {
-                          return bookingCard(context);
+                          return bookingCard(context, completed[index]);
                         },
                        )
                       ),
                       Container(
                         padding: EdgeInsets.only(top: ResponsiveUtil.height(20, context), bottom: ResponsiveUtil.height(80, context),right: ResponsiveUtil.width(24, context) ,left: ResponsiveUtil.width(24, context)),
                        child: ListView.builder(
-                        itemCount: 5,
+                        itemCount: cancelled!.length,
                         itemBuilder: (context, index) {
-                          return bookingCard(context);
+                          return bookingCard(context, cancelled[index]);
                         },
                        )
                       ),
                     ],
-                  ),
+                  );
+                      } else if (snapshot.connectionState == ConnectionState.waiting) {
+            return loadingWidget();
+          } else if (snapshot.hasError) {
+            return errorWidget(context, snapshot.error);
+          }
+          return noDataFound(context);
+                    },
+                  )
                 )
               ],
             ),
@@ -109,7 +129,7 @@ class BookingDetailsPage extends StatelessWidget {
         ));
   }
 
-  Widget bookingCard(BuildContext context) {
+  Widget bookingCard(BuildContext context, BookingDetailsResponse? data) {
     return Card(
       child: Padding(
         padding: commonSysmPadding(context, horizontal: 18, vertical: 15),
@@ -124,29 +144,29 @@ class BookingDetailsPage extends StatelessWidget {
                     backgroundImage: NetworkImage("https://avatars2.githubusercontent.com/u/38502132?v=4?s=100"),
               ),
               title: Text(
-                "Manish bhai",
+                data!.serviceProviderName.toString(),
                 style: Theme.of(context).textTheme.titleMedium,
                 textScaler: textScale(context),
               ),
               subtitle: Text(
-                "Cleaning",
+                data.service.toString(),
                 style: Theme.of(context)
                     .textTheme
                     .bodySmall!
-                    .copyWith(color: AppColors.greyColor),
+                    .copyWith(color: Colors.grey),
                 textScaler: textScale(context),
               ),
               trailing: customContainer(
-                  color: AppColors.greyColor1,
+                  color: Colors.grey.withOpacity(0.15),
                   borderRadius: 15,
                   padding:
                       commonSysmPadding(context, horizontal: 8, vertical: 5),
                   child: Text(
-                    "Confirmed",
+                    data.status.toString(),
                     style: Theme.of(context)
                         .textTheme
                         .labelSmall!
-                        .copyWith(color: AppColors.redColor),
+                        .copyWith(color: data.status == "requested" || data.status == "confirmed" ? AppColors.greenColor : AppColors.redColor),
                   )),
             ),
             Row(
@@ -157,7 +177,7 @@ class BookingDetailsPage extends StatelessWidget {
                   color: AppColors.greyColor,
                 ),
                 Text(
-                  "01/05/2024",
+                  data.bookingDate.toString(),
                   style: Theme.of(context)
                       .textTheme
                       .displaySmall!
@@ -173,7 +193,7 @@ class BookingDetailsPage extends StatelessWidget {
                   color: AppColors.greyColor,
                 ),
                 Text(
-                  "09:00 PM",
+                  data.bookingTime.toString(),
                   style: Theme.of(context)
                       .textTheme
                       .displaySmall!
@@ -182,7 +202,7 @@ class BookingDetailsPage extends StatelessWidget {
                 ),
                 const Spacer(),
                 Text(
-                  "Rs 200/hr",
+                  "Rs ${data.charge!.amount}/${data.charge!.per}",
                   style: Theme.of(context)
                       .textTheme
                       .labelSmall!

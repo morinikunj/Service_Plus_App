@@ -1,16 +1,16 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:service_plus_app/components/image_select_widget.dart';
+import 'package:service_plus_app/models/response/service_provider_profile.dart';
 import 'package:service_plus_app/models/response/user_profile_response.dart';
+import 'package:service_plus_app/services/service_provider_services.dart';
 import 'package:service_plus_app/services/user_service.dart';
-import 'package:service_plus_app/utils/dialog_util/custom_loader.dart';
 
-class EditProfileController extends GetxController {
-  UserProfileResponse? userProfileResponse;
+class ProviderEditProfileController extends GetxController {
+  ServiceProviderProfileDetails? userProfileResponse;
   var isLoading = false.obs;
   TextEditingController nameTC = TextEditingController();
   TextEditingController emailTC = TextEditingController();
@@ -28,12 +28,12 @@ class EditProfileController extends GetxController {
 
   fetchData() async {
     try {
-      userProfileResponse = await UserService().getUserProfile();
+      userProfileResponse = await ServiceProviderService().getServiceProviderProfileDetails();
       if (userProfileResponse!.name != null) {
         nameTC.text = userProfileResponse!.name.toString();
         emailTC.text = userProfileResponse!.email.toString();
-        phoneNoTC.text = userProfileResponse!.mobileNo.toString();
-        profileImg = userProfileResponse!.profileImg!.toString();
+        phoneNoTC.text = userProfileResponse!.phoneNumber.toString();
+        profileImg = userProfileResponse!.image.toString();
         update(["edit_profile"]);
       }
     } catch (e) {

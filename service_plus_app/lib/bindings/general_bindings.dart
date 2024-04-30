@@ -17,6 +17,7 @@ import 'package:service_plus_app/pages/customer/wallet/wallet_controller.dart';
 import 'package:service_plus_app/pages/service_provider/bookings/booking_details_controller.dart';
 import 'package:service_plus_app/pages/service_provider/bottom_navbar/bottom_navbar_controller.dart';
 import 'package:service_plus_app/pages/service_provider/chat/chat_controller.dart';
+import 'package:service_plus_app/pages/service_provider/dashboard/dashboard_controller.dart';
 import 'package:service_plus_app/pages/service_provider/login/login_controller.dart';
 import 'package:service_plus_app/pages/service_provider/profile/profile_controller.dart';
 import 'package:service_plus_app/pages/service_provider/register/register_controller.dart';
@@ -54,5 +55,6 @@ class GeneralBinding extends Bindings {
     Get.lazyPut(() => ProviderSplashScreenController());
     Get.lazyPut(() => EditProfileController());
     Get.lazyPut(() => ChangePasswordController(),);
+    Get.lazyPut(() => DashboardProviderController());
   }
 }

@@ -27,6 +27,8 @@ class UserProfileResponse {
       json['addresses'].forEach((v) {
         addresses!.add(Addresses.fromJson(v));
       });
+    } else {
+      addresses = [];
     }
     iV = json['__v'];
   }

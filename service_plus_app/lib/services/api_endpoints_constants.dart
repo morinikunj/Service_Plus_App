@@ -17,6 +17,7 @@ class ApiEndPoints {
   static const String rating = "rating";
   static const String categories = "get_categories";
   static const String bookService = "book_service";
+  static const String bookings = "booking";
 
   
 

@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.lightTheme,
       initialBinding: GeneralBinding(),
       getPages: AppRoutes.routes,
-      initialRoute: AppRoutes.splashScreen,
+      initialRoute: AppRoutes.providerSplashScreen,
       debugShowCheckedModeBanner: false,
     );
   }

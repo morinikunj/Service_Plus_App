@@ -66,8 +66,10 @@ class AddAddressPage extends StatelessWidget {
                   // color: AppColors.whiteColor,
                   child: FutureBuilder(future: UserService().getUserProfile(), 
                   builder: (context, snapshot) { print("data : ${snapshot.data!.addresses![0].title}");
-                    if (snapshot.hasData && snapshot.data != null) {
+                    if (snapshot.hasData && snapshot.data!.addresses!.length != 0) {
                       final data = snapshot.data;
+                        print(data);
+
                       return ListView.builder(
                       itemCount: data!.addresses!.length,
                       itemBuilder: (context, index) { 

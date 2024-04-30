@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:service_plus_app/components/back_button.dart';
 import 'package:service_plus_app/components/common_padding.dart';
+import 'package:service_plus_app/components/common_textformfield.dart';
 import 'package:service_plus_app/components/custom_container.dart';
+import 'package:service_plus_app/components/empty_data_widget.dart';
 import 'package:service_plus_app/components/no_data_found_widget.dart';
 import 'package:service_plus_app/pages/customer/wallet/wallet_controller.dart';
 import 'package:service_plus_app/utils/constants/app_colors.dart';
@@ -115,13 +117,21 @@ class _WalletPageState extends State<WalletPage> {
                           ResponsiveUtil.instance.textScaleFactor(context),
                       color: AppColors.accentColor,
                     ),
-                    Text(
+                    GestureDetector(
+                      onTap: () {
+                        Get.defaultDialog(
+                          title: "Add Money",
+                          content: addMoneyWidget()
+                        );
+                      },
+                      child: Text(
                       addMoney,
                       style: Theme.of(context)
                           .textTheme
                           .titleSmall!
                           .copyWith(color: AppColors.accentColor),
                       textScaler: textScale(context),
+                    ),
                     ),
                     customContainer(
                         width: 1.5,
@@ -156,7 +166,7 @@ class _WalletPageState extends State<WalletPage> {
                 padding:
                     commonSysmPadding(context, horizontal: 24, vertical: 18),
                 child: controller.wallet!.wallet!.transactions!.isEmpty
-                    ? noDataFound(context)
+                    ? emptyDataWidget(context, "No Transactions Avilable")
                     : ListView.separated(
                         itemBuilder: (context, index) {
                           return itemCard(
@@ -187,6 +197,39 @@ class _WalletPageState extends State<WalletPage> {
               )),
         )
       ],
+    );
+  }
+
+  Widget addMoneyWidget(){
+    return customContainer(
+      child: Column(
+        children: [
+           Form(
+            key: controller.formKey,
+            child:           commonTextField(
+            controller: controller.amountTC,
+            hintText: "Enter amount",
+            validator: controller.validater,
+            keyboardType:   TextInputType.number
+          ),
+           ),
+          SizedBox(
+            height: ResponsiveUtil.height(15, context),
+          ),
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(onPressed: (){
+              controller.submit();
+            }, child:  Text(
+                        submit,
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleSmall!
+                            .copyWith(color: AppColors.whiteColor),
+                      )),
+          )
+        ],
+      )
     );
   }
 

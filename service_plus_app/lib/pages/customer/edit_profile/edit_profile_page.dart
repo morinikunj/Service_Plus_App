@@ -5,6 +5,7 @@ import 'package:service_plus_app/components/back_button.dart';
 import 'package:service_plus_app/components/common_padding.dart';
 import 'package:service_plus_app/components/common_textformfield.dart';
 import 'package:service_plus_app/components/custom_container.dart';
+import 'package:service_plus_app/components/loading_widget.dart';
 import 'package:service_plus_app/pages/customer/edit_profile/edit_profile_controller.dart';
 import 'package:service_plus_app/utils/constants/app_colors.dart';
 import 'package:service_plus_app/utils/constants/app_icons.dart';
@@ -177,7 +178,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
       padding: commonSysmPadding(context, horizontal: 24, vertical: 30),
       child: SizedBox(
         width: double.infinity,
-        child: ElevatedButton(
+        child: Obx((){
+          return controller.isLoading.value == true ? ElevatedButton(
             onPressed: () {
               controller.sumit();
             },
@@ -188,7 +190,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   .titleMedium!
                   .copyWith(color: AppColors.whiteColor),
               textScaler: textScale(context),
-            )),
+            )) : loadingWidget();
+        })
       ),
     );
   }

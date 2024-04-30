@@ -51,11 +51,13 @@ class BookingController extends GetxController {
       "userId": id ?? "",
       "serviceProviderName": detailsController.serviceProvider!.name ?? "",
       "userName": user!.name ?? "",
-      "bookingDate":selectedDate.toString(),
+      "service": detailsController.serviceProvider!.service,
+      "bookingDate":  "${selectedDate.day}/${selectedDate.month}/${selectedDate.year}",
       "bookingTime": times[currentSlot],
       "charge": detailsController.serviceProvider!.charge,
-      "address": selectAddress
-    };
+      "address": selectAddress ?? ""
+    }; 
+    print("sending data : -> ${data}");
     await BookingService().bookService(jsonEncode(data)).then((value) {
       CustomLoader.hideLoader();
         Get.offAndToNamed(AppRoutes.bookingSuccess);
@@ -76,7 +78,7 @@ class BookingController extends GetxController {
   }
 
   void gotoBooking(){
-    navbarController.currentPage = 2;
+    navbarController.currentPage = 1;
     Get.offAndToNamed(AppRoutes.bottomNavbar);
   }
 }

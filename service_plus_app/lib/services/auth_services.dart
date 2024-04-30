@@ -36,11 +36,12 @@ class AuthServices {
       } else {
         final msg = response.data["error"];
         Customdialog.showError(msg);
+        return msg;
       }
     } catch (e) {
       Customdialog.showError(e.toString());
+      return UserResponse();
     }
-    return null;
   }
 
   //token is valid

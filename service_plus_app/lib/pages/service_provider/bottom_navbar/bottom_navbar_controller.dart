@@ -12,17 +12,17 @@ class ProviderBottomNavbarController extends GetxController {
 
   final pages = [
     DashBoardapage(),
-    const ProviderChatPage(),
+    //const ProviderChatPage(),
     const ProviderBookingsPage(),
-    const ProviderNotificationPage(),
+   // const ProviderNotificationPage(),
     ProviderProfilePage()
   ];
 
   List<IconData> data = [
     AppIcons.homeIcon,
-    AppIcons.chatIcon,
+   // AppIcons.chatIcon,
     AppIcons.bookingIcon,
-    AppIcons.notifyIcon,
+  //  AppIcons.notifyIcon,
     AppIcons.userIcon
   ];
 

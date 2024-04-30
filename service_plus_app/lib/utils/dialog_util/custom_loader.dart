@@ -5,7 +5,10 @@ class CustomLoader {
   static void showLoader() {
     Get.dialog(const Center(
       child: CircularProgressIndicator(),
-    ));
+      
+    ),
+    barrierDismissible: false,
+    );
   }
 
   static void hideLoader() {
