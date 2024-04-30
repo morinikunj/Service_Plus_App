@@ -22,23 +22,25 @@ const userProfileDetails =  async (req, res) => {
   const updateProfile =  async (req, res) => {
     try {
       const updatedDetails = req.body;
-      const {name, email} = req.body;
-  
+      const {email} = req.params;
+
+      console.log(email);
       // Check if email parameter is provided
-      if (!email) {
+      if (email == null ) {
         return res.status(400).json({ error: 'User Id parameter is required' });
       }
   
       // Update user profile in the database
-      const updatedProfile = await UserProfile.findOneAndUpdate({ email }, updatedDetails, {
+      let updatedProfile = await UserProfile.findOneAndUpdate({ email }, updatedDetails, {
         new: true, // Return the updated document
         runValidators: true // Run schema validators
       });
 
-      const user = User.findOne({email});
-      user.name = name;
-      user.email = email;
-      await user.save();
+      let user = await User.findOneAndUpdate({email}, updatedDetails,{
+        new: true,
+        runValidators: true
+      });
+
   
       // Check if user profile exists
       if (!updatedProfile) {
@@ -47,10 +49,11 @@ const userProfileDetails =  async (req, res) => {
   
       res.json({
         msg: 'Profile updated successfully.'
-      }); // Return updated user profile as JSON response
-    } catch (error) {
-      res.status(500).json({ error: error.message }); // Return error message if something goes wrong
-    }
+      });
+      console.log("updated,,,"); // Return updated user profile as JSON response
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Internal Server Error' });}
   };
 
   const addAddressDetails =  async (req, res) => {

@@ -9,7 +9,19 @@ const bookService = async (req, res) => {
       // Perform any additional checks or validations here...
        console.log(userName);
       // Create a new booking
-      const booking = await Booking.create({
+      // const booking = await Booking.create({
+      //   serviceProviderId,
+      //   userId,
+      //   serviceProviderName,
+      //   userName,
+      //   bookingDate,
+      //   bookingTime,
+      //   status,
+      //   charge,
+      //   address
+      // });
+
+      let booking = new Booking({
         serviceProviderId,
         userId,
         serviceProviderName,
@@ -20,6 +32,12 @@ const bookService = async (req, res) => {
         charge,
         address
       });
+
+      console.log(booking);
+
+      await booking.save();
+
+      
 
     //   const token = await Notification.findOne({userId});
     //   const title = "Booking Request";
@@ -43,9 +61,11 @@ const bookService = async (req, res) => {
     // })
     //    }
   
-      res.json(booking);
+      res.json({
+        "msg": "Booking request has been sent successfully"
+      });
     } catch (err) {
-      res.status(400).json({ error: err.message });
+      res.status(500).json({ error: err.message });
     }
   };
 
