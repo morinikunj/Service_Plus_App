@@ -4,7 +4,7 @@ const auth = require('../middlewares/auth');
 
 const providerRouter = express.Router();
 
-providerRouter.get("/service_provider/user_profile/:email", auth, spProfileDetails);
+providerRouter.get("/service_provider/user_profile/:email", spProfileDetails);
 
 providerRouter.put("/service_provider/update_profile/:email", updateProfileSp);
 

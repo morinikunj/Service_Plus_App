@@ -1,6 +1,6 @@
 class ApiEndPoints {
   // base url
-  static const String baseUrl = "http://192.168.43.99:3000/";
+  static const String baseUrl = "http://192.168.43.74:3000/";
   static const String tokenValid = "tokenIsValid";
 
   //users

@@ -18,10 +18,10 @@ class ProviderProfileController extends GetxController {
       "icon": AppIcons.paymentIcon,
       "title": "Wallet",
     },
-    {
-      "icon": AppIcons.ratingIcon,
-      "title": "Ratings",
-    },
+    // {
+    //   "icon": AppIcons.ratingIcon,
+    //   "title": "Ratings",
+    // },
     {
       "icon": AppIcons.passwordIcon,
       "title": "Change Passowrd",
@@ -40,9 +40,9 @@ class ProviderProfileController extends GetxController {
       case 1:
         Get.toNamed(AppRoutes.providerWallet);
         break;
-      case 2:
-        Get.toNamed(AppRoutes.rating);
-        case 3:
+      // case 2:
+      //   Get.toNamed(AppRoutes.rating);
+        case 2:
         Get.toNamed(AppRoutes.changePassowrd); 
       default:
     }

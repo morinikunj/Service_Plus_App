@@ -19,7 +19,9 @@ import 'package:service_plus_app/pages/customer/profile/profile_page.dart';
 import 'package:service_plus_app/pages/customer/register/register_page.dart';
 import 'package:service_plus_app/pages/customer/register/register_success_page.dart';
 import 'package:service_plus_app/pages/customer/splash_screen/splash_screen.dart';
+import 'package:service_plus_app/pages/customer/wallet/scanner_page.dart';
 import 'package:service_plus_app/pages/customer/wallet/wallet_page.dart';
+import 'package:service_plus_app/pages/main_screen.dart';
 import 'package:service_plus_app/pages/service_provider/booking_details/bookings_details_page.dart';
 import 'package:service_plus_app/pages/service_provider/bookings/booking_details.dart';
 import 'package:service_plus_app/pages/service_provider/bottom_navbar/bottom_navbar_page.dart';
@@ -88,8 +90,14 @@ class AppRoutes {
 
   static String dashboard = "/dashboard";
 
+  static String first = "/first";
+
+  static String scanner = "/scanner";
+
   // App Routes
   static List<GetPage> routes = [
+    GetPage(name: scanner, page: () => SacnnerPage(), binding: GeneralBinding()),
+    GetPage(name: first, page: () => MainScreen(), binding: GeneralBinding()),
     GetPage(name: dashboard, page: () => DashBoardapage(), binding: GeneralBinding()),
     GetPage(name: myBookingDetails, page: () => UserBookingDetailsPage(), binding: GeneralBinding()),
     GetPage(name: rating, page: () => RatingsPage(), binding: GeneralBinding()),

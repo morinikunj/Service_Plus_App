@@ -288,7 +288,7 @@ class ExpertDetailsPage extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () {
                       Get.bottomSheet(const Booking(),
-                          backgroundColor: AppColors.whiteColor);
+                          backgroundColor: AppColors.whiteColor, isScrollControlled: true);
                     },
                     child: Text(
                       book,

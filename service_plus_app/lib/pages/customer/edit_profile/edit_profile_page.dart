@@ -168,7 +168,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
         commonTextField(
             controller: controller,
             hintText: title,
-            padding: commonSysmPadding(context, horizontal: 20, vertical: 10))
+            padding: commonSysmPadding(context, horizontal: 20, vertical: 10)),
+                    SizedBox(
+          height: ResponsiveUtil.height(10, context),
+        ),
       ],
     );
   }
@@ -178,8 +181,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
       padding: commonSysmPadding(context, horizontal: 24, vertical: 30),
       child: SizedBox(
         width: double.infinity,
-        child: Obx((){
-          return controller.isLoading.value == true ? ElevatedButton(
+        child: ElevatedButton(
             onPressed: () {
               controller.sumit();
             },
@@ -190,8 +192,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   .titleMedium!
                   .copyWith(color: AppColors.whiteColor),
               textScaler: textScale(context),
-            )) : loadingWidget();
-        })
+            )
+            ) 
       ),
     );
   }

@@ -28,4 +28,20 @@ class ServiceProviderService {
        return null;
     }
   }
+
+  Future<ServiceProviderProfileDetails?>
+      updateServiceProviderProfileDetails(data) async {
+    try {
+      final email = await SessionManager().getEmail();
+      var url = ApiEndPoints.updateServiceProviderProfile;
+      final response = await dio.put("$url/$email", data);
+      if (response.statusCode == 200) {
+        return ServiceProviderProfileDetails.fromJson(response.data);
+      } else {
+        return null;
+      }
+    } on Exception catch (e) {
+       return null;
+    }
+  }
 }

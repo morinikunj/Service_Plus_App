@@ -2,6 +2,7 @@ import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:service_plus_app/components/common_padding.dart';
+import 'package:service_plus_app/components/common_textformfield.dart';
 import 'package:service_plus_app/components/custom_container.dart';
 import 'package:service_plus_app/pages/customer/booking/booking_controller.dart';
 import 'package:service_plus_app/services/user_service.dart';
@@ -27,6 +28,9 @@ class Booking extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  SizedBox(
+                    height: 30,
+                  ),
                   Text(
                     selectDate,
                     style: Theme.of(context)
@@ -109,63 +113,80 @@ class Booking extends StatelessWidget {
                         .copyWith(color: AppColors.greyColor),
                     textScaler: textScale(context),
                   ),
-                  Row(
-                    children: [
-                      Icon(
-                        AppIcons.locationIcon,
-                        color: AppColors.redColor,
-                        size: GeneralSize.iconMedium *
-                            ResponsiveUtil.instance.textScaleFactor(context),
-                      ),
-                      SizedBox(
-                        width: ResponsiveUtil.width(10, context),
-                      ),
-                     FutureBuilder(
-                      future: UserService().getUserProfile(),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData && snapshot.data!.addresses!.isNotEmpty) {
-                          return  DropdownButton(
-                          borderRadius: const BorderRadius.all(Radius.circular(20)),
-                          value: 1,
-                          items: [
-                            DropdownMenuItem(
-                              value: 1,
-                              child: Text(
-                                "Select Address",
-                                style: Theme.of(context).textTheme.bodySmall,
-                              ),
-                            ),
-                            ...snapshot.data!.addresses!.map((data){
-                              return  DropdownMenuItem(
-                              value: data.addressLine,
-                              child: Text(
-                                data.title.toString(),
-                                style: Theme.of(context).textTheme.bodySmall,
-                              ),
-                            );
-                            })
-                          
-                          ],
-                          onChanged: (val) {});
-                        }
-                        return DropdownButton(
-                          borderRadius: const BorderRadius.all(Radius.circular(20)),
-                          value: 1,
-                          items: [
-                            DropdownMenuItem(
-                              value: 1,
-                              child: Text(
-                                "Select Address",
-                                style: Theme.of(context).textTheme.bodySmall,
-                              ),
-                            ),
-                          
-                          ],
-                          onChanged: (val) {});
-                      },
-                     )
-                    ],
+                  SizedBox(
+                    height: ResponsiveUtil.height(20, context),
                   ),
+                  Form(
+                    key: controller.key,
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: commonTextField(
+                  hintText: "address",
+                  controller: controller.addressTC,
+                  validator: controller.validateAddress
+                  ),
+                    )
+                  ),
+                  SizedBox(
+                    height: ResponsiveUtil.height(20, context),
+                  ),
+                  // Row(
+                  //   children: [
+                  //     Icon(
+                  //       AppIcons.locationIcon,
+                  //       color: AppColors.redColor,
+                  //       size: GeneralSize.iconMedium *
+                  //           ResponsiveUtil.instance.textScaleFactor(context),
+                  //     ),
+                  //     SizedBox(
+                  //       width: ResponsiveUtil.width(10, context),
+                  //     ),
+                  //    FutureBuilder(
+                  //     future: UserService().getUserProfile(),
+                  //     builder: (context, snapshot) {
+                  //       if (snapshot.hasData && snapshot.data!.addresses!.isNotEmpty) {
+                  //         return  DropdownButton(
+                  //         borderRadius: const BorderRadius.all(Radius.circular(20)),
+                  //         value: 1,
+                  //         items: [
+                  //           DropdownMenuItem(
+                  //             value: 1,
+                  //             child: Text(
+                  //               "Select Address",
+                  //               style: Theme.of(context).textTheme.bodySmall,
+                  //             ),
+                  //           ),
+                  //           ...snapshot.data!.addresses!.map((data){
+                  //             return  DropdownMenuItem(
+                  //             value: data.addressLine,
+                  //             child: Text(
+                  //               data.title.toString(),
+                  //               style: Theme.of(context).textTheme.bodySmall,
+                  //             ),
+                  //           );
+                  //           })
+                          
+                  //         ],
+                  //         onChanged: (val) {});
+                  //       }
+                  //       return DropdownButton(
+                  //         borderRadius: const BorderRadius.all(Radius.circular(20)),
+                  //         value: 1,
+                  //         items: [
+                  //           DropdownMenuItem(
+                  //             value: 1,
+                  //             child: Text(
+                  //               "Select Address",
+                  //               style: Theme.of(context).textTheme.bodySmall,
+                  //             ),
+                  //           ),
+                          
+                  //         ],
+                  //         onChanged: (val) {});
+                  //     },
+                  //    )
+                  //   ],
+                  // ),
                   SizedBox(
                     height: ResponsiveUtil.height(20, context),
                   ),

@@ -37,11 +37,15 @@ const updateProfileSp =  async (req, res) => {
       new: true, // Return the updated document
       runValidators: true // Run schema validators
     });
-
-    const user = User.findOne({email});
-    user.name = name;
-    user.email = email;
-    await user.save();
+    
+    let user = await UserProfile.findOneAndUpdate({ email }, {name, email}, {
+      new: true, // Return the updated document
+      runValidators: true // Run schema validators
+    });
+    // const user = User.findOneAndUpdate({email});
+    // user.name = name;
+    // user.email = email;
+    // await user.save();
 
     // Check if user profile exists
     if (!updatedProfile) {

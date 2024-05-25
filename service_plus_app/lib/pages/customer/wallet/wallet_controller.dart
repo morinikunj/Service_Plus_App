@@ -12,19 +12,18 @@ import 'package:service_plus_app/utils/dialog_util/custom_dialog.dart';
 class WalletController extends GetxController {
   WalletResponse? wallet;
   var isLoading = true.obs;
-  late Razorpay _razorpay;
+ // late Razorpay _razorpay;
   TextEditingController amountTC = TextEditingController();
   final formKey = GlobalKey<FormState>();
+   final key = GlobalKey<FormState>();
   BottomNavbarController bottomBar = Get.find();
+  TextEditingController payAmtTC = TextEditingController();
+   var payUserId;
 
   @override
   void onInit() {
     fetchWalletData();
     super.onInit();
-    _razorpay = Razorpay();
-    _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
-    _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
-    _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
   }
 
   fetchWalletData() async {
@@ -40,19 +39,7 @@ class WalletController extends GetxController {
     }
   }
 
-  void startPayment() {
-    var options = {
-      'key': 'rzp_test_Z6xgCsCR7f4nbT', // Replace with your Razorpay API key
-      'amount': int.tryParse(amountTC.text.toString())! * 100, // amount in the smallest currency unit
-      'description': '',
-    };
-
-    try {
-      _razorpay.open(options);
-    } catch (e) {
-      print("Error: $e");
-    }
-  }
+  
 
   String? validater(value){
     if (value == null || value == "") {
@@ -65,22 +52,15 @@ class WalletController extends GetxController {
     Get.offAndToNamed(  AppRoutes.bottomNavbar);
   }
 
-  submit(){
-    if (formKey.currentState!.validate()) {
-      startPayment();
-      amountTC.clear();
-      Get.back();
-    }
-  }
-
-  _handlePaymentSuccess(PaymentSuccessResponse response) {
-    
+ 
+  handlePaymentSuccess(PaymentSuccessResponse response) {
+    handlePayment();
     Get.snackbar("Payment Successfull","");
   }
 
-  _handlePaymentError() {
+  handlePaymentError() {
      gotoNavbar();
-     Get.snackbar("Payment Successfull","");
+     Get.snackbar("Payment Unsuccessfull","");
     
   }
 
@@ -98,7 +78,23 @@ class WalletController extends GetxController {
     }
   }
 
-  _handleExternalWallet() {
+  handlePayment() async {
+   try {
+      Map<String, dynamic> data = {
+      "type": "add",
+      "description": "Added funds to wallet",
+      "amount": amountTC.text,
+      "recipient": "for services"
+    };
+   await PaymentServices().transaction(jsonEncode(data));
+   } catch (e) {
+     
+   }
+  }
+
+ 
+
+  handleExternalWallet() {
     gotoNavbar();
      Get.snackbar("Payment Successfull","");
   }

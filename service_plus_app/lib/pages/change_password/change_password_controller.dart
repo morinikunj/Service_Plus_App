@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:service_plus_app/services/auth_services.dart';
 import 'package:service_plus_app/utils/dialog_util/custom_loader.dart';
@@ -35,6 +37,7 @@ class ChangePasswordController extends GetxController{
        
      } finally{
       CustomLoader.hideLoader();
+      Get.back();
      }
     }
   }

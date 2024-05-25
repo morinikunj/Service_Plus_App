@@ -22,7 +22,7 @@ class ProviderEditProfilePage extends StatefulWidget {
 }
 
 class _ProviderEditProfilePageState extends State<ProviderEditProfilePage> {
-  EditProfileController controller = Get.put(EditProfileController());
+  ProviderEditProfileController controller = Get.put(ProviderEditProfileController());
 
   @override
   Widget build(BuildContext context) {
@@ -144,6 +144,22 @@ class _ProviderEditProfilePageState extends State<ProviderEditProfilePage> {
               context,
               title: no,
             ),
+            // detailsInput(context,
+            // title: "service",
+            //  controller: controller.serviceTC
+            //  ),
+            //  SizedBox(
+            //   height: ResponsiveUtil.height(20, context),
+            // ),
+            // detailsInput(context, title: "city", controller: controller.cityTC),
+            //  SizedBox(
+            //   height: ResponsiveUtil.height(20, context),
+            // ),
+            // detailsInput(context, title: "charge amount", controller: controller.chargeTC),
+            //  SizedBox(
+            //   height: ResponsiveUtil.height(20, context),
+            // ),
+            // detailsInput(context, title: "per (hour, day, one time)", controller: controller.perTC),
           ],
         ),
       ),

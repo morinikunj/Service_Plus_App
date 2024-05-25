@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:service_plus_app/pages/customer/bottom_navbar/bottom_navbar_controller.dart';
 import 'package:service_plus_app/pages/customer/category_deatails/category_details_controller.dart';
@@ -18,17 +19,21 @@ class BookingController extends GetxController {
   var selectAddress = "";
   ExpertDetailsController detailsController = Get.find();
   BottomNavbarController navbarController = Get.find();
+  TextEditingController addressTC = TextEditingController();
+  final key = GlobalKey<FormState>();
   
 
   List times = [
     "9:00 AM",
-    "8:00 AM",
-    "9:00 AM",
-    "8:00 AM",
-    "9:00 AM",
-    "8:00 AM",
-    "9:00 AM",
-    "8:00 AM"
+    "10:00 AM",
+    "11:00 AM",
+    "12:00 PM",
+    "1:00 PM",
+    "2:00 PM",
+    "3:00 PM",
+    "4:00 PM",
+    "5:00 PM",
+    "6:00 PM"
   ];
 
   selectDate(value) {
@@ -41,8 +46,16 @@ class BookingController extends GetxController {
     update(["booking"]);
   }
 
+   String? validateAddress(value) {
+    if (value == null || value == "") {
+      return "Please enter address!";
+    }
+    return null;
+  }
+
   void confirm() async {
-    try {
+    if (key.currentState!.validate()) {
+      try {
       CustomLoader.showLoader();
     final id = await SessionManager().getUserId();
     final user = await UserService().getUserProfile();
@@ -55,7 +68,7 @@ class BookingController extends GetxController {
       "bookingDate":  "${selectedDate.day}/${selectedDate.month}/${selectedDate.year}",
       "bookingTime": times[currentSlot],
       "charge": detailsController.serviceProvider!.charge,
-      "address": selectAddress ?? ""
+      "address": addressTC.text,
     }; 
     print("sending data : -> ${data}");
     await BookingService().bookService(jsonEncode(data)).then((value) {
@@ -69,6 +82,7 @@ class BookingController extends GetxController {
       
     } finally {
       CustomLoader.hideLoader();
+    }
     }
   }
 

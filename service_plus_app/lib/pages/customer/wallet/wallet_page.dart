@@ -1,14 +1,19 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:service_plus_app/components/back_button.dart';
 import 'package:service_plus_app/components/common_padding.dart';
 import 'package:service_plus_app/components/common_textformfield.dart';
 import 'package:service_plus_app/components/custom_container.dart';
 import 'package:service_plus_app/components/empty_data_widget.dart';
 import 'package:service_plus_app/components/no_data_found_widget.dart';
+import 'package:service_plus_app/pages/customer/wallet/scanner_page.dart';
 import 'package:service_plus_app/pages/customer/wallet/wallet_controller.dart';
+import 'package:service_plus_app/routes/app_routes.dart';
 import 'package:service_plus_app/utils/constants/app_colors.dart';
 import 'package:service_plus_app/utils/constants/app_icons.dart';
 import 'package:service_plus_app/utils/constants/general_sizes.dart';
@@ -25,6 +30,91 @@ class WalletPage extends StatefulWidget {
 
 class _WalletPageState extends State<WalletPage> {
   WalletController controller = Get.put(WalletController());
+  late Razorpay _razorpay;
+
+  @override
+  void initState() {
+    super.initState();
+    _razorpay = Razorpay();
+    _razorpay.on(
+        Razorpay.EVENT_PAYMENT_SUCCESS, controller.handlePaymentSuccess);
+    _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, controller.handlePaymentError);
+    _razorpay.on(
+        Razorpay.EVENT_EXTERNAL_WALLET, controller.handleExternalWallet);
+  }
+
+
+
+  
+
+  void startPayment() {
+    var options = {
+      'key': 'rzp_test_Z6xgCsCR7f4nbT', // Replace with your Razorpay API key
+      'amount': int.tryParse(controller.amountTC.text.toString())! *
+          100, // amount in the smallest currency unit
+      'description': '',
+    };
+
+    try {
+      _razorpay.open(options);
+    } catch (e) {
+      print("Error: $e");
+    }
+  }
+
+
+
+  Widget paymentWidget() {
+    return Form(
+      key: controller.key,
+      child: Padding(
+        padding: commonSysmPadding(context, horizontal: 24, vertical: 18),
+        child: Column(
+          children: [
+            Text(
+              addNewAddress,
+              style: Theme.of(context)
+                  .textTheme
+                  .titleSmall!
+                  .copyWith(color: AppColors.greyColor),
+              textScaler: textScale(context),
+            ),
+            SizedBox(
+              height: ResponsiveUtil.height(20, context),
+            ),
+            commonTextField(
+              fontSize: GeneralSize.textsize6,
+              controller: controller.payAmtTC,
+              hintText: title,
+              padding: commonSysmPadding(context, horizontal: 10, vertical: 1),
+              validator: controller.validater,
+            ),
+            SizedBox(
+              height: ResponsiveUtil.height(20, context),
+            ),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                  onPressed: () {
+                    if (controller.formKey.currentState!.validate()) {
+                      startPayment();
+                      controller.amountTC.clear();
+                      Get.back();
+                    }
+                  },
+                  child: Text(
+                    submit,
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleSmall!
+                        .copyWith(color: AppColors.whiteColor),
+                  )),
+            )
+          ],
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -120,18 +210,16 @@ class _WalletPageState extends State<WalletPage> {
                     GestureDetector(
                       onTap: () {
                         Get.defaultDialog(
-                          title: "Add Money",
-                          content: addMoneyWidget()
-                        );
+                            title: "Add Money", content: addMoneyWidget());
                       },
                       child: Text(
-                      addMoney,
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleSmall!
-                          .copyWith(color: AppColors.accentColor),
-                      textScaler: textScale(context),
-                    ),
+                        addMoney,
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleSmall!
+                            .copyWith(color: AppColors.accentColor),
+                        textScaler: textScale(context),
+                      ),
                     ),
                     customContainer(
                         width: 1.5,
@@ -142,13 +230,18 @@ class _WalletPageState extends State<WalletPage> {
                           ResponsiveUtil.instance.textScaleFactor(context),
                       color: AppColors.accentColor,
                     ),
-                    Text(
-                      sendMoney,
+                    GestureDetector(
+                      onTap: (){
+                        Get.to(SacnnerPage());
+                      },
+                      child: Text(
+                      "payment",
                       style: Theme.of(context)
                           .textTheme
                           .titleSmall!
                           .copyWith(color: AppColors.accentColor),
                       textScaler: textScale(context),
+                    ),
                     )
                   ],
                 ),
@@ -200,37 +293,41 @@ class _WalletPageState extends State<WalletPage> {
     );
   }
 
-  Widget addMoneyWidget(){
+  Widget addMoneyWidget() {
     return customContainer(
-      child: Column(
-        children: [
-           Form(
-            key: controller.formKey,
-            child:           commonTextField(
-            controller: controller.amountTC,
-            hintText: "Enter amount",
-            validator: controller.validater,
-            keyboardType:   TextInputType.number
-          ),
-           ),
-          SizedBox(
-            height: ResponsiveUtil.height(15, context),
-          ),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(onPressed: (){
-              controller.submit();
-            }, child:  Text(
-                        submit,
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleSmall!
-                            .copyWith(color: AppColors.whiteColor),
-                      )),
-          )
-        ],
-      )
-    );
+        child: Column(
+      children: [
+        Form(
+          key: controller.formKey,
+          child: commonTextField(
+              controller: controller.amountTC,
+              hintText: "Enter amount",
+              validator: controller.validater,
+              keyboardType: TextInputType.number),
+        ),
+        SizedBox(
+          height: ResponsiveUtil.height(15, context),
+        ),
+        SizedBox(
+          width: double.infinity,
+          child: ElevatedButton(
+              onPressed: () {
+                 if (controller.formKey.currentState!.validate()) {
+      startPayment();
+    controller.amountTC.clear();
+      Get.back();
+    }
+              },
+              child: Text(
+                submit,
+                style: Theme.of(context)
+                    .textTheme
+                    .titleSmall!
+                    .copyWith(color: AppColors.whiteColor),
+              )),
+        )
+      ],
+    ));
   }
 
   Widget itemCard(

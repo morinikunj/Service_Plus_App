@@ -15,10 +15,10 @@ class ProfileController extends GetxController {
       "icon": AppIcons.paymentIcon,
       "title": "Wallet",
     },
-    {
-      "icon": AppIcons.locationIcon,
-      "title": "Manage Address",
-    },
+    // {
+    //   "icon": AppIcons.locationIcon,
+    //   "title": "Manage Address",
+    // },
     {
       "icon": AppIcons.passwordIcon,
       "title": "Change Passowrd",
@@ -64,9 +64,9 @@ class ProfileController extends GetxController {
       case 1:
         Get.toNamed(AppRoutes.wallet);
         break;
+      // case 2:
+      //   Get.toNamed(AppRoutes.addAddress);
       case 2:
-        Get.toNamed(AppRoutes.addAddress);
-      case 3:
       Get.toNamed(AppRoutes.changePassowrd);
       default:
     }
